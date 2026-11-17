@@ -1664,5 +1664,1175 @@
     "sourceUrl": "",
     "quantities": "8 cebollas grandes; 50 cl vino blanco; 12 g harina; 4 piezas de pan (en el texto figuran como «palillos chinos», posible traducción errónea); 200 g gruyère; 4 porciones/pastillas de caldo de pollo; 100 g mantequilla; 100 g mantequilla salada; sal, pimienta.",
     "historical": false
+  },
+  {
+    "name": "Arroz con higaditos de pollo",
+    "category": "Arroces",
+    "ingredients": [
+      "higaditos de pollo",
+      "arroz",
+      "cebolla",
+      "pimiento verde",
+      "ajo",
+      "tomate",
+      "aceite de oliva",
+      "vino blanco",
+      "agua",
+      "sal",
+      "tomillo",
+      "colorante alimenticio"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia y prepara los higaditos. Trocea las hortalizas.",
+      "Pocha ajo, cebolla, pimiento y tomate; tritura el sofrito si quieres una salsa lisa.",
+      "Dora los higaditos; añade vino, sofrito, agua y condimentos y cocina hasta que estén completamente hechos.",
+      "Echa el arroz y mantén la cocción hasta que esté tierno; ajusta el líquido según el tipo de arroz."
+    ],
+    "time": 45,
+    "tip": "",
+    "notes": "Evita lavar el pollo crudo bajo el grifo; limpia utensilios y cocina los higaditos por completo. El tiempo del arroz puede variar.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Las Recetas Cocina, «Higaditos de pollo con arroz» (2013).",
+    "sourceUrl": "https://lasrecetascocina.com/higaditos-de-pollo-con-arroz-fuente-de-hierro-riquisimos/",
+    "quantities": "400 g higaditos; 300 g arroz largo; 1 cebolla; 1 pimiento; 2 ajos; 2 tomates; aceite, vino, agua, sal, tomillo y colorante.",
+    "historical": false
+  },
+  {
+    "name": "Fideos con pollo y salsa hoisin",
+    "category": "Pollo",
+    "ingredients": [
+      "fideos",
+      "brócoli",
+      "azúcar moreno",
+      "salsa de soja",
+      "salsa hoisin",
+      "jengibre",
+      "copos de chile",
+      "sal",
+      "pimienta",
+      "pechuga de pollo",
+      "aceite",
+      "ajo",
+      "pimiento rojo",
+      "champiñones",
+      "cebolleta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece los fideos según el envase e incorpora el brócoli al final; escurre.",
+      "Mezcla soja, hoisin, azúcar, jengibre, chile, sal y pimienta.",
+      "Saltea el pollo en dados hasta que se cocine por completo y retíralo.",
+      "Saltea ajo, pimiento y champiñones; devuelve el pollo a la sartén, añade fideos, brócoli y salsa, calienta y termina con cebolleta."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Grub’s Up, «Hoisin Chicken Noodles» (documento aportado).",
+    "sourceUrl": "https://www.grubs-up.co.nz",
+    "quantities": "300 g fideos; 1 brócoli; 1 cda azúcar moreno; ¼ taza soja; 2 cdas hoisin; 2 cdas jengibre; ½ cdta chile; 450 g pollo; 1 cda aceite; 3 ajos; 1 pimiento rojo; 300 g champiñones; 5 cebolletas.",
+    "historical": false
+  },
+  {
+    "name": "Merengue italiano",
+    "category": "Postres",
+    "ingredients": [
+      "azúcar",
+      "claras de huevo",
+      "agua"
+    ],
+    "optional": [
+      "crémor tártaro"
+    ],
+    "steps": [
+      "Prepara un almíbar calentando el agua con una parte del azúcar hasta el punto indicado en la receta original.",
+      "Empieza a batir las claras con el azúcar reservado.",
+      "Vierte el almíbar caliente en hilo mientras sigues batiendo, y continúa hasta obtener un merengue firme y templado."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "Utiliza claras pasteurizadas y controla la temperatura del almíbar con termómetro; la seguridad no se garantiza solo por añadir almíbar caliente. Revisa la técnica completa en la fuente.",
+    "servings": "8",
+    "originKind": "referencia aportada",
+    "origin": "Recetas de Rechupete / ABC, «Cómo preparar merengue italiano».",
+    "sourceUrl": "https://www.abc.es/recetasderechupete/como-preparar-merengue-italiano/13496/",
+    "quantities": "240 g azúcar; 120 g claras; 80 g agua.",
+    "historical": false
+  },
+  {
+    "name": "Migas del pastor",
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "pan del día anterior",
+      "ajo",
+      "aceite de oliva",
+      "pimentón",
+      "sal",
+      "chorizo",
+      "huevo",
+      "uvas"
+    ],
+    "optional": [],
+    "steps": [
+      "Desmiga el pan, humedece ligeramente con agua y sal y deja reposar tapado.",
+      "Dora los ajos y el chorizo; retíralos y cocina el pan lentamente en el aceite, removiendo para soltar las migas.",
+      "Añade el pimentón al final, reincorpora ajos y chorizo y sirve con huevo bien cuajado y uvas."
+    ],
+    "time": 60,
+    "tip": "",
+    "notes": "El texto de referencia sirve huevos fritos con yema líquida; aquí se ofrece servirlos bien cuajados como precaución alimentaria. Es un plato energético.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Documento aportado, «Las tradicionales migas del pastor» (autor no indicado).",
+    "sourceUrl": "",
+    "quantities": "½ hogaza; 4 ajos; 75 g aceite; 1 cdta pimentón; 1 chorizo; 4 huevos; racimo pequeño de uvas; sal.",
+    "historical": false
+  },
+  {
+    "name": "Pizza napolitana tradicional (norma STG)",
+    "category": "Panes y masas",
+    "ingredients": [
+      "harina de trigo",
+      "agua",
+      "sal",
+      "levadura fresca",
+      "tomate",
+      "aceite de oliva"
+    ],
+    "optional": [
+      "mozzarella",
+      "albahaca",
+      "ajo",
+      "orégano"
+    ],
+    "steps": [
+      "Disuelve la sal en el agua y mezcla con la harina y levadura de panadería; amasa hasta obtener una masa elástica.",
+      "Deja fermentar, divide en porciones y permite una segunda fermentación.",
+      "Estira a mano desde el centro dejando un borde más grueso.",
+      "Añade tomate y los otros ingredientes de la variante elegida; hornea en horno muy caliente hasta cocer y dorar."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "Documento técnico para pizzerías, no receta doméstica rápida. Un horno doméstico no reproduce las condiciones de un horno profesional. No se copia literalmente el reglamento.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Gazzetta Ufficiale della Repubblica Italiana, 9-3-2010, reglamento de la especialidad tradicional garantizada «Pizza Napoletana», pp. 42 ss.",
+    "sourceUrl": "",
+    "quantities": "Fórmula del pliego: por cada litro de agua, 50–55 g sal, aprox. 1.800 g harina y 3 g levadura fresca; cobertura según variante.",
+    "historical": false
+  },
+  {
+    "name": "Arroz rojo de Charleston",
+    "category": "Arroces",
+    "ingredients": [
+      "bacon",
+      "cebolla",
+      "apio",
+      "pimiento rojo",
+      "ajo",
+      "arroz",
+      "caldo de pollo",
+      "concentrado de tomate",
+      "azúcar",
+      "condimento cajún",
+      "sal",
+      "pimienta",
+      "perejil",
+      "salsa picante"
+    ],
+    "optional": [],
+    "steps": [
+      "Dora el bacon picado y retíralo, dejando una pequeña cantidad de grasa en la cazuela.",
+      "Rehoga cebolla, apio y pimiento y añade el ajo.",
+      "Añade arroz, caldo, pasta de tomate, condimentos y el bacon; lleva a hervor.",
+      "Tapa y termina de cocer en el horno hasta que el arroz absorba el líquido. Sirve con perejil."
+    ],
+    "time": 65,
+    "tip": "",
+    "notes": "La temperatura original de 350 °F equivale aproximadamente a 175 °C; usa cazuela apta para horno.",
+    "servings": "6",
+    "originKind": "referencia aportada",
+    "origin": "Beth Pierce, Small Town Woman, «Charleston Red Rice».",
+    "sourceUrl": "https://www.smalltownwoman.com/wprm_print/charleston-red-rice-recipe",
+    "quantities": "6 tiras bacon; 1 cebolla; 1 rama apio; 1 pimiento; 3 ajos; 1 taza arroz largo; 1¾ taza caldo; 170 g tomate concentrado; 2 cdtas azúcar y especias.",
+    "historical": false
+  },
+  {
+    "name": "Sopa de ajo castellana",
+    "category": "Sopas",
+    "ingredients": [
+      "pan duro",
+      "jamón serrano",
+      "huevo",
+      "ajo",
+      "pimentón",
+      "aceite",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Dora suavemente los ajos en aceite; incorpora el jamón a dados.",
+      "Añade las rebanadas finas de pan y rehógalas unos instantes.",
+      "Retira brevemente del fuego, añade pimentón y enseguida agua para que no se queme.",
+      "Hierve unos minutos y agrega los huevos hasta que queden cuajados."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La cantidad de pimentón indicada en el documento (4 cucharadas) resulta llamativa; comprobar antes de cocinar.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Documento aportado «Sopa de Ajo Castellana»; autor y edición no identificados.",
+    "sourceUrl": "",
+    "quantities": "200 g pan duro; 50 g jamón; 4 huevos; 4 ajos; 4 cdas pimentón (cantidad de la fuente, revisar al gusto); aceite, agua, sal.",
+    "historical": false
+  },
+  {
+    "name": "Gilda de mejillones en escabeche",
+    "category": "Despensa",
+    "ingredients": [
+      "mejillones en escabeche",
+      "piparras encurtidas",
+      "aceitunas sin hueso",
+      "aceite de oliva",
+      "cebollino"
+    ],
+    "optional": [],
+    "steps": [
+      "Escurre los mejillones y prepara las piparras y aceitunas.",
+      "Ensarta los ingredientes en brochetas alternándolos.",
+      "Presenta en una fuente y termina con aceite y cebollino."
+    ],
+    "time": 10,
+    "tip": "",
+    "notes": "",
+    "servings": "5",
+    "originKind": "referencia aportada",
+    "origin": "BuenaVida / El País, demostración de Dani García: «Gilda de mejillones en escabeche».",
+    "sourceUrl": "",
+    "quantities": "20 mejillones; 20 trozos de piparra; 20 aceitunas; aceite, cebollino; para 10 brochetas.",
+    "historical": false
+  },
+  {
+    "name": "Tosta de anchoas, tomate y lardo",
+    "category": "Despensa",
+    "ingredients": [
+      "pan de masa madre",
+      "tomate",
+      "anchoas de lata",
+      "aceite de oliva",
+      "sal",
+      "lardo",
+      "cebollino"
+    ],
+    "optional": [],
+    "steps": [
+      "Ralla los tomates y aliña con aceite y sal.",
+      "Reparte el tomate sobre las rebanadas de pan tostado.",
+      "Dispón encima las anchoas y el lardo; termina con cebollino."
+    ],
+    "time": 15,
+    "tip": "",
+    "notes": "El lardo es grasa curada; receta ocasional, no clasificar como ligera.",
+    "servings": "5",
+    "originKind": "referencia aportada",
+    "origin": "BuenaVida / El País, demostración de Dani García: «Tosta de anchoas, tomate y lardo».",
+    "sourceUrl": "",
+    "quantities": "5 tostas; 5 tomates; 3 latas de anchoas; 10 láminas de lardo; aceite, sal, cebollino.",
+    "historical": false
+  },
+  {
+    "name": "Tabulé de pulpo en conserva y yogur especiado",
+    "category": "Despensa",
+    "ingredients": [
+      "cuscús cocido",
+      "pulpo en conserva",
+      "yogur griego",
+      "pimiento verde",
+      "pimiento rojo",
+      "tomate",
+      "perejil",
+      "aceite de oliva",
+      "vinagre de Jerez",
+      "comino",
+      "pimienta",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Mezcla el yogur con comino, pimienta, sal y aceite.",
+      "Une el cuscús ya cocido con las verduras cortadas finas y el perejil.",
+      "Aliña con aceite y vinagre; añade el pulpo de conserva y acompaña con yogur especiado."
+    ],
+    "time": 20,
+    "tip": "",
+    "notes": "",
+    "servings": "5",
+    "originKind": "referencia aportada",
+    "origin": "BuenaVida / El País, demostración de Dani García: «Tabulé de pulpo y yogur especiado».",
+    "sourceUrl": "",
+    "quantities": "250 g cuscús cocido; 5 latas pulpo; 200 g yogur; pimientos, tomate, perejil, comino, aceite, vinagre, sal.",
+    "historical": false
+  },
+  {
+    "name": "Patatas aliñadas con sardinillas",
+    "category": "Despensa",
+    "ingredients": [
+      "patata",
+      "sardinillas en conserva",
+      "cebolla",
+      "pimiento verde",
+      "aceite de oliva",
+      "vinagre de Jerez",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece las patatas con piel hasta que queden tiernas, deja templar y pela.",
+      "Trocea o aplasta las patatas y mezcla con cebolla y pimiento verde picados.",
+      "Aliña con sal, aceite y vinagre; acompaña con sardinillas."
+    ],
+    "time": 70,
+    "tip": "",
+    "notes": "La cantidad de sardinillas no figura en el fragmento del documento proporcionado.",
+    "servings": "5",
+    "originKind": "referencia aportada",
+    "origin": "BuenaVida / El País, demostración de Dani García: «Patatas aliñadas con sardinillas en aceite de oliva».",
+    "sourceUrl": "",
+    "quantities": "570 g patata; 40 g cebolla; 40 g pimiento; 55 g aceite; 9 g vinagre; sardinillas en conserva (cantidad no especificada en el extracto).",
+    "historical": false
+  },
+  {
+    "name": "Pan gallego de alta hidratación",
+    "category": "Panes y masas",
+    "ingredients": [
+      "harina de fuerza",
+      "agua",
+      "levadura seca de panadero",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Mezcla el prefermento la noche anterior y deja fermentar tapado.",
+      "Al día siguiente incorpora el prefermento y los ingredientes de la masa, amasa y deja reposar.",
+      "Realiza pliegues con descansos y forma dos piezas con cuidado para no perder el aire.",
+      "Deja levar nuevamente y cuece en horno muy caliente, según la técnica de la fuente."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "No es un pan rápido: necesita fermentación nocturna y varios reposos. Para temperaturas y acabado específicos consulta la fuente.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "El Amasadero, «Pan gallego con agujeros: un dulce lecho de miga».",
+    "sourceUrl": "https://blog.elamasadero.com/",
+    "quantities": "Prefermento: 165 g harina, 165 g agua, pizca levadura seca. Masa: 335 g harina, 200–225 g agua, 10 g sal, pizca levadura seca y el prefermento.",
+    "historical": false
+  },
+  {
+    "name": "Láminas de masa para rollitos de primavera",
+    "category": "Panes y masas",
+    "ingredients": [
+      "harina de trigo",
+      "sal",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Mezcla harina, sal y parte del agua hasta obtener una masa uniforme y deja descansar.",
+      "Incorpora el resto del agua poco a poco hasta lograr una masa muy blanda; reposa al menos tres horas en frío.",
+      "Calienta una sartén antiadherente, extiende capas finas de masa mediante la técnica de la fuente y cuece brevemente cada oblea.",
+      "Mantén las obleas cubiertas con un paño húmedo para evitar que se sequen."
+    ],
+    "time": 260,
+    "tip": "",
+    "notes": "Técnica de elaboración laboriosa; el PDF tiene un salto de instrucciones en el paso 4. Consultar la fuente para aprender el gesto de extender la masa.",
+    "servings": "25 obleas",
+    "originKind": "referencia aportada",
+    "origin": "China Sichuan Food, «Chinese Spring Roll Wrappers (Traditional Way)».",
+    "sourceUrl": "",
+    "quantities": "2 tazas harina común; 1 cdta sal; 270 ml agua.",
+    "historical": false
+  },
+  {
+    "name": "Tarta de queso de Fernando Alcalá",
+    "category": "Postres",
+    "ingredients": [
+      "queso crema",
+      "nata para montar",
+      "huevo",
+      "azúcar de caña",
+      "sal",
+      "queso Flor de Guía",
+      "galletas tipo María",
+      "mantequilla salada"
+    ],
+    "optional": [],
+    "steps": [
+      "Funde la mantequilla y mézclala con las galletas trituradas; forra la base de un molde y enfría.",
+      "Mezcla los quesos con la nata, huevos, azúcar y sal hasta que quede homogéneo.",
+      "Vierte sobre la base y hornea a 175 °C hasta que cuaje según el horno.",
+      "Deja reposar varias horas antes de servir."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "El PDF indica 28 minutos en horno profesional y hasta 40 en doméstico, más cuatro horas de reposo. Para seguridad alimentaria, evita servirla con el centro insuficientemente cocido.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Fernando Alcalá, restaurante Kava (Marbella), receta incluida en el PDF «Samsung Notes» aportado.",
+    "sourceUrl": "",
+    "quantities": "600 g queso crema; 400 g nata; 6 huevos; 200 g azúcar; 4 g sal; 50–60 g Flor de Guía; base: 200 g galletas y 125 g mantequilla.",
+    "historical": false
+  },
+  {
+    "name": "Huevos Benedict con salsa holandesa",
+    "category": "Huevos",
+    "ingredients": [
+      "pan",
+      "jamón cocido",
+      "huevo",
+      "yema de huevo",
+      "limón",
+      "agua",
+      "sal",
+      "pimienta",
+      "mantequilla"
+    ],
+    "optional": [],
+    "steps": [
+      "Tuesta el pan y coloca encima el jamón calentado.",
+      "Cuece los huevos en agua caliente sin borbotones hasta que la clara esté firme; deja la yema al punto seguro de tu preferencia.",
+      "Prepara una salsa holandesa emulsionando yema pasteurizada, limón, agua y mantequilla derretida, controlando la temperatura.",
+      "Coloca los huevos sobre el pan y cubre con la salsa recién preparada."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La receta original propone yema líquida; para reducir el riesgo usa huevo pasteurizado en la salsa y evita los huevos insuficientemente cocidos, especialmente en población vulnerable.",
+    "servings": "2",
+    "originKind": "referencia aportada",
+    "origin": "El Comidista / El País, «La ciencia de los huevos Benedict».",
+    "sourceUrl": "",
+    "quantities": "Para 2: 2 rebanadas pan; 2 lonchas jamón; 2 huevos; salsa: 1 yema, 1 cda limón, ½ cda agua, 75 g mantequilla.",
+    "historical": false
+  },
+  {
+    "name": "Guacamole con tomate y cilantro",
+    "category": "Ensaladas",
+    "ingredients": [
+      "aguacate",
+      "tomate",
+      "cebolleta",
+      "cilantro",
+      "limón",
+      "sal",
+      "aceite de oliva"
+    ],
+    "optional": [
+      "pan"
+    ],
+    "steps": [
+      "Pica muy fino el tomate y la cebolleta.",
+      "Saca la pulpa del aguacate y aplástala con un tenedor.",
+      "Añade limón y cilantro picado, sazona y mezcla."
+    ],
+    "time": 10,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 7; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "2 aguacates; 1 tomate; 1 cebolleta; cilantro; ½ limón; sal y un poco de aceite.",
+    "historical": false
+  },
+  {
+    "name": "Risotto de setas",
+    "category": "Arroces",
+    "ingredients": [
+      "arroz",
+      "setas",
+      "puerro",
+      "zanahoria",
+      "cebolla",
+      "caldo de verduras",
+      "queso parmesano",
+      "aceite de oliva",
+      "sal",
+      "romero"
+    ],
+    "optional": [],
+    "steps": [
+      "Pica puerro, zanahoria y cebolla, y cocina con un poco de aceite.",
+      "Incorpora setas picadas y arroz.",
+      "Agrega caldo caliente poco a poco mientras remueves hasta lograr una textura cremosa.",
+      "Termina con parmesano y romero."
+    ],
+    "time": 35,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 12; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "400 g arroz; 500 g setas; 1 puerro; 1 zanahoria; 1 cebolleta; 1 l caldo de verduras; 100 g parmesano; aceite, sal, romero.",
+    "historical": false
+  },
+  {
+    "name": "Ensalada de pasta, tomates cherry y aguacate",
+    "category": "Ensaladas",
+    "ingredients": [
+      "pasta",
+      "aguacate",
+      "huevo",
+      "tomates cherry",
+      "rúcula",
+      "almendras",
+      "queso parmesano",
+      "limón",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece la pasta, enfría y escurre. Cuece los huevos y enfría.",
+      "Bate una vinagreta con limón, aceite, sal y pimienta.",
+      "Mezcla pasta, aguacate, tomates cherry y rúcula; añade almendras y parmesano.",
+      "Sirve con los huevos cortados y la vinagreta."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "La foto de origen muestra huevos con yema blanda; en esta ficha se recomiendan completamente cocidos.",
+    "servings": "2",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 29; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "150 g pasta; 1 aguacate; 2 huevos; 10 cherry; 50 g rúcula; 30 g almendras; 25 g parmesano; 1 limón; aceite, sal, pimienta.",
+    "historical": false
+  },
+  {
+    "name": "Ensalada de patatas y aceitunas con huevos",
+    "category": "Ensaladas",
+    "ingredients": [
+      "patata",
+      "huevo",
+      "pimiento verde",
+      "zanahoria",
+      "tomates cherry",
+      "cebolla morada",
+      "aceitunas negras",
+      "aceitunas verdes",
+      "mayonesa",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece las patatas hasta que estén tiernas y los huevos hasta que estén duros; enfría.",
+      "Corta las hortalizas y la cebolla fina; escurre las aceitunas.",
+      "Mezcla con las patatas, sazona y acompaña con mayonesa al gusto."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 30; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "700 g patatas; 16 huevos de codorniz; 2 pimientos verdes; 2 zanahorias; 16 cherry; 1 cebolla morada; 100 g aceitunas negras; 100 g aceitunas verdes; mayonesa.",
+    "historical": false
+  },
+  {
+    "name": "Canónigos con cuscús y pollo marinado",
+    "category": "Ensaladas",
+    "ingredients": [
+      "pechuga de pollo",
+      "cuscús",
+      "pasas",
+      "canónigos",
+      "cebolla roja",
+      "ajo",
+      "pimiento rojo",
+      "pimiento verde",
+      "lima",
+      "miel",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta el pollo y marínalo en frío con lima, ajo, hierbas y un poco de aceite.",
+      "Cocina bien el pollo hasta que no quede crudo.",
+      "Hidrata el cuscús con agua caliente según el envase.",
+      "Mezcla el cuscús con verduras picadas, pasas y canónigos; añade el pollo y aliña."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 31; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "2 pechugas; 200 g cuscús; 40 g pasas; 100 g canónigos; 1 cebolla roja; 1 ajo; ¼ pimiento rojo y verde; 1 lima; 1 cda miel.",
+    "historical": false
+  },
+  {
+    "name": "Ensalada de hortalizas con garbanzos y arroz",
+    "category": "Ensaladas",
+    "ingredients": [
+      "garbanzos cocidos",
+      "arroz",
+      "zanahoria",
+      "cebolla morada",
+      "pimiento rojo",
+      "pimiento verde",
+      "espinacas baby",
+      "rúcula",
+      "tomate",
+      "perejil",
+      "aceite de oliva",
+      "vinagre",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece el arroz en agua con sal y deja enfriar rápidamente.",
+      "Pica las hortalizas y mezcla una vinagreta con aceite, vinagre, perejil y sal.",
+      "Enjuaga los garbanzos cocidos y mezcla con arroz, verduras y hojas verdes.",
+      "Aliña en el momento de servir."
+    ],
+    "time": 20,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 61; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "400 g garbanzos cocidos; 80 g arroz largo; 2 zanahorias; 1 cebolla morada; pimientos rojo y verde; 150 g espinacas; 80 g rúcula; 1 tomate; perejil.",
+    "historical": false
+  },
+  {
+    "name": "Arroz exprés con pollo y pimiento",
+    "category": "Arroces",
+    "ingredients": [
+      "arroz",
+      "pollo",
+      "pimiento verde",
+      "cebolla",
+      "tomate triturado",
+      "caldo de pollo",
+      "tomillo",
+      "romero",
+      "azafrán",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Dora el pollo troceado en un poco de aceite y añade cebolla y pimiento.",
+      "Incorpora tomate triturado y deja reducir.",
+      "Añade arroz, caldo y las hierbas; cocina hasta que arroz y pollo estén completamente hechos.",
+      "Deja reposar unos minutos y sirve."
+    ],
+    "time": 25,
+    "tip": "",
+    "notes": "La revista emplea olla exprés. El tiempo varía según modelo; respeta las instrucciones del fabricante.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 65; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "300 g arroz redondo; 250 g pollo; 1 pimiento; 1 cebolla; 300 g tomate triturado; 900 ml caldo; tomillo, romero, azafrán.",
+    "historical": false
+  },
+  {
+    "name": "Filetes de pechuga de pollo al limón",
+    "category": "Pollo",
+    "ingredients": [
+      "pechuga de pollo",
+      "limón",
+      "harina",
+      "ajo",
+      "caldo de pollo",
+      "perejil",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Salpimenta los filetes de pechuga y pasa ligeramente por harina.",
+      "Dóralos en una sartén con aceite y ajo sin quemar este último.",
+      "Añade caldo y zumo de limón; cocina hasta que el pollo esté bien hecho y la salsa ligada.",
+      "Termina con perejil."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "La publicación menciona limón y lima; revisar la página fuente si se desea reproducir exactamente.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 66; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "4 pechugas; 2 limones; 2 limas (según recorte); 40 g harina; 40 ml caldo; 2 ramitas perejil; aceite, sal y pimienta.",
+    "historical": false
+  },
+  {
+    "name": "Pasta con verduras y pesto",
+    "category": "Pasta",
+    "ingredients": [
+      "pasta",
+      "pimiento rojo",
+      "tomate",
+      "cebolla",
+      "ajo",
+      "queso parmesano",
+      "albahaca",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece la pasta según el envase y escurre.",
+      "Rehoga cebolla, pimiento, tomate y ajo hasta que estén tiernos.",
+      "Prepara un pesto de albahaca, aceite y parmesano.",
+      "Mezcla la pasta con las verduras y reparte el pesto."
+    ],
+    "time": 25,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 68; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "300 g pasta corta; 1 pimiento rojo; 2 tomates; 1 cebolla; 1 ajo; 80 g parmesano; 3 ramas albahaca; aceite, sal, pimienta.",
+    "historical": false
+  },
+  {
+    "name": "Rollo de tortilla de brócoli con jamón y queso",
+    "category": "Huevos",
+    "ingredients": [
+      "brócoli",
+      "huevo",
+      "queso",
+      "jamón cocido",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece y pica el brócoli.",
+      "Mézclalo con huevos batidos y prepara una tortilla grande y fina bien cuajada.",
+      "Extiéndela, cubre con jamón cocido y queso, enrolla y calienta hasta fundir el queso.",
+      "Corta en rodajas y sirve."
+    ],
+    "time": 25,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 68; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "8 huevos; 30 g queso rallado; ½ kg brócoli; 100 g jamón cocido en lonchas; aceite, sal, pimienta.",
+    "historical": false
+  },
+  {
+    "name": "Ensalada de alubias con atún y hortalizas en escabeche",
+    "category": "Ensaladas",
+    "ingredients": [
+      "alubias cocidas",
+      "atún de lata",
+      "lechuga",
+      "zanahoria",
+      "tomates cherry",
+      "cebolleta",
+      "aceite de oliva",
+      "vinagre",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Lava las hortalizas y corta zanahoria, cebolleta y tomate.",
+      "Escurre las alubias y el atún.",
+      "Combina todo sobre hojas verdes y prepara un aliño de aceite, vinagre, sal y pimienta.",
+      "Aliña justo antes de comer."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "La receta original incluye hortalizas escabechadas con preparación específica; esta ficha es una descripción resumida. Para el escabeche exacto consultar la página.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 28; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "1 bote alubias; 100 g atún en aceite; 12 cherry; lechuga; 2 cebolletas; 2 ajos; especias y vinagre.",
+    "historical": false
+  },
+  {
+    "name": "Paella de verduras de la huerta",
+    "category": "Arroces",
+    "ingredients": [
+      "arroz",
+      "alcachofa",
+      "ajo",
+      "espárragos verdes",
+      "guisantes",
+      "pimiento rojo",
+      "berenjena",
+      "champiñones",
+      "caldo de verduras",
+      "azafrán",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia las verduras y córtalas en trozos regulares.",
+      "Rehógalas en aceite; incorpora el arroz y el caldo caliente con azafrán.",
+      "Cocina hasta que se absorba el líquido y el arroz esté en su punto; deja reposar brevemente."
+    ],
+    "time": 60,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 42; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "360 g arroz; 2 alcachofas; 2 ajos; 8 espárragos; 100 g guisantes; 1 pimiento rojo; 1 berenjena; 8 champiñones; 1,2 l caldo de verduras.",
+    "historical": false
+  },
+  {
+    "name": "Pechugas de pollo a la cerveza con cebolletas",
+    "category": "Pollo",
+    "ingredients": [
+      "pechuga de pollo",
+      "cerveza negra",
+      "caldo de pollo",
+      "champiñones",
+      "cebolleta",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Dora las pechugas con aceite y retíralas.",
+      "Cocina cebolletas y champiñones; incorpora cerveza y caldo.",
+      "Devuelve el pollo a la salsa y deja cocinar completamente hasta que la salsa espese."
+    ],
+    "time": 45,
+    "tip": "",
+    "notes": "La cerveza forma parte de la receta de la publicación; no se presupone disponible.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 45; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "4 pechugas; 350 ml cerveza negra; 200 ml caldo; champiñones y cebolleta; aceite, sal, pimienta.",
+    "historical": false
+  },
+  {
+    "name": "Huevos al plato con guisantes y jamón",
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "guisantes",
+      "jamón serrano",
+      "tomate triturado",
+      "cebolla",
+      "pimiento rojo",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Sofríe cebolla y pimiento; añade tomate, guisantes y jamón.",
+      "Reparte en cazuelitas aptas para horno, casca encima los huevos.",
+      "Hornea hasta que las claras y las yemas estén bien cuajadas."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "El recorte tiene cantidades de jamón y pimiento posiblemente desproporcionadas; consultar la fuente antes de ajustarlas.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 50; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "4 huevos; 125 g guisantes; 250 g tomate triturado; 350 g jamón (según imagen original, revisar cantidad); 1 cebolla; 3 pimientos rojos; aceite.",
+    "historical": false
+  },
+  {
+    "name": "Pasta con boloñesa de pollo",
+    "category": "Pasta",
+    "ingredients": [
+      "tallarines",
+      "pollo picado",
+      "pimiento rojo",
+      "tomate triturado",
+      "ajo",
+      "laurel",
+      "romero",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece los tallarines en agua con sal.",
+      "Dora el pollo picado con ajo y pimiento; incorpora tomate, laurel y romero.",
+      "Deja reducir la salsa y asegúrate de que el pollo esté completamente cocinado.",
+      "Mezcla con la pasta y sirve."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 58; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "350 g tallarines; 400 g pollo picado; 1 pimiento rojo; 400 g tomate triturado; ajo, laurel, romero.",
+    "historical": false
+  },
+  {
+    "name": "Ensalada de patata con boquerones",
+    "category": "Ensaladas",
+    "ingredients": [
+      "boquerones en vinagre",
+      "patata",
+      "aceitunas",
+      "judías verdes",
+      "tomates cherry",
+      "guindilla",
+      "cebollino",
+      "aceite de oliva",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece las patatas y las judías verdes, escurre y deja enfriar.",
+      "Corta patatas y tomates y mezcla con aceitunas y judías.",
+      "Incorpora boquerones en vinagre ya preparados y aliña."
+    ],
+    "time": 30,
+    "tip": "",
+    "notes": "Utilizar boquerones en vinagre comerciales seguros/listos para consumir. Esta ficha no explica preparar pescado crudo en vinagre.",
+    "servings": "4",
+    "originKind": "referencia aportada",
+    "origin": "Archivo aportado «2006 platos variados.pdf», página 60; recorte de publicación contemporánea, autor/edición no verificados.",
+    "sourceUrl": "",
+    "quantities": "16 boquerones en vinagre; 400 g patata; 12 cherry; aceitunas; judías verdes; cebollino y aliño.",
+    "historical": false
+  },
+  {
+    "name": "Masa de pizza italiana con harinas 0 y 00",
+    "category": "Panes y masas",
+    "ingredients": [
+      "harina tipo 0",
+      "harina tipo 00",
+      "azúcar",
+      "levadura fresca",
+      "sal",
+      "agua",
+      "aceite de oliva"
+    ],
+    "optional": [],
+    "steps": [
+      "Disuelve la levadura fresca con el agua y el azúcar.",
+      "Mezcla los dos tipos de harina con la sal y añade el líquido y el aceite.",
+      "Amasa, deja fermentar hasta que aumente el volumen, divide y estira.",
+      "Utiliza la masa para pizza y hornéala con la cobertura que tengas."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La captura solo muestra los ingredientes; los pasos son un resumen orientativo y NO una transcripción de la receta original.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Captura aportada: receta italiana de masa de pizza; autor y publicación no identificados.",
+    "sourceUrl": "",
+    "quantities": "250 g harina 0; 250 g harina 00; 1 cdta azúcar; 10 g levadura fresca; 10 g sal; 300 ml agua; 20 ml aceite.",
+    "historical": false
+  },
+  {
+    "name": "Manzana asada en microondas",
+    "category": "Postres",
+    "ingredients": [
+      "manzana golden",
+      "azúcar",
+      "mantequilla",
+      "agua",
+      "canela"
+    ],
+    "optional": [],
+    "steps": [
+      "Pela la manzana, quita las semillas y córtala en cuartos.",
+      "Coloca todos los ingredientes en un estuche de vapor apto para microondas.",
+      "Cocina a unos 800 W durante aproximadamente tres minutos y deja reposar antes de servir."
+    ],
+    "time": 3,
+    "tip": "",
+    "notes": "Utiliza recipiente apto para microondas y comprueba la cocción.",
+    "servings": "1",
+    "originKind": "referencia aportada",
+    "origin": "Captura aportada «Manzana asada», receta para estuche de vapor; autor no identificado.",
+    "sourceUrl": "",
+    "quantities": "1 manzana Golden; 1 cdta azúcar; 1 cdta mantequilla; 1 cda agua; canela.",
+    "historical": false
+  },
+  {
+    "name": "Pollo en guiso perdiz",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "cebolla",
+      "ajo",
+      "vino blanco",
+      "vinagre de manzana",
+      "agua",
+      "pimienta en grano",
+      "aceite de oliva",
+      "sal",
+      "perejil"
+    ],
+    "optional": [],
+    "steps": [
+      "Sofríe ligeramente cebolla y ajo en aceite; añade granos de pimienta.",
+      "Incorpora el pollo troceado, sazona y dóralo por todos los lados.",
+      "Añade vino y agua; cocina a fuego medio hasta que el pollo esté completamente hecho.",
+      "Termina con vinagre de manzana, deja unos minutos más y sirve con perejil."
+    ],
+    "time": 45,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Ignacio Cristóbal, «Pollo en guiso perdiz», blog Yo me lo guiso, Heraldo.es (17 julio 2013).",
+    "sourceUrl": "https://www.heraldo.es/",
+    "quantities": "1 pollo; 3 cebollas; 1 ajo; 1 vaso vino; ½ vaso vinagre de manzana; ½ vaso agua; 8–10 granos pimienta; aceite, sal, perejil.",
+    "historical": false
+  },
+  {
+    "name": "Menudo de choco",
+    "category": "Legumbres",
+    "ingredients": [
+      "choco",
+      "garbanzos secos",
+      "aceite de oliva",
+      "cebolla",
+      "ajo",
+      "pimiento verde",
+      "especias de menudo",
+      "pimentón",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Pon los garbanzos secos a remojo la víspera.",
+      "Limpia el choco y trocéalo. Pica cebolla y pimiento.",
+      "Cuece choco, verduras y condimentos en una olla con agua; añade los garbanzos remojados y cocina hasta que estén blandos."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La fuente indica unos 25 minutos en olla rápida como orientación; respetar tiempos y nivel de llenado del fabricante.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Blog Sabores de Sanlúcar, «Menudo de choco» (3 noviembre 2010).",
+    "sourceUrl": "",
+    "quantities": "1 kg choco; 400 g garbanzos; ½ vaso aceite; 1 cebolla; 1 cabeza ajo; 1 pimiento; 1 cda mezcla especias; 1 cda pimentón; agua y sal.",
+    "historical": false
+  },
+  {
+    "name": "Fabada asturiana de Casa Gerardo",
+    "category": "Legumbres",
+    "ingredients": [
+      "fabes secas",
+      "mantequilla",
+      "azafrán",
+      "chorizo asturiano",
+      "morcilla asturiana",
+      "pimentón",
+      "aceite",
+      "panceta",
+      "cebolla",
+      "caldo de gallina"
+    ],
+    "optional": [],
+    "steps": [
+      "Pon las fabes a remojo con antelación y cúbrelas de agua fría.",
+      "Incorpora los ingredientes de la receta, calienta lentamente y retira la espuma.",
+      "Cuece a fuego suave hasta que las fabes estén tiernas, sin remover con cuchara para no romperlas.",
+      "Deja reposar y sirve el compango aparte o con las fabes."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "Receta profesional para muchas raciones y rica en grasas. No utilizar las cantidades sin escalarlas adecuadamente; consulta la fuente original. No clasificar como barata o ligera.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Cocinatis, «10 trucos para una fabada 10», referencia a Casa Gerardo (captura aportada).",
+    "sourceUrl": "",
+    "quantities": "6 kg fabes frescas/3 kg secas para preparación profesional; 200 g mantequilla; 8 chorizos; 8 morcillas; 200 g panceta; entre otros.",
+    "historical": false
+  },
+  {
+    "name": "Pizza margarita de Sam Sifton",
+    "category": "Panes y masas",
+    "ingredients": [
+      "masa de pizza",
+      "tomate en conserva",
+      "aceite de oliva",
+      "mozzarella",
+      "albahaca"
+    ],
+    "optional": [],
+    "steps": [
+      "Calienta el horno a su temperatura máxima segura y prepara la masa.",
+      "Reparte salsa de tomate sobre la masa estirada.",
+      "Añade aceite, mozzarella y hojas de albahaca.",
+      "Hornea hasta que la masa esté cocida y el queso burbujee."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "El artículo original emplea horno muy caliente y piedra de pizza; ajusta el tiempo según el horno doméstico.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Sam Sifton, The New York Times Cooking, «Pizza Margherita» (captura aportada).",
+    "sourceUrl": "",
+    "quantities": "Masa para 1 pizza de 30 cm; 3 cdas salsa tomate; 2¾ oz mozzarella fresca (~78 g); 4–5 hojas albahaca; aceite.",
+    "historical": false
+  },
+  {
+    "name": "Masa de pizza de Roberta’s",
+    "category": "Panes y masas",
+    "ingredients": [
+      "harina tipo 00",
+      "harina común",
+      "sal",
+      "levadura seca",
+      "aceite de oliva",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Mezcla las harinas y la sal.",
+      "Disuelve levadura y aceite en agua tibia e incorpora a las harinas.",
+      "Amasa brevemente, deja reposar y forma dos bolas.",
+      "Deja fermentar a temperatura ambiente o en frío; estira y usa como base de pizza."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La captura no permite verificar la cantidad completa de agua. No preparar esta masa sin cotejar ese dato.",
+    "servings": "",
+    "originKind": "referencia aportada",
+    "origin": "Sam Sifton, The New York Times Cooking, receta de masa adaptada de Roberta’s (Brooklyn); captura aportada.",
+    "sourceUrl": "",
+    "quantities": "153 g harina 00; 153 g harina común; 8 g sal; 2 g levadura seca; 4 g aceite; agua (revisar cantidad en fuente).",
+    "historical": false
   }
 ]
