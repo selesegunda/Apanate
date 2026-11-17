@@ -1,0 +1,12 @@
+¡Apáñate! Libros — versión mediterránea.
+
+Sustituir libros/index.html y libros/libros.json en el repositorio. El logo mantiene sus colores originales; el resto utiliza tonos mar, turquesa, cal, arena y terracota.
+
+Mi estantería guarda fichas completas en el navegador, de modo que continúan aunque el libro salga de futuros rankings. No requiere registro. Datos guardados solo en el navegador actual.
+
+Las portadas oficiales siguen dependiendo de su disponibilidad en la fuente por ISBN. No se han inventado imágenes de editoriales ni precios.
+
+Actualización: acceso al Catálogo Colectivo de Bibliotecas Públicas, catálogos regionales, eBiblio y Biblioteca Nacional; sin cambios en el catálogo o los favoritos.
+
+
+Actualización: se han añadido portadas locales verificadas para una selección amplia de títulos, con fallback elegante para las restantes.
