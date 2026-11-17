@@ -29,11 +29,23 @@ a{color:var(--ink)}
 .brand{font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:900;letter-spacing:-.055em;color:var(--ink);text-decoration:none;white-space:nowrap}
 .brand span{color:var(--accent)}
 .back{font-weight:700;text-decoration:none;background:#fff;border:1.5px solid var(--border);padding:10px 14px;border-radius:999px;box-shadow:0 4px 0 rgba(36,68,55,.07)}
-.intro{padding:38px 0 18px;max-width:920px}
+.intro{padding:38px 0 18px}
 .eyebrow{display:inline-block;letter-spacing:.15em;font-size:.74rem;color:#8b563d;font-weight:800;background:#fff1db;padding:8px 12px;border-radius:999px;border:1px solid #f0dcc4}
 .intro h1{font:800 clamp(2.45rem,6vw,4.55rem)/1.04 Georgia,serif;letter-spacing:-.04em;color:var(--ink);margin:18px 0 14px}
 .intro h1 em{color:var(--accent)}
 .intro p{font-size:1.12rem;max-width:760px;margin:0}
+.intro-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);align-items:center;gap:clamp(20px,4vw,46px)}
+.intro-copy{min-width:0}
+.sail-scene{position:relative;isolation:isolate;overflow:hidden;min-height:194px;max-width:490px;border-radius:28px;background:linear-gradient(180deg,#d8f3fc 0%,#ebfbff 58%,#ddf5ef 100%);border:2px solid #d4e9df;box-shadow:0 9px 0 #e7e3ce}
+.sail-scene::before{content:"";position:absolute;top:20px;right:52px;width:64px;height:64px;border-radius:50%;background:#ffdf78;box-shadow:0 0 0 11px #ffebaa70}
+.sail-label{position:absolute;top:18px;left:22px;z-index:2;color:#346353;font:700 13px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.sail-scene svg{display:block;width:100%;height:194px;overflow:visible}
+.sail-boat{transform-box:fill-box;transform-origin:50% 86%;animation:sail-rock 3.3s ease-in-out infinite}
+.sail-waves{animation:sail-drift 3.3s ease-in-out infinite alternate}
+.sail-flag{transform-box:fill-box;transform-origin:left center;animation:sail-flutter 1.6s ease-in-out infinite alternate}
+@keyframes sail-rock{0%,100%{transform:translateY(0) rotate(-7deg)}25%{transform:translateY(6px) rotate(0deg)}50%{transform:translateY(0) rotate(7deg)}75%{transform:translateY(5px) rotate(0deg)}}
+@keyframes sail-drift{from{transform:translateX(-9px)}to{transform:translateX(9px)}}
+@keyframes sail-flutter{from{transform:skewY(-5deg)}to{transform:skewY(6deg)}}
 .sticker-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .sticker-row span{
   display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:#fff;
@@ -80,7 +92,7 @@ a{color:var(--ink)}
 .note{margin:30px 0 60px;background:#edf7ee;border:1px solid #d5e7d6;border-radius:18px;padding:18px 21px;font-size:.93rem;box-shadow:0 8px 18px rgba(46,87,55,.05)}
 .foot{padding-bottom:28px;font-size:.88rem;color:#59665b}.foot a{color:inherit}
 @media(max-width:760px){
-  .topbar{padding-block:18px}.back{font-size:.85rem}.intro{padding-top:18px}.search-form,.suggestions{grid-template-columns:1fr}.field.wide,.dates,.primary{grid-column:1}.dates{grid-template-columns:1fr}.intro p{font-size:1rem}.result-hero{display:block}.result-badges{margin-top:12px}
+  .topbar{padding-block:18px}.back{font-size:.85rem}.intro{padding-top:18px}.intro-layout,.search-form,.suggestions{grid-template-columns:1fr}.field.wide,.dates,.primary{grid-column:1}.dates{grid-template-columns:1fr}.intro p{font-size:1rem}.result-hero{display:block}.result-badges{margin-top:12px}.sail-scene{max-width:430px;margin:12px auto 0}
 }
 @media(prefers-reduced-motion:no-preference){.trip,.primary,.back{transition:transform .15s ease,background .15s ease}.trip:hover{transform:translateY(-3px)}.back:hover,.primary:hover{transform:translateY(-1px)}}
 
@@ -93,3 +105,5 @@ a{color:var(--ink)}
 .trip.overbudget{border-style:dashed}
 
 .trip .where{color:#667466;font-size:.78rem;font-weight:700;margin:-4px 0 6px}
+
+@media(prefers-reduced-motion:reduce){.sail-boat,.sail-waves,.sail-flag{animation:none}}
