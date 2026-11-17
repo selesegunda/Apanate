@@ -51,11 +51,6 @@ $('cocina-form').addEventListener('submit',event=>{
   html+='<p><small>Coincidencia por ingredientes, no comprueba cantidades, alérgenos ni instrucciones de preparación. Versión de muestra.</small></p>';
   show('cocina-resultado',html);
 });
-$('plantas-form').addEventListener('submit',event=>{
-  event.preventDefault(); const p=$('ubicacion').value,l=$('luz').value;
-  const filtered=plants.filter(x=>x.place===p&&x.light===l);
-  show('plantas-resultado',filtered.length?'<strong>Opciones orientativas</strong><ul>'+filtered.map(x=>'<li><strong>'+escapeHTML(x.name)+':</strong> '+escapeHTML(x.note)+'</li>').join('')+'</ul>':'No tenemos opciones verificadas aún para esta combinación. Mejor no inventar una recomendación.');
-});
 $('peliculas-form').addEventListener('submit',event=>{
   event.preventDefault();const g=$('genero').value,t=Number($('duracion').value);const found=movies.filter(m=>(g==='cualquiera'||m.genre===g)&&m.minutes<=t);
   show('peliculas-resultado',found.length?'<strong>Películas que encajan con los filtros</strong><ul>'+found.map(x=>'<li>'+escapeHTML(x.name)+' · '+x.minutes+' min</li>').join('')+'</ul><p><small>Datos de ejemplo. No indican disponibilidad en plataformas.</small></p>':'No hay títulos en nuestra pequeña muestra que cumplan esos filtros.');

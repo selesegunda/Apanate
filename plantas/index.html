@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#154a38">
+  <meta name="description" content="Mi rinconcito verde en ¡Apáñate!: plantas de interior y exterior por provincia, islas y clima, y diez indestructibles.">
+  <title>Mi rinconcito verde · ¡Apáñate!</title>
+  <link rel="stylesheet" href="/plantas/style.css">
+  <script src="/plantas/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#buscador">Saltar al buscador</a>
+<header class="header wrap"><a href="/" class="brand"><span>¡</span>Ap<span>á</span>ñate<span>!</span></a><a class="home-link" href="/">← Volver a ¡Apáñate!</a></header>
+<main>
+ <section class="hero wrap" aria-labelledby="titulo">
+  <div class="hero-copy">
+   <div class="eyebrow">🌿 UN JARDÍN PARA CADA RINCÓN</div>
+   <h1 id="titulo">Mi rinconcito <em>verde</em><span class="flower-dot" aria-hidden="true">✿</span></h1>
+   <p>Del patio al salón, de la costa a la sierra. Descubre qué plantas pueden vivir felices donde tú vives, con consejos claros para cuidarlas.</p>
+   <div class="hero-chips"><span>🌺 Color sin complejos</span><span>🌱 Consejos sencillos</span><span>☀️ Adaptadas a tu zona</span></div>
+  </div>
+  <div class="garden-art" aria-hidden="true"><div class="garden-sun">☀</div><span class="leaf a">🌿</span><span class="leaf b">🌴</span><span class="leaf c">🍃</span><span class="bloom a">🌺</span><span class="bloom b">🌸</span><span class="bloom c">🌼</span><span class="bloom d">🌹</span><span class="pot">🪴</span><span class="sprout">🌱</span></div>
+ </section>
+ <section class="wrap panel" id="buscador" aria-labelledby="panel-title">
+  <div class="panel-title"><span class="tiny-icon">🌻</span><div><span class="eyebrow">ENCUENTRA TU PLANTA</span><h2 id="panel-title">¿Dónde florecemos?</h2><p>Elige tu provincia o ciudad autónoma y cuéntanos cómo es tu rincón.</p></div></div>
+  <form id="form-plantas" class="search-form">
+    <div class="field"><label for="provincia">Provincia o ciudad autónoma</label><select id="provincia" required><option value="">Elige una provincia…</option></select></div>
+    <div class="field"><label for="entorno">¿En qué zona vives?</label><select id="entorno"><option value="general">Zona habitual de la provincia</option><option value="costa">Cerca de la costa</option><option value="interior">Interior / lejos del mar</option><option value="montana">Sierra / zona elevada</option></select></div>
+    <div class="field" id="isla-field" hidden><label for="isla">¿En qué isla?</label><select id="isla"></select></div>
+    <fieldset class="field choice"><legend>¿Dónde pondrás la planta?</legend><div class="choice-options"><label><input type="radio" name="lugar" value="interior" checked><span>🏡 Interior</span></label><label><input type="radio" name="lugar" value="exterior"><span>🌞 Exterior</span></label></div></fieldset>
+    <div class="field"><label for="luz">¿Cuánta luz tendrá?</label><select id="luz"><option value="indirecta">Luz abundante, sin sol directo</option><option value="sol">Sol directo</option><option value="sombra">Poca luz / sombra</option></select></div>
+    <div class="field"><label for="experiencia">¿Qué tal se te dan las plantas?</label><select id="experiencia"><option value="novato">Quiero algo fácil</option><option value="medio">Tengo algo de mano</option><option value="experto">Me gustan los retos</option></select></div>
+    <div class="field"><label for="riego">¿Y el riego?</label><select id="riego"><option value="bajo">Que aguante mis olvidos</option><option value="medio">Puedo regar con frecuencia normal</option><option value="alto">No me importa estar pendiente</option></select></div>
+    <div class="field field-pet"><label class="check"><input id="mascotas" type="checkbox"> 🐾 Hay perros o gatos que podrían mordisquearlas</label></div>
+    <button class="submit" type="submit">🌿 Descubrir mis plantas <span aria-hidden="true">↗</span></button>
+  </form>
+  <p class="micro">El clima es orientativo: en una misma provincia puede haber costa, valle y montaña. Si tienes dudas, manda tu jardín según las heladas y la exposición real de tu casa.</p>
+ </section>
+ <section class="wrap results" id="resultados" aria-live="polite" hidden></section>
+ <section class="indestructible" id="indestructibles" aria-labelledby="ind-title">
+  <div class="wrap"><div class="section-heading"><h2 id="ind-title">Las indestructibles</h2></div><div class="survivor-grid" id="survivor-grid"></div><p class="note-small">Ninguna planta vive sin luz o sin agua para siempre. El riego es orientativo: comprueba la tierra antes de regar y utiliza macetas con drenaje. Las etiquetas de mascotas se refieren a perros y gatos; evita que ingieran cualquier planta.</p></div>
+ </section>
+ <section class="wrap references"><h2>El clima también tiene sus matices</h2><p>La elección por provincia es una aproximación. La altitud, la orientación, el viento, las heladas y la humedad pueden cambiar mucho incluso a pocos kilómetros. En Canarias hemos incluido sus contrastes entre zonas húmedas y secas; Ceuta y Melilla también están contempladas.</p><p class="source-links">Fuentes de orientación: <a href="https://www.aemet.es/es/serviciosclimaticos/datosclimatologicos/atlas_climatico" target="_blank" rel="noopener noreferrer">Atlas climático de AEMET</a> · <a href="https://educativo.ign.es/atlas-didactico/clima-eso/factores_geogrficos_y_atmosfricos.html" target="_blank" rel="noopener noreferrer">Atlas educativo del IGN</a> · <a href="https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants" target="_blank" rel="noopener noreferrer">Toxicidad para mascotas: ASPCA</a>.</p></section>
+</main>
+<footer class="wrap footer">© <span id="year"></span> ¡Apáñate! · <a href="/privacidad.html">Privacidad</a></footer>
+</body>
+</html>

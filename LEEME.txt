@@ -1,27 +1,28 @@
-ACTUALIZACIÓN VIAJES · ¡APAÑATE!
+¡APAÑATE! — MI RINCONCITO VERDE
 
-Contenido del ZIP:
-- index.html (portada principal actualizada si quieres sustituirla; en esta versión no es obligatorio)
-- js/app.js (sin cambios necesarios para Viajes)
-- carpeta viajes/
-  - index.html
-  - style.css
-  - app.js
+ARCHIVOS INCLUIDOS
+- index.html (portada principal)
+- js/app.js (script principal, retirado el antiguo formulario de Plantas)
+- plantas/index.html (nueva página)
+- plantas/style.css (diseño floral y exuberante)
+- plantas/app.js (climas, provincias, fichas, buscador y Las indestructibles)
 
-Qué cambia en Viajes:
-- La herramienta ya no pide elegir destino.
-- Ahora muestra 12 propuestas organizadas en:
-  * 4 regionales
-  * 4 nacionales
-  * 4 internacionales
-- Se prioriza la cercanía desde el origen introducido.
-- El diseño es más alegre y visual, con guiños viajeros.
-- Se mantienen búsquedas externas para transporte, alojamiento y qué hacer.
+INSTALACIÓN EN GITHUB
+1. En la raíz de tu repositorio sustituye index.html por el incluido.
+2. Sustituye js/app.js por el incluido.
+3. Sube la carpeta plantas/ completa a la raíz. En GitHub debe quedar plantas/index.html, plantas/style.css y plantas/app.js.
+4. No toques /cocina, /cine, /libros, /planes-gratis ni /viajes.
+5. La dirección de la nueva página será https://apanate.pages.dev/plantas/
 
-Instalación mínima:
-1) Sustituye la carpeta /viajes completa por la de este ZIP.
-2) Si ya enlazas /viajes/ desde la portada, no necesitas cambiar nada más.
+IMPORTANTE
+La portada usada como base es la versión que trabajamos anteriormente, que enlaza a Cine, Recetas, Libros, Planes gratis y Viajes. Si has editado más recientemente tu portada principal en GitHub, revisa esas diferencias antes de sustituir index.html.
 
-Notas:
-- No se consultan precios en tiempo real.
-- Las propuestas son orientativas para ayudarte a descubrir destinos.
+INCLUIDO
+- 50 provincias y Ceuta y Melilla (52 territorios).
+- Canarias (8 islas habitadas principales) y Baleares (4 islas principales), con ajustes por isla.
+- Ajuste por costa, interior y sierra; clasificación orientativa, no microclima local certificado.
+- Interior y exterior, luz, experiencia, preferencia de riego y filtro de mascotas.
+- Fichas de cuidados y 10 plantas de Las indestructibles (sin subtítulo).
+- Enlaces a fuentes climáticas (AEMET, IGN) y toxicidad (ASPCA).
+
+La clasificación por provincia resume condiciones climáticas generales: un mismo territorio tiene múltiples climas y los resultados deben contrastarse con altitud, heladas y condiciones reales. El estado sobre mascotas es orientativo y se refiere a perros y gatos. Cualquier planta puede ocasionar molestias si se ingiere.
