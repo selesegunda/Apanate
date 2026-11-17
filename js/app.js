@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 const $ = (id) => document.getElementById(id);
 const escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const normalize = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
@@ -39,7 +39,7 @@ const books = [
   {name:'Orgullo y prejuicio',author:'Jane Austen',genre:'clasico',lang:'otros'},
   {name:'Viaje al centro de la Tierra',author:'Julio Verne',genre:'aventura',lang:'otros'}
 ];
-function show(id,html){$(id).innerHTML=html;}
+function show(id,html){const target=$(id);if(target)target.innerHTML=html;}
 $('year').textContent = new Date().getFullYear();
 $('cocina-form').addEventListener('submit',event=>{
   event.preventDefault();
@@ -63,10 +63,6 @@ $('peliculas-form').addEventListener('submit',event=>{
 $('libros-form').addEventListener('submit',event=>{
   event.preventDefault();const g=$('libro-genero').value,l=$('libro-idioma').value;const found=books.filter(b=>(g==='cualquiera'||b.genre===g)&&(l==='cualquiera'||b.lang===l));
   show('libros-resultado',found.length?'<strong>Lecturas para explorar</strong><ul>'+found.map(x=>'<li>'+escapeHTML(x.name)+' — '+escapeHTML(x.author)+'</li>').join('')+'</ul><p><small>Selección de ejemplo, no clasificación de libros más vendidos.</small></p>':'No hay coincidencias en esta selección inicial.');
-});
-$('dinero-form').addEventListener('submit',event=>{
-  event.preventDefault(); const a=Number($('ingresos').value),b=Number($('gastos').value);if(!Number.isFinite(a)||!Number.isFinite(b)||a<0||b<0)return;
-  const balance=a-b;show('dinero-resultado','<strong>'+(balance>=0?'Te quedan ':'Te faltan ')+money(Math.abs(balance))+'</strong><p>'+(balance>=0?'Esto es lo que queda tras tus gastos previstos.':'Tus gastos previstos superan tu presupuesto.')+'</p>');
 });
 $('viajes-form').addEventListener('submit',event=>{
   event.preventDefault();const a=Number($('viaje-presupuesto').value),b=Number($('viaje-transporte').value),c=Number($('viaje-hotel').value);if([a,b,c].some(x=>!Number.isFinite(x)||x<0))return;

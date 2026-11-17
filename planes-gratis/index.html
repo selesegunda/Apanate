@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Busca conciertos, exposiciones, teatro y eventos gratuitos por ciudad o provincia de España con ¡Apáñate!">
+<meta name="theme-color" content="#fff9ed"><title>Planes gratis en España — ¡Apáñate!</title>
+<link rel="stylesheet" href="/planes-gratis/style.css"><script defer src="/planes-gratis/app.js"></script>
+</head>
+<body>
+<header class="topbar wrap"><a class="brand" href="/" aria-label="¡Apáñate!, inicio"><span>¡</span>Ap<span>á</span>ñate<span>!</span></a><a class="back" href="/">← Volver al inicio</a></header>
+<main class="wrap">
+<section class="intro"><span class="eyebrow">DESCUBRE · DISFRUTA · AHORRA</span><h1>Los mejores planes no siempre <em>cuestan dinero.</em></h1><p>Encuentra pistas para descubrir <strong>exposiciones, espectáculos, conciertos y actividades gratuitas</strong> en España. Tú eliges el lugar y el momento.</p><div class="chips"><span>🎭 Teatro</span><span>🖼️ Exposiciones</span><span>🎵 Música</span><span>👨‍👩‍👧 Familia</span><span>🎪 Festivales</span></div></section>
+<section class="search-card" aria-labelledby="search-title"><div class="heading"><span class="ticket">🎟️</span><div><span class="eyebrow">BUSCADOR DE PLANES</span><h2 id="search-title">¿Qué hacemos hoy?</h2></div></div>
+<form id="events-form">
+<div class="form-grid"><div class="field"><label for="place">Ciudad o provincia</label><input id="place" maxlength="90" placeholder="Ej.: Sevilla, Málaga, Madrid…" autocomplete="address-level2" required></div>
+<div class="field"><label for="category">¿Qué te apetece?</label><select id="category"><option value="">De todo un poco</option><option value="exposiciones museos">Exposiciones y museos</option><option value="conciertos música">Conciertos y música</option><option value="teatro espectáculos">Teatro y espectáculos</option><option value="actividades infantiles familia">Planes con niños</option><option value="festivales ferias culturales">Festivales y ferias</option><option value="talleres charlas">Talleres y charlas</option><option value="visitas guiadas">Visitas guiadas</option></select></div>
+<div class="field"><label for="when">¿Cuándo?</label><select id="when"><option value="semana">Esta semana</option><option value="hoy">Hoy</option><option value="fin">Este fin de semana</option><option value="mes">Este mes</option><option value="libre">Sin fecha concreta</option></select></div></div>
+<button type="submit" class="btn">Buscar planes gratuitos ↗</button><p class="hint">Se abrirán resultados de búsqueda externos. Consulta siempre el organizador para confirmar que la entrada es gratis, la fecha y la disponibilidad.</p>
+</form><div id="feedback" class="feedback" role="status" aria-live="polite"></div></section>
+<section class="below"><h2>Ideas para empezar</h2><p>También puedes buscar directamente una categoría. Solo tienes que escribir tu ciudad o provincia arriba.</p><div class="suggestions"><button type="button" data-kind="exposiciones museos">🖼️ Museos y exposiciones <b>↗</b></button><button type="button" data-kind="conciertos música">🎶 Música gratis <b>↗</b></button><button type="button" data-kind="actividades infantiles familia">🧸 En familia <b>↗</b></button><button type="button" data-kind="teatro espectáculos">🎭 Espectáculos <b>↗</b></button></div></section>
+<section class="note"><h2>¿Cómo funciona?</h2><p>Este primer buscador <strong>no mantiene una agenda propia</strong>: prepara una búsqueda con tus filtros y la abre en Google. Así no mostramos eventos ficticios o caducados como si fueran actuales. Los resultados pueden incluir actividades de pago, por lo que es importante comprobar los detalles en la página oficial antes de ir.</p></section>
+</main><footer class="wrap foot"><span>© <span id="year"></span> ¡Apáñate!</span><a href="/">Inicio</a><a href="/privacidad.html">Privacidad</a></footer>
+</body></html>

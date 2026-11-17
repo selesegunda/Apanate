@@ -1,14 +1,26 @@
-¡APÁÑATE! CINE
+ACTUALIZACIÓN ¡APÁÑATE! — NOVIEMBRE 2026
 
-Esta entrega contiene la carpeta cine/, lista para arrastrar descomprimida a la raíz main del repositorio.
+Contenido del ZIP (las rutas son relativas a la raíz del repositorio):
+  index.html                 REEMPLAZAR el index principal
+  js/app.js                  REEMPLAZAR js/app.js
+  planes-gratis/index.html   NUEVO
+  planes-gratis/style.css   NUEVO
+  planes-gratis/app.js      NUEVO
 
-Archivos:
-  cine/index.html  web completa, datos incluidos para funcionar estáticamente
-  cine/datos.json   copia editable de la selección de datos (requiere actualizar también el JSON embebido en index.html si se cambian títulos)
+NO borres ninguna otra carpeta ni archivo existente: conserva css/style.css,
+cocina/, cine/, libros/, etc.
 
-IMPORTANTE: JustWatch mostraba 10 posiciones públicas verificables a 17/11/2026; no se inventan las posiciones 11 a 20. Para uso comercial o actualización automática de los datos, solicitar acceso a la API y revisar la licencia de JustWatch.
-La cartelera TDT es una muestra fechada; pasado el 17/11/2026, la página advierte que está archivada y enlaza la programación actual.
-Mi filmoteca guarda películas en localStorage, distinto para cada navegador.
+CAMBIOS:
+- La tarjeta «¿Qué vemos?» abre /cine/.
+- Se mantienen los enlaces /cocina/ y /libros/.
+- Desaparece Dinero y se añade Planes gratis en la portada.
+- La nueva sección /planes-gratis/ tiene buscador por ciudad/provincia,
+  temática y fecha aproximada.
+- Su búsqueda abre Google con los filtros: NO es una base de datos
+  de eventos ni confirma automáticamente que sean gratuitos.
+  El visitante debe comprobar las páginas oficiales.
+- Se elimina del JavaScript el controlador del formulario de Dinero.
+- El resto de herramientas y su código siguen en la página principal.
 
-No se cambia index.html de la portada general ni los directorios libros/ o cocina/.
-Para añadir Cine en la portada general, incorporar un enlace a /cine/.
+NOTA: el enlace /cine/ funcionará si ese directorio ya está desplegado
+      en https://apanate.pages.dev/cine/ como has indicado.
