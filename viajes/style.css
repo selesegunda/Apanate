@@ -36,10 +36,9 @@ a{color:var(--ink)}
 .intro p{font-size:1.12rem;max-width:760px;margin:0}
 .intro-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,.8fr);align-items:center;gap:clamp(20px,4vw,46px)}
 .intro-copy{min-width:0}
-.sail-scene{position:relative;isolation:isolate;overflow:hidden;min-height:194px;max-width:490px;border-radius:28px;background:linear-gradient(180deg,#d8f3fc 0%,#ebfbff 58%,#ddf5ef 100%);border:2px solid #d4e9df;box-shadow:0 9px 0 #e7e3ce}
-.sail-scene::before{content:"";position:absolute;top:20px;right:52px;width:64px;height:64px;border-radius:50%;background:#ffdf78;box-shadow:0 0 0 11px #ffebaa70}
-.sail-label{position:absolute;top:18px;left:22px;z-index:2;color:#346353;font:700 13px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
-.sail-scene svg{display:block;width:100%;height:194px;overflow:visible}
+.sail-scene{position:relative;isolation:isolate;overflow:hidden;min-height:230px;max-width:490px;border-radius:28px;background:#cceee9;border:2px solid #d4e9df;box-shadow:0 9px 0 #e7e3ce}
+.sail-label{position:absolute;top:18px;left:22px;z-index:2;color:#285c58;font:700 13px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.sail-scene svg{display:block;width:100%;height:auto;aspect-ratio:490/230}
 .sail-boat{transform-box:fill-box;transform-origin:50% 86%;animation:sail-rock 3.3s ease-in-out infinite}
 .sail-waves{animation:sail-drift 3.3s ease-in-out infinite alternate}
 .sail-flag{transform-box:fill-box;transform-origin:left center;animation:sail-flutter 1.6s ease-in-out infinite alternate}
@@ -107,3 +106,5 @@ a{color:var(--ink)}
 .trip .where{color:#667466;font-size:.78rem;font-weight:700;margin:-4px 0 6px}
 
 @media(prefers-reduced-motion:reduce){.sail-boat,.sail-waves,.sail-flag{animation:none}}
+
+/* Detalles del velero mediterráneo: dibujo SVG integrado en la página, sin imágenes externas. */
