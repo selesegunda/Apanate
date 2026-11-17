@@ -1,0 +1,885 @@
+[
+  {
+    "name": "Gazpacho",
+    "category": "Sopas frías",
+    "ingredients": [
+      "tomate",
+      "pimiento italiano",
+      "pepino",
+      "aceite de oliva",
+      "vinagre",
+      "agua",
+      "sal"
+    ],
+    "optional": [
+      "jamón serrano",
+      "huevo duro"
+    ],
+    "steps": [
+      "Te doy proporción por kilo de tomate y ve cambiando a tu gusto. El secreto son los tomates maduros y el aceite.",
+      "Todo junto a la batidora si tiene buen tamaño; si no, triturar por partes.",
+      "Triturar hasta que sea uniforme. Servir frío.",
+      "Hay quien le echa más vinagre y agua o pimentón; para mi gusto el pimentón se come el sabor."
+    ],
+    "time": 15,
+    "tip": "Cada casa tiene su gazpacho; este es el nuestro. Tomates bien maduros.",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta familiar aportada a ¡Apáñate! Cocina.",
+    "sourceUrl": "",
+    "quantities": "Por 1 kg de tomate: 2–3 dedos de pimiento italiano; 3 dedos de pepino pelado; 50 g de aceite; 10 cc de vinagre; 100 cc de agua; 8 g de sal.",
+    "historical": false
+  },
+  {
+    "name": "Salmorejo",
+    "category": "Sopas frías",
+    "ingredients": [
+      "tomate",
+      "pan rallado",
+      "aceite de oliva",
+      "ajo",
+      "sal"
+    ],
+    "optional": [
+      "jamón serrano",
+      "huevo duro",
+      "uvas"
+    ],
+    "steps": [
+      "Pela y pica el ajo; si quieres, retira el germen. Ponlo en la batidora.",
+      "Retira la zona dura del pedúnculo de los tomates y trocéalos. Tritúralos hasta hacer puré.",
+      "Añade el pan rallado y la sal. Mezcla y deja reposar unos cinco minutos para que el pan se humedezca. Vuelve a batir.",
+      "Añade el aceite al final y sigue batiendo hasta que quede cremoso. Se come frío.",
+      "Puedes servir sin acompañamiento o con jamón, huevo duro o uvas; un chorrito de aceite, solo para adornar."
+    ],
+    "time": 20,
+    "tip": "Si los tomates no son buenos, no merece la pena hacerlo.",
+    "notes": "La fuente aportada señala como referencia la Cofradía del Salmorejo Cordobés; no se ha cotejado la formulación con una publicación oficial. La variante personal sugiere hasta un 10 % de frutas como cereza o fresa si se desea experimentar.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta familiar aportada a ¡Apáñate! Cocina.",
+    "sourceUrl": "",
+    "quantities": "1 kg tomate; 200 g pan de telera duro rallado o pan rallado; 100 g aceite de oliva; 1 diente de ajo; 8 g de sal (aprox.).",
+    "historical": false
+  },
+  {
+    "name": "Zanahorias aliñadas",
+    "category": "Ensaladas",
+    "ingredients": [
+      "zanahoria",
+      "ajo",
+      "comino",
+      "orégano",
+      "aceite de oliva",
+      "sal",
+      "vinagre",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Pela las zanahorias, córtalas en rodajas y hiérvelas con sal; mejor al dente. Escúrrelas bien.",
+      "Añade poco ajo muy picado, que puede dominar el sabor.",
+      "Pon bastante comino, entero o molido, y solo una pizca de orégano.",
+      "Aliña con poco vinagre y aceite, ajusta la sal y sirve templadas o frías."
+    ],
+    "time": 25,
+    "tip": "El comino es lo que les da su sabor característico.",
+    "notes": "El original aportado no fija cantidades exactas.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta familiar aportada a ¡Apáñate! Cocina.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Boquerones en adobo",
+    "category": "Pescado",
+    "ingredients": [
+      "boquerones",
+      "vinagre",
+      "agua",
+      "ajo",
+      "comino",
+      "orégano",
+      "pimentón dulce",
+      "sal",
+      "harina",
+      "aceite de oliva"
+    ],
+    "optional": [
+      "harina de garbanzos"
+    ],
+    "steps": [
+      "Limpia los boquerones, quitando cabeza y espina y abriéndolos como un libro.",
+      "Mezcla vinagre y agua en proporción 2:1, en cantidad que cubra el pescado. Por cada medio kilo añade ajo picado, comino, orégano, pimentón dulce y sal.",
+      "Deja el pescado sumergido en el adobo, en nevera, al menos dos horas (o de un día para otro); remuévelo ocasionalmente si puedes.",
+      "Escurre y seca sobre papel de cocina: si está muy mojado la harina no se adhiere.",
+      "Enharina con harina de garbanzos o de trigo y fríe en aceite a unos 170 °C. Sala al sacar."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "Incluye fritura; no se clasifica como plato ligero. El adobo con vinagre NO sustituye la cocción. El usuario también menciona anchoas, cazón y trozos de pechuga de pollo como variantes, que requieren preparaciones y tiempos adecuados a cada producto.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta familiar aportada a ¡Apáñate! Cocina.",
+    "sourceUrl": "",
+    "quantities": "Por 500 g de boquerones: vinagre/agua 2:1; 1 diente de ajo; al menos 2 cucharadas de comino molido; 2 cucharadas de orégano; 1 cucharadita de pimentón dulce; sal; harina y aceite.",
+    "historical": false
+  },
+  {
+    "name": "Pavo de la abuela Teresa",
+    "category": "Carnes y guisos",
+    "ingredients": [
+      "pechuga de pavo",
+      "cebolla",
+      "laurel",
+      "aceite de oliva",
+      "ajo",
+      "clavo de olor",
+      "canela",
+      "azafrán",
+      "agua",
+      "pimienta",
+      "sal",
+      "perejil"
+    ],
+    "optional": [
+      "cúrcuma",
+      "arroz",
+      "patatas fritas"
+    ],
+    "steps": [
+      "Cubre el fondo de la olla con aceite y calienta. Salpimenta las pechugas y dóralas ligeramente. Sácalas y reserva.",
+      "Pica las cebollas y deja que se ablanden y doren muy lentamente.",
+      "Añade la cabeza de ajo, laurel, clavos, canela, granos de pimienta y azafrán o cúrcuma; deja unos minutos, no más de cinco.",
+      "Devuelve las pechugas a la olla y añade el agua mínima necesaria para la olla utilizada.",
+      "En la olla rápida de la familia se cocinan 15 minutos cuando suben dos anillos y se baja el fuego; el tiempo depende del modelo y del tamaño. Consulta las instrucciones de tu olla.",
+      "Retira las pechugas y las especias enteras. Tritura la cebolla para hacer la salsa y redúcela si te gusta espesa.",
+      "Devuelve la carne a la salsa, añade perejil y calienta antes de servir. Suele estar mejor de un día para otro."
+    ],
+    "time": null,
+    "tip": "La abuela Teresa enseñó la receta a su familia; esta es la versión con pechugas.",
+    "notes": "Receta transmitida en la familia de la abuela Teresa, de Écija (Sevilla), al menos desde la bisabuela. La versión antigua se hacía con pavo troceado; la actual, con pechugas. Comprueba que el pavo esté completamente cocinado; no se garantiza el tiempo de 15 minutos para todas las ollas.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta familiar aportada a ¡Apáñate! Cocina.",
+    "sourceUrl": "",
+    "quantities": "Pechugas de un pavo; 2 cebollas; 2 hojas de laurel; aceite para cubrir fondo; 1 cabeza de ajo; 4 clavos; 3 cucharaditas de canela; azafrán o 1 cucharadita de cúrcuma; agua; pimienta, sal, perejil.",
+    "historical": false
+  },
+  {
+    "name": "Poleás de la familia",
+    "category": "Postres",
+    "ingredients": [
+      "harina de trigo",
+      "azúcar",
+      "leche entera",
+      "anís en grano",
+      "limón",
+      "aceite de oliva",
+      "canela molida"
+    ],
+    "optional": [
+      "pan frito"
+    ],
+    "steps": [
+      "Fríe con cuidado los granos de anís y la piel amarilla del limón en aceite, sin quemarlos. Cuela y reserva ese aceite.",
+      "En una cacerola pon el aceite infusionado con la harina y el azúcar y remueve despacio.",
+      "Añade la leche poco a poco, a fuego lento, sin dejar de remover para que no se agarre, hasta que cuaje.",
+      "Reparte en recipientes individuales y deja templar. Espolvorea canela al servir. También pueden añadirse trocitos de pan frito."
+    ],
+    "time": null,
+    "tip": "En casa gustan templadas.",
+    "notes": "Versión familiar que intenta recuperar la receta de la abuela Luisa. Es un postre tradicional, no un plato bajo en grasa o azúcar.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta familiar aportada a ¡Apáñate! Cocina.",
+    "sourceUrl": "",
+    "quantities": "70 g harina de trigo normal; 120 g azúcar; 1 litro leche entera; 1 cucharada anís en grano; piel amarilla de 1 limón; 75 g aceite de oliva virgen extra; canela.",
+    "historical": false
+  },
+  {
+    "name": "Las croquetas del Echaurren",
+    "category": "Croquetas",
+    "ingredients": [
+      "cebolla",
+      "aceite de oliva",
+      "pechuga de pollo",
+      "mantequilla",
+      "jamón serrano",
+      "harina de repostería",
+      "pastilla de caldo de ave",
+      "leche entera",
+      "huevo duro",
+      "pan rallado",
+      "huevo",
+      "aceite para freír"
+    ],
+    "optional": [],
+    "steps": [
+      "En Thermomix: pica la cebolla 4 segundos/velocidad 5; baja los restos.",
+      "Añade 10 g de aceite y pollo: 7 minutos/Varoma/velocidad cuchara. Reserva.",
+      "Pon 80 g de mantequilla: 2 minutos/100 ºC/velocidad cuchara. Añade jamón: 3 minutos/Varoma/velocidad cuchara.",
+      "Añade pollo, cebolla y harina: 4 minutos/Varoma/velocidad 1.",
+      "Añade pastilla de caldo y leche: 15 segundos/velocidad 4 y después 18 minutos/100 ºC/velocidad 3.",
+      "Agrega huevo duro picado: 5 segundos/velocidad 3. Termina de mezclar con espátula.",
+      "Vierte en bandeja humedecida, cubre con film y refrigera al menos 12 horas.",
+      "Forma croquetas; pásalas por pan rallado, huevo batido y de nuevo pan rallado.",
+      "Fríe en abundante aceite caliente y sirve."
+    ],
+    "time": null,
+    "tip": "No es una receta rápida: requiere reposo de una noche.",
+    "notes": "Instrucciones específicas para Thermomix y reposo mínimo de 12 horas. Receta con fritura y mantequilla.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta recibida con el título «Las croquetas del Echaurren». Procedencia editorial exacta y derechos del texto pendientes de comprobar.",
+    "sourceUrl": "",
+    "quantities": "50 g cebolla; 10 g aceite; 50 g pechuga pollo; 80 g mantequilla; 30 g jamón; 110 g harina repostería; 1 pastilla caldo ave; 900 g leche; 2 huevos duros; 250 g pan rallado; 2–3 huevos batidos; 300–400 g aceite para freír.",
+    "historical": false
+  },
+  {
+    "name": "Potaje de garbanzos (Cooking El Mundo)",
+    "category": "Legumbres",
+    "ingredients": [
+      "garbanzos secos",
+      "cebolla",
+      "tomate frito",
+      "espinacas",
+      "agua",
+      "sal",
+      "aceite de oliva",
+      "huevo duro",
+      "ajo",
+      "pan",
+      "bicarbonato"
+    ],
+    "optional": [
+      "bacalao desalado"
+    ],
+    "steps": [
+      "Remoja los garbanzos en agua caliente con un poco de bicarbonato durante 8–10 horas. Escurre y desecha el agua.",
+      "Pocha la cebolla en una cazuela con aceite y añade el tomate frito.",
+      "Incorpora garbanzos, cubre con agua y cocina tapado hasta que estén tiernos (la fuente indica 40–60 minutos).",
+      "Añade las espinacas cuando estén tiernos y cocina unos minutos.",
+      "Fríe las rebanadas de pan y el ajo y machácalos en un mortero.",
+      "Incorpora el majado, rectifica la sal y da un último hervor.",
+      "Sirve caliente con huevo cocido troceado."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La fuente propone 40–60 minutos de cocción, tiempo que puede ser insuficiente en olla convencional. Comprueba el punto real de cocción. Contiene fritura para el majado.",
+    "servings": "6",
+    "originKind": "aportada",
+    "origin": "Cooking El Mundo, «Receta potaje de garbanzos» (fuente contemporánea facilitada por el usuario).",
+    "sourceUrl": "https://cooking.elmundo.es/recetas/receta-potaje-garbanzos.html",
+    "quantities": "500 g garbanzos secos; 1 cebolla; 80 g tomate frito; 250 g espinacas; agua, sal y aceite; 1 huevo cocido. Majado: 1 diente ajo y 2 rebanadas pan. Bicarbonato mencionado solo en la preparación.",
+    "historical": false
+  },
+  {
+    "name": "Roscón de Reyes de las Clarisas",
+    "category": "Postres",
+    "ingredients": [
+      "harina",
+      "almendras fileteadas",
+      "fruta confitada",
+      "mantequilla",
+      "azúcar",
+      "levadura en polvo",
+      "huevo",
+      "leche",
+      "agua de azahar",
+      "limón",
+      "naranja"
+    ],
+    "optional": [],
+    "steps": [
+      "Mezcla la levadura con un poco de leche tibia y dos cucharadas de harina; remueve con varillas y deja que doble volumen.",
+      "En otro bol pon harina, mantequilla, azúcar, huevos, leche restante, ralladuras y agua de azahar.",
+      "Amasa hasta lograr una masa fina y elástica. Reserva en frigorífico 12 horas.",
+      "Forma el roscón en un molde redondo, introduce el haba y el rey, pinta con huevo y decora con frutas.",
+      "Espolvorea azúcar glas humedecido con agua; hornea a 180 ºC durante 30 minutos.",
+      "La receta señala que, al presionar, si queda la marca le falta un poco; si está tensa y no queda la huella, estaría lista."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La receta recibida menciona levadura en polvo y al mismo tiempo espera que la mezcla doble volumen; requiere cotejo. Tampoco indica cuándo añadir las almendras, la cantidad extra de huevo para pintar o el azúcar glas. No se han inventado esos pasos. Evita introducir objetos pequeños peligrosos si hay niños.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Presentada como receta tradicional de las monjas Clarisas del Monasterio de Santa Cruz de Villaverde de Pontones; publicación original sin verificar.",
+    "sourceUrl": "",
+    "quantities": "625 g harina; 100 g almendras fileteadas; 100 g fruta confitada; 100 g mantequilla; 80 g azúcar; 1 cucharada levadura en polvo; 3 huevos; 250 ml leche; 80 ml agua de azahar; ralladura de 1/2 limón y 1/2 naranja.",
+    "historical": false
+  },
+  {
+    "name": "Bienmesabe",
+    "category": "Pescado",
+    "ingredients": [
+      "cazón",
+      "vinagre",
+      "comino",
+      "ajo",
+      "sal",
+      "harina de trigo",
+      "aceite de oliva"
+    ],
+    "optional": [],
+    "steps": [
+      "Maja vinagre, ajos, cominos y sal para el adobo.",
+      "Cubre con él las rodajas de cazón y deja macerar al menos tres o cuatro horas.",
+      "Escurre bien, pasa por harina de trigo y fríe en aceite abundante caliente."
+    ],
+    "time": null,
+    "tip": "Adobo tradicional; con fritura.",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Tortillitas de camarones",
+    "category": "Pescado",
+    "ingredients": [
+      "camarones cocidos",
+      "harina de garbanzos",
+      "harina de trigo",
+      "perejil",
+      "cebolla",
+      "aceite",
+      "agua de cocción de camarones"
+    ],
+    "optional": [],
+    "steps": [
+      "Haz una masa con camarones cocidos, las dos harinas, perejil, cebolla y agua de cocción de los camarones.",
+      "Toma cucharadas de pasta y fríelas en aceite muy caliente."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Papas guisadas con anguila en amarillo",
+    "category": "Pescado",
+    "ingredients": [
+      "anguila",
+      "patata",
+      "cebolla",
+      "ajo",
+      "perejil",
+      "azafrán",
+      "aceite",
+      "sal",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe cebolla, ajo y perejil y maja el refrito en mortero.",
+      "Pon en una olla agua, sal, aceite, azafrán, patatas y el majado.",
+      "Cuando las patatas estén casi hechas, añade las anguilas y termina la cocción."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Caballas con tomate y fideos",
+    "category": "Pescado",
+    "ingredients": [
+      "caballa",
+      "fideos gordos",
+      "tomate",
+      "pimiento",
+      "sal",
+      "aceite",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe los pimientos y los tomates.",
+      "Pon en una cazuela los tomates, sal y agua; cuando hierva, añade los fideos.",
+      "Cuando estén casi hechos, añade las caballas y acaba la cocción."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Caballas en adobo",
+    "category": "Pescado",
+    "ingredients": [
+      "caballa",
+      "ajo",
+      "orégano",
+      "vinagre",
+      "sal",
+      "comino",
+      "harina",
+      "aceite"
+    ],
+    "optional": [],
+    "steps": [
+      "Maja ajo, orégano, vinagre, sal y comino y cubre las caballas con el adobo.",
+      "Deja macerar dos o tres horas.",
+      "Pasa las caballas por harina y fríelas en aceite muy caliente."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Pescaíto frito",
+    "category": "Pescado",
+    "ingredients": [
+      "pescado",
+      "harina",
+      "sal",
+      "aceite"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia el pescado y añade sal.",
+      "Enharina y fríe en aceite muy caliente."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La fuente sugiere pescado de estero si es posible.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Caballas asadas con piriñaca",
+    "category": "Pescado",
+    "ingredients": [
+      "caballa",
+      "pimentón",
+      "vino",
+      "aceite",
+      "sal",
+      "ajo",
+      "cebolla",
+      "vinagre",
+      "pimiento",
+      "tomate"
+    ],
+    "optional": [],
+    "steps": [
+      "Prepara una piriñaca con cebolla, vinagre, sal, pimientos y tomates.",
+      "Asa las caballas y acompáñalas con la piriñaca."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "El texto aportado enumera pimentón, vino, aceite y ajo, pero no explica cómo se utilizan; menciona cebolla, vinagre, pimiento y tomate en la preparación aunque no figuran en su lista de ingredientes. Se indican para no dar falsos resultados de búsqueda.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Coquinas a la marinera",
+    "category": "Mariscos",
+    "ingredients": [
+      "coquinas",
+      "pimentón",
+      "vino",
+      "aceite",
+      "sal",
+      "ajo"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe el ajo en aceite.",
+      "Añade el pimentón y el vino y, por último, las coquinas y la sal. Cocina hasta que estén hechas."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La receta recibida no especifica el tiempo; descarta las coquinas que no se abran tras cocinarlas.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Arroz con chocos y chícharos",
+    "category": "Arroces",
+    "ingredients": [
+      "arroz",
+      "chícharos",
+      "chocos",
+      "cebolla",
+      "ajo",
+      "perejil",
+      "azafrán",
+      "aceite",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Haz el sofrito de cebolla, ajo y perejil y májalo en mortero, igual que en «Papas guisadas con anguila en amarillo».",
+      "Pon el majado con agua, sal, aceite, azafrán y los chocos y chícharos.",
+      "Añade el arroz al final de la preparación, según la referencia recibida."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La fuente solo dice «Igual que las papas guisadas con anguilas, pero añadiendo al final el arroz». El orden detallado está orientado por esa referencia y pendiente de aclaración; no se indican tiempos ni proporciones.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Chocos con papas en colorao",
+    "category": "Mariscos",
+    "ingredients": [
+      "chocos",
+      "patata",
+      "orégano",
+      "ajo",
+      "pimentón",
+      "sal",
+      "aceite",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece los chocos en una olla con aceite, orégano, pimentón, ajo picado y sal.",
+      "Cuando estén casi hechos, añade las patatas y termina la cocción."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Cazón con tomate",
+    "category": "Pescado",
+    "ingredients": [
+      "cazón",
+      "tomate",
+      "cebolla",
+      "sal",
+      "aceite",
+      "ajo",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe los tomates con la cebolla.",
+      "Agrega el cazón —frito o crudo según la fuente—, un poco de agua y un diente de ajo majado.",
+      "Deja cocer poco tiempo, hasta que el pescado esté hecho."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "Ajo y agua figuran en la preparación recibida, aunque no en la lista original de ingredientes.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Cazón con chícharos",
+    "category": "Pescado",
+    "ingredients": [
+      "cazón",
+      "chícharos",
+      "cebolla",
+      "ajo",
+      "perejil",
+      "azafrán",
+      "aceite",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe cebolla, ajo y perejil; maja el sofrito en mortero.",
+      "Cuece los chícharos con agua y el majado.",
+      "Cuando estén tiernos, añade el cazón, el azafrán y la sal y termina de cocinar."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Dorada a la sal",
+    "category": "Pescado",
+    "ingredients": [
+      "dorada",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Cubre el pescado con abundante sal.",
+      "Mételo al horno hasta que esté cocinado."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La fuente no indica temperatura ni tiempo; comprueba una guía contrastada para el tamaño y el grosor del pescado antes de cocinar.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Habichuelas con choco",
+    "category": "Legumbres",
+    "ingredients": [
+      "habichuelas",
+      "choco",
+      "pimiento",
+      "ajo",
+      "cebolla",
+      "pimentón",
+      "tomate",
+      "aceite",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Pon los ingredientes en la olla y deja cocer hasta que estén tiernos."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "No se especifica si las habichuelas son secas o ya cocidas ni se detallan tiempos. Si son secas requieren preparación y cocción adecuadas.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Menudo (callos)",
+    "category": "Carnes y guisos",
+    "ingredients": [
+      "despojos de vaca",
+      "chorizo",
+      "tocino de jamón",
+      "garbanzos",
+      "pimienta",
+      "especias de menudo",
+      "sal",
+      "agua",
+      "ajo",
+      "aceite",
+      "hierbabuena"
+    ],
+    "optional": [],
+    "steps": [
+      "Pon todos los ingredientes en crudo en una olla y cocina hasta que estén tiernos."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La fuente no detalla limpieza previa, cocción ni tiempos; no debe emplearse como única guía de seguridad para vísceras.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Berza",
+    "category": "Legumbres",
+    "ingredients": [
+      "boniato",
+      "acelgas",
+      "apio",
+      "coliflor",
+      "garbanzos",
+      "habichuelas",
+      "ajo",
+      "pimentón",
+      "aceite",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Pon todos los ingredientes en la olla y cuece entre una y dos horas, hasta que estén tiernos."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "La preparación menciona olla y cocción sin detallar tratamiento previo de legumbres secas; no se debe asumir que quedarán cocidas en ese tiempo.",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Castañas y habichuelas",
+    "category": "Legumbres",
+    "ingredients": [
+      "cebolla",
+      "ajo",
+      "perejil",
+      "habichuelas",
+      "castañas",
+      "clavo de olor",
+      "canela en rama",
+      "matalahúga",
+      "aceite",
+      "agua"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe cebolla, ajo y perejil; machácalos en mortero.",
+      "Fríe la matalahúga y cuela el aceite.",
+      "Pon todo en una olla con las castañas, que habrán estado en agua desde el día anterior. Cocina hasta su punto."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Papas aliñás",
+    "category": "Ensaladas",
+    "ingredients": [
+      "patata",
+      "cebolla",
+      "perejil",
+      "aceite",
+      "sal",
+      "vinagre",
+      "huevo duro"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece las patatas con piel.",
+      "Pélalas y trocéalas.",
+      "Aliña con aceite, vinagre, perejil y sal.",
+      "Adorna con huevos duros."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Sopa de tomate",
+    "category": "Sopas",
+    "ingredients": [
+      "tomate",
+      "cebolla",
+      "pimiento",
+      "hierbabuena",
+      "pan",
+      "aceite",
+      "ajo",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Fríe cebolla, pimiento y después tomate.",
+      "Pon en una cazuela la mezcla con sal y pan troceado y mojado; dale unas vueltas.",
+      "Añade hierbabuena y ajo picado."
+    ],
+    "time": null,
+    "tip": "",
+    "notes": "",
+    "servings": "",
+    "originKind": "aportada",
+    "origin": "Receta aportada a ¡Apáñate! Cocina; fuente original no especificada.",
+    "sourceUrl": "",
+    "quantities": "",
+    "historical": false
+  },
+  {
+    "name": "Sopa de cebolla fácil y rápida (receta recibida)",
+    "category": "Sopas",
+    "ingredients": [
+      "cebolla",
+      "vino blanco",
+      "harina",
+      "pan",
+      "queso gruyère",
+      "caldo de pollo",
+      "mantequilla",
+      "mantequilla salada",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Pela y corta las cebollas en rodajas finas. Cocínalas en aproximadamente 100 g de mantequilla unos 10 minutos, removiendo.",
+      "Añade harina y sigue cocinando mientras remueves.",
+      "Incorpora vino y caldo de pollo, sal y pimienta. Lleva a ebullición, tapa y deja a fuego lento aproximadamente 1 h 30 min. Mezcla al final.",
+      "Sirve con rebanadas de pan untadas en mantequilla salada y queso gruyère rallado, gratinadas bajo el grill unos dos minutos."
+    ],
+    "time": 120,
+    "tip": "",
+    "notes": "Pese al título tarda aproximadamente 2 horas. El texto original recibido contiene una traducción dudosa «4 palillos chinos» y dos tipos de mantequilla. No es receta ligera ni de bajo coste. La atribución necesita verificarse.",
+    "servings": "8",
+    "originKind": "aportada",
+    "origin": "Receta contemporánea aportada con el título «Sopa de cebolla rápida y fácil»; publicación original y autoría sin identificar.",
+    "sourceUrl": "",
+    "quantities": "8 cebollas grandes; 50 cl vino blanco; 12 g harina; 4 piezas de pan (en el texto figuran como «palillos chinos», posible traducción errónea); 200 g gruyère; 4 porciones/pastillas de caldo de pollo; 100 g mantequilla; 100 g mantequilla salada; sal, pimienta.",
+    "historical": false
+  }
+]
