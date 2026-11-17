@@ -9,9 +9,10 @@
 
 <style>
 /* Nueva cabecera: ilustración fija, sin animaciones. */
-.sky-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(265px,.9fr);align-items:center;gap:clamp(18px,4vw,50px)}
+.intro{max-width:none;width:100%}
+.sky-hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(245px,.75fr);align-items:center;gap:clamp(30px,5vw,76px);width:100%}
 .sky-copy{min-width:0}
-.sky-picture{margin:0;position:relative;border-radius:26px;overflow:hidden;background:#fff4e7;box-shadow:0 10px 0 #eadfcb;border:2px solid #ebdece}
+.sky-picture{margin:0 0 0 auto;max-width:385px;width:100%;position:relative;border-radius:26px;overflow:hidden;background:#fff4e7;box-shadow:0 10px 0 #eadfcb;border:2px solid #ebdece}
 .sky-picture img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
 .sky-sidelabel{display:block;text-align:center;font:700 .76rem system-ui,sans-serif;letter-spacing:.12em;color:#54745e;background:#fffaf0;padding:8px}
 .sky-action{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:18px}
@@ -43,7 +44,7 @@
 .sky-no-events{border-left:4px solid #e8b95e;background:#fff7e7;padding:12px 15px;border-radius:9px}
 .sky-footnote{margin-top:17px;font-size:.83rem;color:#5c6f60}
 .sky-feedback{font-weight:700;color:#8a3d2d}
-@media(max-width:780px){.sky-hero,.sky-cards{grid-template-columns:1fr}.sky-picture{max-width:500px}.sky-picker{align-items:stretch}.sky-picker select{width:100%}}
+@media(max-width:780px){.sky-hero,.sky-cards{grid-template-columns:1fr}.sky-picture{max-width:500px;margin:12px auto 0}.sky-picker{align-items:stretch}.sky-picker select{width:100%}}
 </style>
 </head>
 <body>
