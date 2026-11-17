@@ -6,50 +6,11 @@
 <meta name="theme-color" content="#fff9ed"><title>Planes gratis en España — ¡Apáñate!</title>
 <link rel="stylesheet" href="/planes-gratis/style.css"><script defer src="/planes-gratis/app.js"></script>
 
-<style>
-/* Velero animado: ilustración autocontenida, sin imágenes externas. */
-.sail-scene{position:relative;isolation:isolate;overflow:hidden;min-height:194px;max-width:490px;margin:20px auto 6px;border-radius:28px;background:linear-gradient(180deg,#d8f3fc 0%,#ebfbff 58%,#ddf5ef 100%);border:2px solid #d4e9df;box-shadow:0 9px 0 #e7e3ce}
-.sail-scene::before{content:"";position:absolute;top:20px;right:52px;width:64px;height:64px;border-radius:50%;background:#ffdf78;box-shadow:0 0 0 11px #ffebaa70}
-.sail-scene .sail-label{position:absolute;top:18px;left:22px;z-index:2;color:#346353;font:700 13px system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
-.sail-scene svg{display:block;width:100%;height:194px;overflow:visible}
-.sail-boat{transform-box:fill-box;transform-origin:50% 86%;animation:sail-rock 3.3s ease-in-out infinite}
-.sail-waves{animation:sail-drift 3.3s ease-in-out infinite alternate}
-.sail-flag{transform-box:fill-box;transform-origin:left center;animation:sail-flutter 1.6s ease-in-out infinite alternate}
-@keyframes sail-rock{0%,100%{transform:translateY(0) rotate(-7deg)}25%{transform:translateY(6px) rotate(0deg)}50%{transform:translateY(0) rotate(7deg)}75%{transform:translateY(5px) rotate(0deg)}}
-@keyframes sail-drift{from{transform:translateX(-9px)}to{transform:translateX(9px)}}
-@keyframes sail-flutter{from{transform:skewY(-5deg)}to{transform:skewY(6deg)}}
-@media(prefers-reduced-motion:reduce){.sail-boat,.sail-waves,.sail-flag{animation:none}}
-
-/* Título a la izquierda y velero animado a su derecha. */
-.intro-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(245px,.75fr);align-items:center;gap:clamp(20px,4vw,46px)}
-.intro-copy{min-width:0}
-.intro-layout .sail-scene{margin:0;max-width:none;width:100%;min-height:180px}
-.intro-layout .sail-scene svg{height:180px}
-@media(max-width:720px){.intro-layout{grid-template-columns:1fr}.intro-layout .sail-scene{max-width:430px;margin:12px auto 0}}
-</style>
 </head>
 <body>
 <header class="topbar wrap"><a class="brand" href="/" aria-label="¡Apáñate!, inicio"><span>¡</span>Ap<span>á</span>ñate<span>!</span></a><a class="back" href="/">← Volver al inicio</a></header>
 <main class="wrap">
-<section class="intro"><div class="intro-layout"><div class="intro-copy"><span class="eyebrow">DESCUBRE · DISFRUTA · AHORRA</span><h1>Los mejores planes no siempre <em>cuestan dinero.</em></h1><p>Encuentra pistas para descubrir <strong>exposiciones, espectáculos, conciertos y actividades gratuitas</strong> en España. Tú eliges el lugar y el momento.</p><div class="chips"><span>🎭 Teatro</span><span>🖼️ Exposiciones</span><span>🎵 Música</span><span>👨‍👩‍👧 Familia</span><span>🎪 Festivales</span></div>
-</div><div class="sail-scene" role="img" aria-label="Un pequeño velero de colores se mece alegremente sobre las olas">
-  <span class="sail-label">¡Buen plan a la vista!</span>
-  <svg viewBox="0 0 490 194" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-    <g fill="#ffffff" opacity=".82"><ellipse cx="100" cy="51" rx="27" ry="10"/><ellipse cx="121" cy="46" rx="19" ry="12"/><ellipse cx="363" cy="67" rx="24" ry="9"/><ellipse cx="382" cy="61" rx="15" ry="12"/></g>
-    <g class="sail-boat">
-      <path d="M245 36 V144" stroke="#285b56" stroke-width="5" stroke-linecap="round"/>
-      <path d="M237 47 Q175 85 167 132 L237 132 Z" fill="#f6a25a" stroke="#dc7a4a" stroke-width="2"/>
-      <path d="M253 40 Q306 82 315 132 L253 132 Z" fill="#fff9e4" stroke="#e4c59a" stroke-width="2"/>
-      <path class="sail-flag" d="M245 39 L278 48 L245 57 Z" fill="#e86b7d"/>
-      <path d="M148 143 Q240 151 339 143 L321 166 Q241 182 170 166 Z" fill="#e86d59" stroke="#bf4c3d" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M175 156 Q248 165 317 155" fill="none" stroke="#ffd6ad" stroke-width="5" stroke-linecap="round"/>
-      <circle cx="207" cy="157" r="4.5" fill="#ffedca"/><circle cx="245" cy="161" r="4.5" fill="#ffedca"/><circle cx="283" cy="158" r="4.5" fill="#ffedca"/>
-    </g>
-    <path d="M0 159 Q30 147 60 159 T120 159 T180 159 T240 159 T300 159 T360 159 T420 159 T490 159 V194 H0Z" fill="#72cbbf" opacity=".54"/>
-    <g class="sail-waves" fill="none" stroke="#2d9c9f" stroke-width="5" stroke-linecap="round" opacity=".8"><path d="M17 179 q18 -8 36 0 t36 0 t36 0 t36 0"/><path d="M284 183 q18 -8 36 0 t36 0 t36 0 t36 0"/></g>
-  </svg>
-</div></div>
-</section>
+<section class="intro"><span class="eyebrow">DESCUBRE · DISFRUTA · AHORRA</span><h1>Los mejores planes no siempre <em>cuestan dinero.</em></h1><p>Encuentra pistas para descubrir <strong>exposiciones, espectáculos, conciertos y actividades gratuitas</strong> en España. Tú eliges el lugar y el momento.</p><div class="chips"><span>🎭 Teatro</span><span>🖼️ Exposiciones</span><span>🎵 Música</span><span>👨‍👩‍👧 Familia</span><span>🎪 Festivales</span></div></section>
 <section class="search-card" aria-labelledby="search-title"><div class="heading"><span class="ticket">🎟️</span><div><span class="eyebrow">BUSCADOR DE PLANES</span><h2 id="search-title">¿Qué hacemos hoy?</h2></div></div>
 <form id="events-form">
 <div class="form-grid"><div class="field"><label for="place">Ciudad o provincia</label><input id="place" maxlength="90" placeholder="Ej.: Sevilla, Málaga, Madrid…" autocomplete="address-level2" required></div>
