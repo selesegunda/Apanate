@@ -1,0 +1,2204 @@
+[
+  {
+    "name": "Sopa de arroz",
+    "time": 25,
+    "category": "Cuchara",
+    "ingredients": [
+      "caldo",
+      "arroz"
+    ],
+    "steps": [
+      "Pon el caldo al fuego hasta que hierva.",
+      "Añade el arroz y remueve de vez en cuando.",
+      "Cuece hasta que el grano esté tierno; prueba antes de servir."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Una cucharada de perejil picado le viene de maravilla.",
+    "notes": "El caldo debe estar preparado: no equivale a agua sola.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de pasta",
+    "time": 15,
+    "category": "Cuchara",
+    "ingredients": [
+      "caldo",
+      "fideos"
+    ],
+    "steps": [
+      "Lleva el caldo a ebullición.",
+      "Añade los fideos y cuécelos el tiempo indicado en el paquete.",
+      "Sirve enseguida, antes de que se pasen."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Sirve también con letras, tallarines u otra pasta pequeña.",
+    "notes": "Requiere caldo preparado.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de pan",
+    "time": 35,
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "pan",
+      "caldo"
+    ],
+    "steps": [
+      "Corta el pan en rebanadas finas.",
+      "Cúbrelo con caldo caliente en una cacerola.",
+      "Déjalo cocer suavemente unos 25–30 minutos, vigilando la textura."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Ideal cuando el pan ya no está para bocadillos.",
+    "notes": "Requiere caldo, no solo agua.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de ajo",
+    "time": 35,
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "pan",
+      "ajo",
+      "cebolla",
+      "perejil",
+      "pimenton",
+      "aceite",
+      "agua",
+      "sal",
+      "huevo"
+    ],
+    "steps": [
+      "Calienta agua con un poco de sal; añade el pan en rebanadas.",
+      "Sofríe el ajo, la cebolla y el perejil en aceite; retira del fuego y añade el pimentón.",
+      "Incorpora el sofrito a la sopa y deja cocer suavemente.",
+      "Casca el huevo y cocina hasta que esté completamente cuajado."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Si tienes pan de ayer, este plato es un buen destino.",
+    "notes": "Adaptación sin gratinado obligatorio; el original emplea horno.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de ajo sencilla",
+    "time": 20,
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "pan",
+      "ajo",
+      "cebolla",
+      "perejil",
+      "pimenton",
+      "aceite",
+      "agua",
+      "sal"
+    ],
+    "steps": [
+      "Sofríe el ajo y la cebolla en aceite; añade perejil y pimentón fuera del fuego.",
+      "Agrega agua, sala y deja hervir unos minutos.",
+      "Tuesta pan en rebanadas y colócalo en un cuenco.",
+      "Vierte el caldo bien caliente encima."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "La alternativa sin huevo para una despensa más escueta.",
+    "notes": "Se ha simplificado la preparación respetando el método.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de maíz",
+    "time": 20,
+    "category": "Cuchara",
+    "ingredients": [
+      "harina de maiz",
+      "caldo"
+    ],
+    "steps": [
+      "Disuelve la harina de maíz en caldo frío sin dejar grumos.",
+      "Calienta removiendo para evitar que se pegue.",
+      "Cuece hasta que la harina esté completamente hecha y la sopa espese."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Remueve sin prisas: la textura manda.",
+    "notes": "Utiliza harina de maíz corriente, no maicena como sustituto automático.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de espárragos",
+    "time": 30,
+    "category": "Cuchara",
+    "ingredients": [
+      "esparragos",
+      "pan",
+      "ajo",
+      "pimienta",
+      "caldo",
+      "aceite"
+    ],
+    "steps": [
+      "Corta las partes tiernas de los espárragos.",
+      "Saltéalas con aceite y dora una corteza de pan.",
+      "Machaca el pan con el ajo y la pimienta; incorpora la pasta a los espárragos.",
+      "Añade el caldo y cuece hasta que los espárragos estén tiernos."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Una buena forma de usar el pan que queda en el cajón.",
+    "notes": "El original utiliza manteca; aquí se sustituye por aceite.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de huevos",
+    "time": 25,
+    "category": "Cuchara",
+    "ingredients": [
+      "pan",
+      "caldo",
+      "huevo",
+      "perejil",
+      "aceite"
+    ],
+    "steps": [
+      "Tuesta ligeramente las rebanadas de pan.",
+      "Cúbrelas con caldo y cuece unos 15 minutos.",
+      "Cuece los huevos por separado hasta que estén duros, pélalos y pícalos.",
+      "Añade huevo y perejil al servir, con un hilo de aceite."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Sencilla, de cuchara y hecha con muy poco.",
+    "notes": "Adaptación: el original fríe el picadillo en manteca.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de sémola",
+    "time": 15,
+    "category": "Cuchara",
+    "ingredients": [
+      "semola",
+      "caldo"
+    ],
+    "steps": [
+      "Calienta el caldo hasta que hierva.",
+      "Espolvorea la sémola poco a poco, sin dejar de remover.",
+      "Cuece siguiendo las indicaciones de la sémola hasta que esté tierna."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Queda más suave si no dejas de remover.",
+    "notes": "Sin picatostes opcionales.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Sopa de tapioca",
+    "time": 15,
+    "category": "Cuchara",
+    "ingredients": [
+      "tapioca",
+      "caldo"
+    ],
+    "steps": [
+      "Hierve el caldo.",
+      "Añade la tapioca poco a poco, removiendo.",
+      "Mantén la cocción según el paquete hasta que quede transparente y tierna."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Para una cena ligera si ya tienes el caldo.",
+    "notes": "La duración depende del tipo de tapioca.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Puré de guisantes",
+    "time": 25,
+    "category": "Cuchara",
+    "ingredients": [
+      "guisantes",
+      "caldo"
+    ],
+    "steps": [
+      "Cuece los guisantes en caldo hasta que estén tiernos.",
+      "Tritúralos con parte del caldo.",
+      "Devuelve al fuego y ajusta la textura con más caldo."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Si queda demasiado espeso, añade caldo poco a poco.",
+    "notes": "No incluye los picatostes opcionales del libro.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Puré de garbanzos cocidos",
+    "time": 15,
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "garbanzos cocidos",
+      "caldo"
+    ],
+    "steps": [
+      "Calienta los garbanzos cocidos con un poco de caldo.",
+      "Tritura hasta obtener un puré fino.",
+      "Devuélvelo al fuego para servirlo muy caliente."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Ideal para aprovechar garbanzos ya cocidos.",
+    "notes": "Adaptación rápida con legumbre previamente cocida.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Potaje de garbanzos y espinacas",
+    "time": 30,
+    "category": "Legumbres",
+    "ingredients": [
+      "garbanzos cocidos",
+      "espinacas",
+      "ajo",
+      "cebolla",
+      "aceite",
+      "pimenton",
+      "agua"
+    ],
+    "steps": [
+      "Sofríe ajo y cebolla en aceite.",
+      "Retira un momento del fuego para incorporar el pimentón sin quemarlo.",
+      "Añade garbanzos ya cocidos, espinacas y un poco de agua.",
+      "Cuece suavemente hasta que las espinacas estén hechas."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Si los garbanzos son de bote, la cena se acorta mucho.",
+    "notes": "El original parte de garbanzos secos; esta versión es una adaptación con cocidos.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Potaje de judías y arroz",
+    "time": 30,
+    "category": "Legumbres",
+    "ingredients": [
+      "alubias cocidas",
+      "arroz",
+      "ajo",
+      "cebolla",
+      "aceite",
+      "pimenton",
+      "agua",
+      "sal"
+    ],
+    "steps": [
+      "Sofríe ajo y cebolla en aceite; añade el pimentón fuera del fuego.",
+      "Incorpora las alubias cocidas, el arroz y agua suficiente.",
+      "Cuece hasta que el arroz esté completamente hecho, añadiendo agua si hace falta."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Con alubias ya cocidas ahorras el remojo y horas de olla.",
+    "notes": "El libro emplea judías secas; aquí se parte de cocidas.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Caldo gallego sencillo",
+    "time": 35,
+    "category": "Legumbres",
+    "ingredients": [
+      "alubias cocidas",
+      "patata",
+      "berza",
+      "unto",
+      "agua",
+      "sal"
+    ],
+    "steps": [
+      "Pela la patata y córtala pequeña.",
+      "Ponla a cocer en agua con el unto.",
+      "Añade las alubias cocidas y la berza bien lavada y cortada.",
+      "Cuece hasta que patata y berza estén tiernas; ajusta la sal."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Con grelos o nabizas también tiene sentido.",
+    "notes": "Adaptación con alubias cocidas; el unto es ingrediente esencial de esta versión.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Garbanzos fritos de aprovechamiento",
+    "time": 12,
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "garbanzos cocidos",
+      "aceite",
+      "sal"
+    ],
+    "steps": [
+      "Escurre y seca bien los garbanzos cocidos.",
+      "Dóralos en una sartén con aceite caliente, removiendo con cuidado.",
+      "Sazona y sirve como acompañamiento."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Las sobras del cocido tienen otra vida.",
+    "notes": "El libro utiliza manteca; adaptación con aceite.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Ensalada de garbanzos",
+    "time": 15,
+    "category": "Legumbres",
+    "ingredients": [
+      "garbanzos cocidos",
+      "aceite",
+      "vinagre",
+      "sal",
+      "pimienta"
+    ],
+    "steps": [
+      "Escurre los garbanzos ya cocidos y deja que se enfríen si están calientes.",
+      "Mézclalos con aceite, vinagre, sal y pimienta.",
+      "Sirve tal cual o añade verduras que ya tengas."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Huevo duro o aceitunas son opcionales, no obligatorios.",
+    "notes": "Versión mínima del aliño tradicional; los adornos del libro son opcionales.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Arroz pobre",
+    "time": 30,
+    "category": "Arroces",
+    "ingredients": [
+      "arroz",
+      "pimiento",
+      "ajo",
+      "cebolla",
+      "aceite",
+      "pimenton",
+      "agua",
+      "sal"
+    ],
+    "steps": [
+      "Cuece el arroz en agua, añadiendo el pimiento troceado hacia el final.",
+      "Sofríe ajo y cebolla en aceite.",
+      "Añade pimentón fuera del fuego y mezcla el sofrito con el arroz.",
+      "Da un breve hervor final y sirve."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Un buen nombre para un plato que sabe a casa.",
+    "notes": "El libro utiliza también clavo de especia, aquí opcional.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Morisqueta de arroz",
+    "time": 25,
+    "category": "Arroces",
+    "ingredients": [
+      "arroz",
+      "agua",
+      "sal",
+      "aceite"
+    ],
+    "steps": [
+      "Lleva el agua a ebullición y añade el arroz.",
+      "Cuece hasta que quede tierno y absorba el agua necesaria.",
+      "Añade unas gotas de aceite y presenta el arroz compactado en un cuenco."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Sirve como guarnición para lo que ya tengas.",
+    "notes": "Adaptación con aceite en vez de manteca.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Patatas cocidas",
+    "time": 30,
+    "category": "Patatas",
+    "ingredients": [
+      "patata",
+      "agua",
+      "sal"
+    ],
+    "steps": [
+      "Lava y pela las patatas o déjalas con piel si están limpias y es apropiado.",
+      "Cuécelas en agua con sal hasta que un cuchillo entre sin resistencia.",
+      "Escúrrelas y sírvelas."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Pocas cosas resuelven tantos acompañamientos.",
+    "notes": "El tiempo varía mucho según el tamaño de los trozos.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Patatas al vapor",
+    "time": 30,
+    "category": "Patatas",
+    "ingredients": [
+      "patata",
+      "agua",
+      "sal"
+    ],
+    "steps": [
+      "Lava y corta las patatas.",
+      "Pon agua en la olla sin que toque la cesta de vapor.",
+      "Tapa y cuece al vapor hasta que estén tiernas; sala al servir."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Si tienes una cesta para vapor, aprovecha.",
+    "notes": "Necesita cesta o accesorio de cocción al vapor.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Puré de patatas",
+    "time": 35,
+    "category": "Patatas",
+    "ingredients": [
+      "patata",
+      "leche",
+      "mantequilla",
+      "sal",
+      "agua"
+    ],
+    "steps": [
+      "Cuece las patatas en agua hasta que estén blandas.",
+      "Escúrrelas y cháfalas mientras estén calientes.",
+      "Añade leche caliente y una pequeña cantidad de mantequilla.",
+      "Remueve hasta obtener un puré suave; sazona."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "No necesitas batidora: un tenedor hace el trabajo.",
+    "notes": "La receta original también emplea pimienta; aquí es opcional.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Patatas estofadas",
+    "time": 40,
+    "category": "Patatas",
+    "ingredients": [
+      "patata",
+      "aceite",
+      "vino blanco",
+      "ajo",
+      "perejil",
+      "cebolla",
+      "laurel",
+      "sal",
+      "agua"
+    ],
+    "steps": [
+      "Cuece las patatas unos minutos hasta que empiecen a ablandarse y escúrrelas.",
+      "Añade aceite, vino blanco, ajo, cebolla, perejil, laurel y sal.",
+      "Tapa y cocina suavemente hasta que patata y cebolla estén tiernas.",
+      "Si se seca, incorpora unas cucharadas de agua."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Una cazuela y paciencia: de ahí sale algo bueno.",
+    "notes": "El vino es parte de esta receta; no se clasifica como opcional.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Huevos con tomate",
+    "time": 15,
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "tomate",
+      "aceite",
+      "sal"
+    ],
+    "steps": [
+      "Cocina el tomate troceado en una sartén con aceite hasta que pierda parte del agua.",
+      "Añade los huevos y cuájalos a tu gusto, procurando que estén bien cocinados.",
+      "Sazona y sirve enseguida."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "El tomate natural hace buena pareja con el huevo.",
+    "notes": "Versión doméstica en sartén; el libro fríe los huevos y los baña con salsa.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Huevos al plato",
+    "time": 15,
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "mantequilla",
+      "perejil"
+    ],
+    "steps": [
+      "Unta con mantequilla una cazuelita apta para el calor.",
+      "Casca los huevos y cocínalos hasta que clara y yema estén bien cuajadas.",
+      "Espolvorea perejil picado y sirve con cuidado."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Con una cazuelita pequeña ya tienes cena.",
+    "notes": "Usa un recipiente apto para la fuente de calor elegida.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Tortilla francesa con perejil",
+    "time": 12,
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "perejil",
+      "aceite",
+      "sal"
+    ],
+    "steps": [
+      "Bate los huevos con un poco de sal y perejil picado.",
+      "Calienta una sartén con unas gotas de aceite.",
+      "Vierte el huevo y dóblalo cuando haya cuajado, sin dejar que se queme."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "La técnica es sencilla; el secreto es vigilar la sartén.",
+    "notes": "El libro propone manteca y una cocción muy poco cuajada; se adapta para cocinar bien el huevo.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Tortilla de espárragos",
+    "time": 20,
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "esparragos",
+      "aceite",
+      "sal"
+    ],
+    "steps": [
+      "Cuece o saltea las partes tiernas de los espárragos hasta que estén hechas.",
+      "Bate los huevos con sal y mezcla los espárragos.",
+      "Cuaja en una sartén con un poco de aceite, por ambas caras."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Un manojo que quedó suelto en la nevera puede convertirse en cena.",
+    "notes": "Versión con aceite; original con manteca.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Tortilla de judías verdes",
+    "time": 20,
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "judias verdes cocidas",
+      "aceite",
+      "sal"
+    ],
+    "steps": [
+      "Trocea las judías verdes que ya están cocidas y escúrrelas bien.",
+      "Bate el huevo con sal e incorpora las judías.",
+      "Cuaja en sartén con un poco de aceite hasta que esté hecha."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Perfecta para aprovechar judías cocidas de ayer.",
+    "notes": "Se pide judía previamente cocida para evitar un resultado crudo.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Tortilla de menestra sobrante",
+    "time": 12,
+    "category": "Aprovechamiento",
+    "ingredients": [
+      "huevo",
+      "menestra cocida",
+      "aceite",
+      "sal"
+    ],
+    "steps": [
+      "Escurre muy bien la menestra cocida que te haya sobrado.",
+      "Pícala y mézclala con huevo batido y una pizca de sal.",
+      "Cuaja la tortilla a fuego medio con un poco de aceite."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Aquí no se tira la menestra del día anterior.",
+    "notes": "Se presupone menestra cocinada y conservada correctamente.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Tortilla de jamón",
+    "time": 12,
+    "category": "Huevos",
+    "ingredients": [
+      "huevo",
+      "jamon",
+      "aceite"
+    ],
+    "steps": [
+      "Pica el jamón en trocitos y saltéalo muy brevemente.",
+      "Añade el huevo batido y cuaja la tortilla por las dos caras.",
+      "Prueba antes de añadir sal: el jamón ya sala bastante."
+    ],
+    "origin": "Recetario histórico: Manuel M. Puga y Parga (Picadillo), La cocina práctica (1913). Adaptación Apáñate; correspondencia exacta pendiente de cotejo.",
+    "tip": "Una cena sencilla cuando queda un poco de jamón.",
+    "notes": "Versión actual con aceite y menos grasa.",
+    "originKind": "historical",
+    "optional": [],
+    "sourceUrl": "",
+    "servings": "Porciones orientativas; ajustar según ingredientes."
+  },
+  {
+    "name": "Pollo al ajillo",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "ajo",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "perejil"
+    ],
+    "steps": [
+      "Corta el pollo en porciones y sécalo.",
+      "Dóralo en una sartén con aceite.",
+      "Añade el ajo picado y cocina hasta que el pollo esté bien hecho."
+    ],
+    "time": 35,
+    "tip": "Un clásico de sartén, con el ajo justo para alegrarlo.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo guisado con patatas",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "patata",
+      "cebolla",
+      "aceite",
+      "agua",
+      "sal"
+    ],
+    "optional": [
+      "laurel",
+      "ajo"
+    ],
+    "steps": [
+      "Dora el pollo en una cazuela.",
+      "Añade cebolla picada y patatas chascadas.",
+      "Cubre parcialmente con agua y guisa hasta que el pollo esté hecho y la patata tierna."
+    ],
+    "time": 50,
+    "tip": "Todo en una sola cazuela.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo con tomate",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "tomate triturado",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "cebolla",
+      "ajo"
+    ],
+    "steps": [
+      "Dora el pollo troceado.",
+      "Añade tomate triturado y cocina a fuego medio.",
+      "Termina cuando el pollo esté bien hecho y la salsa reducida."
+    ],
+    "time": 35,
+    "tip": "La salsa pide pan, si te queda.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo encebollado",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "cebolla",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "pimienta"
+    ],
+    "steps": [
+      "Sofríe cebolla cortada fina a fuego suave.",
+      "Incorpora el pollo y dóralo.",
+      "Tapa y termina la cocción hasta que esté bien cocinado."
+    ],
+    "time": 40,
+    "tip": "Cebolla despacito y sin prisas.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo al horno con limón",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "limon",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "patata",
+      "ajo"
+    ],
+    "steps": [
+      "Precalienta el horno a 200 °C.",
+      "Pon el pollo en una fuente, añade aceite, sal y zumo de limón.",
+      "Hornea hasta que esté cocinado completamente, comprobando la parte más gruesa."
+    ],
+    "time": 55,
+    "tip": "El horno hace casi todo.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Arroz con pollo y verduras",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "arroz",
+      "pimiento",
+      "cebolla",
+      "agua",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "zanahoria"
+    ],
+    "steps": [
+      "Rehoga el pollo en trozos con cebolla y pimiento.",
+      "Incorpora arroz, remueve y añade agua.",
+      "Cuece hasta que el arroz y el pollo estén hechos."
+    ],
+    "time": 40,
+    "tip": "Un poco de arroz estira la comida.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo con champiñones",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "champiñones",
+      "cebolla",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "ajo"
+    ],
+    "steps": [
+      "Dora el pollo troceado.",
+      "Añade cebolla y champiñones limpios.",
+      "Tapa, cocina y comprueba que el pollo esté hecho."
+    ],
+    "time": 35,
+    "tip": "Con una sartén se apaña.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo en salsa de zanahoria",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "zanahoria",
+      "cebolla",
+      "agua",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "ajo"
+    ],
+    "steps": [
+      "Pocha la cebolla y la zanahoria en rodajas.",
+      "Agrega el pollo y un poco de agua.",
+      "Cocina hasta que el pollo esté bien hecho; tritura la verdura si deseas una salsa fina."
+    ],
+    "time": 45,
+    "tip": "Salsa suave sin necesidad de nata.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Filetes de pollo empanados",
+    "category": "Pollo",
+    "ingredients": [
+      "filetes de pollo",
+      "huevo",
+      "pan rallado",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "ajo",
+      "perejil"
+    ],
+    "steps": [
+      "Sala los filetes; pásalos por huevo batido y después por pan rallado.",
+      "Fríe en aceite caliente sin amontonarlos.",
+      "Escurre y comprueba que el pollo esté totalmente cocinado."
+    ],
+    "time": 20,
+    "tip": "De los que desaparecen enseguida del plato.",
+    "notes": "No confundir con empanada de pollo: esta receta no se atribuye a Picadillo.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pollo adobado con ajo y pimentón",
+    "category": "Pollo",
+    "ingredients": [
+      "pollo",
+      "ajo",
+      "pimenton",
+      "oregano",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Mezcla ajo machacado, pimentón, orégano, sal y aceite.",
+      "Unta el pollo y déjalo marinar refrigerado, sin reutilizar el adobo crudo como salsa.",
+      "Cocina en sartén u horno hasta que esté completamente hecho."
+    ],
+    "time": 35,
+    "tip": "El adobo aporta gracia sin ingredientes difíciles.",
+    "notes": "Versión doméstica propia; no atribuida literalmente a Picadillo. El tiempo no incluye el reposo opcional.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Sardinas al horno con limón",
+    "category": "Pescado",
+    "ingredients": [
+      "sardinas",
+      "limon",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia las sardinas.",
+      "Ponlas en fuente con aceite, sal y limón.",
+      "Hornea hasta que el pescado esté totalmente cocinado."
+    ],
+    "time": 25,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Sardinas con tomate",
+    "category": "Pescado",
+    "ingredients": [
+      "sardinas",
+      "tomate triturado",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Prepara una salsa de tomate sencilla.",
+      "Añade las sardinas limpias.",
+      "Cocina hasta que estén hechas."
+    ],
+    "time": 25,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Caballa al horno con patatas",
+    "category": "Pescado",
+    "ingredients": [
+      "caballa",
+      "patata",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Hornea primero las patatas laminadas con aceite.",
+      "Incorpora la caballa limpia.",
+      "Hornea hasta que el pescado esté hecho y las patatas tiernas."
+    ],
+    "time": 45,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Caballa con ajo y perejil",
+    "category": "Pescado",
+    "ingredients": [
+      "caballa",
+      "ajo",
+      "perejil",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia la caballa y sécala.",
+      "Cocínala por ambos lados en sartén.",
+      "Añade ajo y perejil al final, sin quemarlos."
+    ],
+    "time": 20,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Jurel al horno con cebolla",
+    "category": "Pescado",
+    "ingredients": [
+      "jurel",
+      "cebolla",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta la cebolla fina y ablanda primero en el horno.",
+      "Coloca encima el jurel limpio.",
+      "Hornea hasta que el pescado esté bien cocinado."
+    ],
+    "time": 35,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Jurel frito",
+    "category": "Pescado",
+    "ingredients": [
+      "jurel",
+      "harina",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia y seca el pescado.",
+      "Sálalo y pásalo ligeramente por harina.",
+      "Fríelo hasta que esté totalmente hecho; escurre."
+    ],
+    "time": 20,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Boquerones fritos",
+    "category": "Pescado",
+    "ingredients": [
+      "boquerones",
+      "harina",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia y seca los boquerones.",
+      "Enharina ligeramente.",
+      "Fríe en tandas hasta que estén bien cocinados y crujientes."
+    ],
+    "time": 20,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Boquerones al horno con limón",
+    "category": "Pescado",
+    "ingredients": [
+      "boquerones",
+      "limon",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Limpia y coloca los boquerones en una bandeja.",
+      "Rocía con aceite y limón.",
+      "Hornea hasta que estén cocinados."
+    ],
+    "time": 20,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pescado blanco con tomate",
+    "category": "Pescado",
+    "ingredients": [
+      "pescado blanco",
+      "tomate triturado",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Prepara el tomate en la sartén.",
+      "Añade los filetes de pescado bien descongelados si procede.",
+      "Cocina hasta que el pescado esté totalmente hecho."
+    ],
+    "time": 25,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pescado blanco al papillote",
+    "category": "Pescado",
+    "ingredients": [
+      "pescado blanco",
+      "zanahoria",
+      "cebolla",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta la verdura muy fina.",
+      "Coloca verdura y pescado en un paquete apto para horno.",
+      "Hornea hasta que el pescado y la verdura estén hechos; abre con cuidado por el vapor."
+    ],
+    "time": 30,
+    "tip": "Pescado de diario, sin lujos.",
+    "notes": "Utilizar pescado fresco o descongelado correctamente; cocinar completamente.",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "trad",
+    "origin": "Cocina doméstica tradicional; redacción y adaptación de Apáñate. Sin autor individual acreditado.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de atún y tomate",
+    "category": "Despensa",
+    "ingredients": [
+      "atun de lata",
+      "tomate",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Trocea el tomate.",
+      "Escurre el atún.",
+      "Mezcla y aliña con aceite y sal."
+    ],
+    "time": 8,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pasta con atún y tomate",
+    "category": "Despensa",
+    "ingredients": [
+      "pasta",
+      "atun de lata",
+      "tomate triturado",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece la pasta en agua con sal.",
+      "Calienta el tomate y añade el atún escurrido.",
+      "Mezcla con la pasta."
+    ],
+    "time": 20,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Garbanzos de bote aliñados",
+    "category": "Despensa",
+    "ingredients": [
+      "garbanzos cocidos",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Aclara y escurre los garbanzos de bote.",
+      "Aliña con aceite, vinagre y sal.",
+      "Mezcla y deja reposar unos minutos."
+    ],
+    "time": 8,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Judías blancas con atún",
+    "category": "Despensa",
+    "ingredients": [
+      "alubias cocidas",
+      "atun de lata",
+      "cebolla",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Aclara las judías cocidas.",
+      "Añade atún escurrido y cebolla muy picada.",
+      "Aliña y sirve."
+    ],
+    "time": 10,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Tostas de sardinas de lata",
+    "category": "Despensa",
+    "ingredients": [
+      "sardinas de lata",
+      "pan"
+    ],
+    "optional": [],
+    "steps": [
+      "Tuesta el pan.",
+      "Abre la lata y coloca las sardinas encima.",
+      "Sirve al momento."
+    ],
+    "time": 8,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Arroz con atún de lata",
+    "category": "Despensa",
+    "ingredients": [
+      "arroz",
+      "atun de lata",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece el arroz y escúrrelo.",
+      "Mezcla con el atún escurrido.",
+      "Sirve caliente o frío, según el caso."
+    ],
+    "time": 25,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de maíz y atún",
+    "category": "Despensa",
+    "ingredients": [
+      "maiz cocido",
+      "atun de lata",
+      "tomate",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Escurre el maíz y el atún.",
+      "Trocea el tomate.",
+      "Mezcla y aliña."
+    ],
+    "time": 8,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Patatas con caballa en conserva",
+    "category": "Despensa",
+    "ingredients": [
+      "patata",
+      "caballa en lata",
+      "agua",
+      "sal",
+      "aceite"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece las patatas hasta que estén tiernas.",
+      "Escúrrelas y trocéalas.",
+      "Incorpora caballa de lata escurrida y un poco de aceite."
+    ],
+    "time": 30,
+    "tip": "De abrir armario y resolver.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "own",
+    "origin": "Combinación de ingredientes elaborada para Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de zanahoria y atún",
+    "category": "Ensaladas",
+    "ingredients": [
+      "zanahoria",
+      "atun de lata",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "perejil"
+    ],
+    "steps": [
+      "Ralla la zanahoria.",
+      "Añade atún escurrido.",
+      "Aliña y mezcla."
+    ],
+    "time": 10,
+    "tip": "zanahoria, atún, sencillo",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pirriñaca de verduras",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate",
+      "pimiento",
+      "cebolla",
+      "pepino",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "atun de lata",
+      "caballa en lata",
+      "melva en lata",
+      "pulpo cocido",
+      "gambas cocidas",
+      "sepia cocida",
+      "huevas cocidas"
+    ],
+    "steps": [
+      "Pica todas las verduras en dados pequeños.",
+      "Mezcla y aliña justo antes de servir."
+    ],
+    "time": 12,
+    "tip": "El picadillo que salva una comida.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada griega",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate",
+      "aceitunas negras",
+      "pimiento",
+      "pepino",
+      "queso feta",
+      "cebolla",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Trocea las verduras.",
+      "Agrega el feta y las aceitunas.",
+      "Aliña con aceite y sal."
+    ],
+    "time": 12,
+    "tip": "Fresca y con carácter.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Rúcula con jamón y limón",
+    "category": "Ensaladas",
+    "ingredients": [
+      "rucula",
+      "jamon serrano",
+      "limon",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Lava y seca la rúcula.",
+      "Reparte jamón serrano.",
+      "Aliña con limón y salpimienta."
+    ],
+    "time": 8,
+    "tip": "Limón, no vinagre: respetamos este aliño.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Zanahoria, coliflor y brócoli",
+    "category": "Ensaladas",
+    "ingredients": [
+      "zanahoria",
+      "coliflor",
+      "brocoli",
+      "salsa worcester",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece o cocina al vapor coliflor, brócoli y zanahoria hasta que estén tiernos.",
+      "Deja templar.",
+      "Aliña con Worcester y salpimienta."
+    ],
+    "time": 25,
+    "tip": "Tiene su aliño particular.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Caprese de tomate cherry y mozzarella",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate cherry",
+      "mozzarella",
+      "perejil",
+      "miel",
+      "ajo",
+      "vinagre",
+      "aceite",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta los tomates cherry y la mozzarella.",
+      "Prepara vinagreta de miel, ajo, vinagre, aceite y sal.",
+      "Mezcla con perejil y pimienta."
+    ],
+    "time": 12,
+    "tip": "La variante con vinagreta de miel y ajo.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada inglesa de judías verdes",
+    "category": "Ensaladas",
+    "ingredients": [
+      "judias verdes cocidas",
+      "tomate",
+      "aceite",
+      "vinagre",
+      "salsa worcester",
+      "sal",
+      "pimienta"
+    ],
+    "optional": [],
+    "steps": [
+      "Escurre las judías ya cocidas.",
+      "Trocea tomate.",
+      "Mezcla y aliña con aceite, vinagre y Worcester."
+    ],
+    "time": 10,
+    "tip": "Judías verdes listas en un momento si ya están cocidas.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Tomate con albahaca",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate",
+      "albahaca",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta los tomates.",
+      "Añade hojas de albahaca lavadas.",
+      "Aliña con aceite y sal."
+    ],
+    "time": 6,
+    "tip": "A veces el tomate no necesita compañía.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Espinacas baby con fresas",
+    "category": "Ensaladas",
+    "ingredients": [
+      "espinacas baby",
+      "fresas",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Lava espinacas y fresas.",
+      "Corta las fresas y mezcla.",
+      "Aliña suavemente."
+    ],
+    "time": 8,
+    "tip": "Verde con un punto dulce.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Tomate, aguacate y pepino",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate",
+      "aguacate",
+      "pepino",
+      "aceite",
+      "limon",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Trocea tomate y pepino.",
+      "Corta el aguacate al final.",
+      "Aliña con limón, aceite y sal."
+    ],
+    "time": 10,
+    "tip": "Para comer fresquito.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Tomate con ajo y perejil",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate",
+      "ajo",
+      "perejil",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Trocea el tomate.",
+      "Pica muy fino ajo y perejil.",
+      "Mezcla y aliña."
+    ],
+    "time": 8,
+    "tip": "El aliño de siempre.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Zanahorias aliñadas con comino",
+    "category": "Ensaladas",
+    "ingredients": [
+      "zanahoria",
+      "comino",
+      "perejil",
+      "ajo",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Cuece las zanahorias hasta que queden tiernas y déjalas enfriar.",
+      "Corta en rodajas.",
+      "Aliña con comino, perejil, ajo, aceite, buen vinagre y sal."
+    ],
+    "time": 25,
+    "tip": "De las que mejoran con un rato de reposo.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Caprese clásica",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate",
+      "mozzarella",
+      "albahaca",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta tomate y mozzarella en rodajas.",
+      "Alterna con albahaca.",
+      "Añade aceite y sal."
+    ],
+    "time": 8,
+    "tip": "La caprese clásica, sin inventos.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Judías verdes al ajo y pimentón",
+    "category": "Ensaladas",
+    "ingredients": [
+      "judias verdes cocidas",
+      "ajo",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "pimenton"
+    ],
+    "steps": [
+      "Escurre las judías cocidas.",
+      "Dora el ajo en un poco de aceite y retira del fuego.",
+      "Mezcla y aliña con vinagre."
+    ],
+    "time": 12,
+    "tip": "Un poco de pimentón, si lo tienes.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Pimientos asados con huevo duro",
+    "category": "Ensaladas",
+    "ingredients": [
+      "pimientos asados",
+      "huevo duro",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "atun de lata"
+    ],
+    "steps": [
+      "Corta los pimientos asados.",
+      "Añade huevo duro picado.",
+      "Aliña y sirve."
+    ],
+    "time": 8,
+    "tip": "También admite atún de lata como variante.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada mixta de casa",
+    "category": "Ensaladas",
+    "ingredients": [
+      "lechuga",
+      "tomate",
+      "cebolla",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "pepino",
+      "atun de lata",
+      "huevo duro"
+    ],
+    "steps": [
+      "Lava y corta lechuga, tomate y cebolla.",
+      "Aliña justo antes de servir."
+    ],
+    "time": 8,
+    "tip": "Pepino, atún y huevo duro son opcionales.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Cogollos aliñados",
+    "category": "Ensaladas",
+    "ingredients": [
+      "cogollos",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "pimienta"
+    ],
+    "steps": [
+      "Lava los cogollos y córtalos a cuartos.",
+      "Escurre y aliña."
+    ],
+    "time": 7,
+    "tip": "También puedes elegir tzatziki si ya lo tienes.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Tomate cherry y mozzarella con rúcula",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate cherry",
+      "mozzarella",
+      "rucula",
+      "aceite",
+      "sal"
+    ],
+    "optional": [
+      "canonigos"
+    ],
+    "steps": [
+      "Lava la rúcula y los tomatitos.",
+      "Añade las bolitas de mozzarella.",
+      "Aliña."
+    ],
+    "time": 8,
+    "tip": "Se puede cambiar la rúcula por canónigos.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Remolacha con yogur y mostaza",
+    "category": "Ensaladas",
+    "ingredients": [
+      "remolacha cocida",
+      "yogur",
+      "ajo",
+      "mostaza",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [
+      "nueces"
+    ],
+    "steps": [
+      "Trocea la remolacha cocida.",
+      "Mezcla yogur, ajo, mostaza, aceite, vinagre y sal.",
+      "Aliña; añade nueces solo si las tienes."
+    ],
+    "time": 10,
+    "tip": "Inspiración de la cocina griega; no se reproduce el texto de Vefa.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Tomate rosa, burrata y rúcula",
+    "category": "Ensaladas",
+    "ingredients": [
+      "tomate rosa",
+      "burrata",
+      "rucula",
+      "ajo",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Dora ajo laminado en aceite y deja templar.",
+      "Coloca tomate, rúcula y burrata.",
+      "Aliña con el aceite aromatizado."
+    ],
+    "time": 12,
+    "tip": "Para cuando ya tienes burrata en casa.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada César casera",
+    "category": "Ensaladas",
+    "ingredients": [
+      "lechuga romana",
+      "picatostes",
+      "parmesano",
+      "pollo cocido",
+      "salsa cesar"
+    ],
+    "optional": [],
+    "steps": [
+      "Lava y corta la lechuga.",
+      "Añade pollo ya cocinado, picatostes y parmesano.",
+      "Mezcla con salsa César ya preparada."
+    ],
+    "time": 12,
+    "tip": "La salsa César debe estar lista; no sustituir por vinagre.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada Niçoise con ajo",
+    "category": "Ensaladas",
+    "ingredients": [
+      "lechuga",
+      "atun de lata",
+      "judias verdes cocidas",
+      "tomate",
+      "huevo duro",
+      "aceitunas negras",
+      "anchoas de lata",
+      "ajo",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Prepara las judías cocidas y el huevo duro.",
+      "Lava y corta las verduras.",
+      "Reparte atún, anchoas y aceitunas.",
+      "Aliña con ajo, aceite, vinagre y sal."
+    ],
+    "time": 18,
+    "tip": "Una Niçoise completa, con aliño de ajo.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada Waldorf",
+    "category": "Ensaladas",
+    "ingredients": [
+      "manzana",
+      "apio",
+      "nueces",
+      "mayonesa"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta manzana y apio finos.",
+      "Trocea las nueces.",
+      "Mezcla con mayonesa y sirve frío."
+    ],
+    "time": 10,
+    "tip": "Crujiente, con contraste dulce.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de pollo con mostaza y miel",
+    "category": "Ensaladas",
+    "ingredients": [
+      "lechuga",
+      "pollo cocido",
+      "aguacate",
+      "tomate",
+      "mostaza",
+      "miel",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Lava y corta las verduras.",
+      "Añade pollo ya cocinado y frío, bien conservado.",
+      "Mezcla mostaza, miel, aceite y sal; aliña."
+    ],
+    "time": 12,
+    "tip": "Plato fresco de aprovechamiento.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Judías blancas con atún, limón y mostaza",
+    "category": "Ensaladas",
+    "ingredients": [
+      "alubias cocidas",
+      "atun de lata",
+      "cebolla roja",
+      "tomate",
+      "limon",
+      "mostaza",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Escurre y aclara las alubias.",
+      "Mezcla con atún, cebolla y tomate picados.",
+      "Aliña con limón, mostaza, aceite y sal."
+    ],
+    "time": 12,
+    "tip": "Un aliño distinto para la despensa.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de col y manzana",
+    "category": "Ensaladas",
+    "ingredients": [
+      "col",
+      "zanahoria",
+      "manzana",
+      "pasas",
+      "mayonesa",
+      "vinagre"
+    ],
+    "optional": [],
+    "steps": [
+      "Ralla la col y la zanahoria y corta la manzana.",
+      "Añade las pasas.",
+      "Mezcla mayonesa y vinagre; aliña y refrigera."
+    ],
+    "time": 15,
+    "tip": "Crujiente y fresca.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de frutas",
+    "category": "Ensaladas",
+    "ingredients": [
+      "fresas",
+      "pina",
+      "kiwi",
+      "uvas"
+    ],
+    "optional": [],
+    "steps": [
+      "Lava bien la fruta.",
+      "Pela y trocea las piezas.",
+      "Mezcla y sirve fría."
+    ],
+    "time": 12,
+    "tip": "Puedes sustituir frutas: esta versión concreta requiere estas cuatro.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada de quinoa con verduras",
+    "category": "Ensaladas",
+    "ingredients": [
+      "quinoa cocida",
+      "tomate",
+      "pepino",
+      "aguacate",
+      "limon",
+      "aceite",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Deja enfriar la quinoa ya cocida.",
+      "Corta verduras y aguacate.",
+      "Mezcla y aliña con limón, aceite y sal."
+    ],
+    "time": 12,
+    "tip": "Si ya tienes quinoa cocida, es rápida.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  },
+  {
+    "name": "Ensalada tropical de Antonio R.",
+    "category": "Ensaladas",
+    "ingredients": [
+      "mango",
+      "aguacate",
+      "langostinos cocidos",
+      "cebolla roja",
+      "limon",
+      "naranja",
+      "aceite",
+      "vinagre",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Corta mango y aguacate.",
+      "Añade langostinos ya cocidos y cebolla picada.",
+      "Aliña con zumo de limón y naranja, ralladura de limón, aceite, buen vinagre y sal."
+    ],
+    "time": 15,
+    "tip": "Receta aportada al proyecto; apellido abreviado según petición.",
+    "notes": "",
+    "servings": "Cantidades por ajustar a las raciones.",
+    "originKind": "user",
+    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
+    "sourceUrl": "",
+    "labels": ""
+  }
+]
