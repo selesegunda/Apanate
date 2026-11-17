@@ -64,7 +64,3 @@ $('libros-form').addEventListener('submit',event=>{
   event.preventDefault();const g=$('libro-genero').value,l=$('libro-idioma').value;const found=books.filter(b=>(g==='cualquiera'||b.genre===g)&&(l==='cualquiera'||b.lang===l));
   show('libros-resultado',found.length?'<strong>Lecturas para explorar</strong><ul>'+found.map(x=>'<li>'+escapeHTML(x.name)+' — '+escapeHTML(x.author)+'</li>').join('')+'</ul><p><small>Selección de ejemplo, no clasificación de libros más vendidos.</small></p>':'No hay coincidencias en esta selección inicial.');
 });
-$('viajes-form').addEventListener('submit',event=>{
-  event.preventDefault();const a=Number($('viaje-presupuesto').value),b=Number($('viaje-transporte').value),c=Number($('viaje-hotel').value);if([a,b,c].some(x=>!Number.isFinite(x)||x<0))return;
-  const balance=a-b-c;show('viajes-resultado','<strong>'+(balance>=0?'Te quedarían ':'Te faltarían ')+money(Math.abs(balance))+'</strong><p>Incluye comidas, actividades e imprevistos antes de decidir. Son precios introducidos por ti, no tarifas consultadas.</p>');
-});

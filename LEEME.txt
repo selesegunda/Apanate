@@ -1,26 +1,31 @@
-ACTUALIZACIÓN ¡APÁÑATE! — NOVIEMBRE 2026
+¡APAÑATE! — ACTUALIZACIÓN DE VIAJES
 
-Contenido del ZIP (las rutas son relativas a la raíz del repositorio):
-  index.html                 REEMPLAZAR el index principal
-  js/app.js                  REEMPLAZAR js/app.js
-  planes-gratis/index.html   NUEVO
-  planes-gratis/style.css   NUEVO
-  planes-gratis/app.js      NUEVO
+OBJETIVO
+Sustituye la calculadora anterior de viajes por un explorador de escapadas
+sin destino prefijado. Pide presupuesto total, origen, personas y fechas o época.
 
-NO borres ninguna otra carpeta ni archivo existente: conserva css/style.css,
-cocina/, cine/, libros/, etc.
+ARCHIVOS QUE DEBES SUBIR A GITHUB
+- /index.html       -> sustituye el de la raíz
+- /js/app.js        -> sustituye el antiguo
+- /viajes/index.html -> nuevo
+- /viajes/style.css  -> nuevo
+- /viajes/app.js     -> nuevo
 
-CAMBIOS:
-- La tarjeta «¿Qué vemos?» abre /cine/.
-- Se mantienen los enlaces /cocina/ y /libros/.
-- Desaparece Dinero y se añade Planes gratis en la portada.
-- La nueva sección /planes-gratis/ tiene buscador por ciudad/provincia,
-  temática y fecha aproximada.
-- Su búsqueda abre Google con los filtros: NO es una base de datos
-  de eventos ni confirma automáticamente que sean gratuitos.
-  El visitante debe comprobar las páginas oficiales.
-- Se elimina del JavaScript el controlador del formulario de Dinero.
-- El resto de herramientas y su código siguen en la página principal.
+MANTÉN el resto de carpetas y archivos del repositorio. En particular,
+no elimines cocina, cine, libros ni planes-gratis.
 
-NOTA: el enlace /cine/ funcionará si ese directorio ya está desplegado
-      en https://apanate.pages.dev/cine/ como has indicado.
+FUNCIONAMIENTO Y LÍMITES
+- Genera ideas de destinos según la ciudad de salida (varias zonas de España).
+- Ofrece enlaces externos para comprobar transporte y alojamiento.
+- No accede a APIs de reservas ni verifica los precios en tiempo real.
+- No promete que los destinos sean asequibles; eso requiere contrastar tarifas.
+- Si el origen no está reconocido, muestra destinos generales de referencia.
+- No se recogen ni almacenan los datos del formulario.
+
+CÓMO COMPROBAR
+1. Abre /viajes/ después del despliegue en Cloudflare Pages.
+2. Prueba ciudad: Sevilla; presupuesto: 250; personas: 2; 2 noches.
+3. Prueba fechas concretas y las diferentes épocas.
+4. Comprueba el botón «¡Nos escapamos!» desde la portada.
+
+Este ZIP NO cambia la sección de Cine.
