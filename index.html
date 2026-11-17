@@ -14,6 +14,35 @@
     .topbar .brand { display: inline-block; gap: 0; font-family: Georgia, serif; font-size: 2rem; font-weight: 900; letter-spacing: -.055em; color: #234a37; text-decoration: none; white-space: nowrap; }
     .topbar .brand .accent { color: #df7552; }
     @media (max-width: 510px) { .topbar .brand { font-size: 1.7rem; } }
+    /* Firma de autoría discreta y legible en la portada. */
+    .author-signature {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: #315841;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .98rem;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: .018em;
+      white-space: nowrap;
+    }
+    .author-signature::before {
+      content: "✿";
+      font-style: normal;
+      font-size: .91rem;
+      color: #cf795c;
+    }
+    .author-signature .author-year {
+      font-size: .82rem;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: .04em;
+      color: #65786a;
+    }
+    @media (max-width: 660px) {
+      .footer .author-signature { width: 100%; justify-content: center; margin-block: .25rem; }
+    }
   </style>
 </head>
 <body>
@@ -43,7 +72,7 @@
     </section>
     <section class="wrapper bottom-banner"><span class="bottom-spark" aria-hidden="true">✷</span><div><h2>Menos complicaciones, más ideas.</h2><p>Esto es una primera versión: iremos mejorando las herramientas y añadiendo datos contrastados. Sin anuncios y sin registros.</p></div></section>
   </main>
-  <footer class="footer wrapper"><span>© <span id="year"></span> ¡Apáñate!</span><span>Proyecto en pruebas · Sin publicidad · <a href="/privacidad.html">Privacidad</a></span></footer>
+  <footer class="footer wrapper"><span>© <span id="year"></span> ¡Apáñate!</span><span class="author-signature" aria-label="Autoría: Selesegunda, 2026">Selesegunda <span class="author-year">· 2026</span></span><span>Proyecto en pruebas · Sin publicidad · <a href="/privacidad.html">Privacidad</a></span></footer>
   <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9923cc398e43437fa45d84914d0e9f90"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
