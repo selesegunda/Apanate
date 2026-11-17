@@ -7,7 +7,10 @@
     "lista": "Ficción",
     "puesto": 1,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9788432251436",
+    "portada": "https://imagessl6.casadellibro.com/a/l/s5/36/9788432251436.webp",
+    "comprar": "https://www.casadellibro.com/libro-cosamala/9788432251436/18312315"
   },
   {
     "grupo": "es",
@@ -17,7 +20,12 @@
     "lista": "Ficción",
     "puesto": 2,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9788423370504",
+    "portada": "https://imagessl4.casadellibro.com/a/l/s5/04/9788423370504.webp",
+    "comprar": "https://www.casadellibro.com/libro-todas-las-noches-todas-las-ciudades/9788423370504/18308659",
+    "valoracion": 5,
+    "resenas": 16
   },
   {
     "grupo": "es",
@@ -47,7 +55,10 @@
     "lista": "Ficción",
     "puesto": 5,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9788401033797",
+    "portada": "https://imagessl7.casadellibro.com/a/l/s5/97/9788401033797.webp",
+    "comprar": "https://www.casadellibro.com/libro-una-familia-moderna/9788401033797/18293354"
   },
   {
     "grupo": "es",
@@ -77,7 +88,11 @@
     "lista": "Ficción",
     "puesto": 8,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9791388154751",
+    "portada": "https://imagessl1.casadellibro.com/a/l/s5/51/9791388154751.webp",
+    "comprar": "https://www.casadellibro.com/libro-contenta/9791388154751/18577179",
+    "precio": "21,76 €"
   },
   {
     "grupo": "es",
@@ -107,7 +122,10 @@
     "lista": "Ficción",
     "puesto": 13,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9788410178595",
+    "portada": "https://imagessl5.casadellibro.com/a/l/s5/95/9788410178595.webp",
+    "comprar": "https://www.casadellibro.com/libro-comeras-flores/9788410178595/17139851"
   },
   {
     "grupo": "es",
@@ -137,7 +155,12 @@
     "lista": "Ficción",
     "puesto": 18,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9788432242120",
+    "portada": "https://imagessl0.casadellibro.com/a/l/s5/20/9788432242120.webp",
+    "comprar": "https://www.casadellibro.com/libro-la-mala-costumbre/9788432242120/13570679",
+    "valoracion": 5,
+    "resenas": 123
   },
   {
     "grupo": "es",
@@ -207,7 +230,11 @@
     "lista": "Ficción",
     "puesto": 10,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "isbn": "9788433980830",
+    "portada": "https://imagessl0.casadellibro.com/a/l/s5/30/9788433980830.webp",
+    "comprar": "https://www.casadellibro.com/libro-las-gratitudes/9788433980830/12163053",
+    "precio": "17,95 €"
   },
   {
     "grupo": "tr",
@@ -287,7 +314,10 @@
     "lista": "Ficción",
     "puesto": 10,
     "fecha": "21/10 ABC",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "isbn": "9788413621654",
+    "portada": "https://imagessl4.casadellibro.com/a/l/s5/54/9788413621654.webp",
+    "comprar": "https://www.casadellibro.com/libro-la-biblioteca-de-la-medianoche-premio-goodreads-ficcion-2020/9788413621654/12056384"
   },
   {
     "grupo": "tr",
@@ -297,7 +327,12 @@
     "lista": "Ficción",
     "puesto": 9,
     "fecha": "21/10 ABC",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "isbn": "9791387512446",
+    "portada": "https://imagessl6.casadellibro.com/a/l/s5/46/9791387512446.webp",
+    "comprar": "https://www.casadellibro.com/libro-la-inquilina/9791387512446/18200840",
+    "valoracion": 4.5,
+    "resenas": 46
   },
   {
     "grupo": "tr",
@@ -317,7 +352,10 @@
     "lista": "No ficción",
     "puesto": 6,
     "fecha": "28/10 ABC",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "isbn": "9788408268130",
+    "portada": "https://imagessl0.casadellibro.com/a/l/s5/30/9788408268130.webp",
+    "comprar": "https://www.casadellibro.com/libro-la-psicologia-del-dinero-como-piensan-los-ricos/9788408268130/13344376"
   },
   {
     "grupo": "tr",
@@ -327,7 +365,10 @@
     "lista": "No ficción",
     "puesto": 10,
     "fecha": "28/10 ABC",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "isbn": "9788418118036",
+    "portada": "https://imagessl6.casadellibro.com/a/l/s5/36/9788418118036.webp",
+    "comprar": "https://www.casadellibro.com/libro-habitos-atomicos/9788418118036/11364192"
   },
   {
     "grupo": "tr",
@@ -337,7 +378,11 @@
     "lista": "Ficción",
     "puesto": 6,
     "fecha": "11/11 ABC",
-    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"
+    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/",
+    "isbn": "9788491294283",
+    "portada": "https://imagessl3.casadellibro.com/a/l/s5/83/9788491294283.webp",
+    "comprar": "https://www.casadellibro.com/libro-la-asistenta/9788491294283/13931484",
+    "precio": "11,36 €"
   },
   {
     "grupo": "tr",
