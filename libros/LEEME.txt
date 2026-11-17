@@ -1,0 +1,1 @@
+Sube la carpeta libros a la raíz del repositorio. Esta versión busca portadas, valoraciones y precios orientativos desde Google Books al cargar la página.

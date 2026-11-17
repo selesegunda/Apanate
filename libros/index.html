@@ -1,15 +1,330 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f5ea"><meta name="description" content="¡Apáñate! Libros: 40 lecturas en listas de ventas, originales en castellano y traducidas, con acceso a librerías."><title>Libros · ¡Apáñate!</title>
-<style>
-:root{--green:#234a37;--coral:#d36b51;--cream:#faf8ef;--text:#29332e;--light:#e8eee3;--line:#d7dbcf}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}a{color:var(--green)}.wrap{max-width:1110px;margin:auto;padding:0 20px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 0}.logo{font:700 clamp(28px,4vw,42px) Georgia,serif;text-decoration:none;color:var(--green);white-space:nowrap}.c{color:var(--coral)}.back{font-weight:650;text-decoration:none}.hero{padding:45px 0 33px;border-top:1px solid var(--line)}h1{font:700 clamp(38px,6vw,68px)/1.09 Georgia,serif;letter-spacing:-1px;color:var(--green);margin:0 0 15px}.intro{font-size:19px;max-width:700px}.small{color:#59685e;font-size:14px}.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:25px 0 18px}.tabs{display:flex;gap:6px;background:var(--light);padding:5px;border-radius:16px}.tab{background:transparent;color:var(--green);border:0;padding:12px 16px;border-radius:12px;font-weight:750;cursor:pointer}.tab[aria-selected=true]{background:var(--green);color:white}.search{flex:1;min-width:220px;padding:14px 17px;border:1px solid #b6c4b5;border-radius:12px;font:inherit;background:white}.count{margin:0 0 20px;font-size:14px;color:#56655b}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:17px}.book{background:white;border:1px solid var(--line);border-radius:17px;padding:21px;display:flex;flex-direction:column;gap:10px;min-height:260px;box-shadow:0 3px 12px #2338260b}.book h2{font:700 23px/1.2 Georgia,serif;color:var(--green);margin:0}.author{font-weight:650}.meta{font-size:13px;color:#536255}.tag{font-size:12px;background:#f4e9df;color:#87513e;align-self:flex-start;padding:4px 9px;border-radius:12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto}.actions a{font-size:13px;font-weight:650;text-decoration:none;border:1px solid #b3c4b4;padding:7px 10px;border-radius:8px}.actions a:hover,.actions a:focus{background:var(--light)}.notice{background:#f1f2e8;border-radius:14px;padding:18px 20px;margin:35px 0}.notice p{margin:.5em 0}.footer{border-top:1px solid var(--line);padding:24px 0 50px;font-size:14px;color:#5b675d}.footer a{margin-right:14px}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}@media(max-width:500px){.top{align-items:flex-start}.back{font-size:14px}.hero{padding:25px 0}.tab{padding:10px 11px;font-size:13px}.grid{grid-template-columns:1fr}}
-</style></head><body>
-<div class="wrap"><header class="top"><a class="logo" href="/" aria-label="¡Apáñate! portada"><span class="c">¡</span>Ap<span class="c">á</span>ñate<span class="c">!</span></a><a class="back" href="/">← Volver a la portada</a></header>
-<main><section class="hero"><h1>Libros que apetece leer.</h1><p class="intro">Cuarenta títulos presentes en listas recientes de ventas. Veinte escritos originalmente en castellano y veinte traducidos.</p><p class="small">Selección inicial · 17 de noviembre de 2026 · Datos de ventas, no clasificación oficial por idioma ni ranking de mejores reseñas.</p></section>
-<div class="controls"><div class="tabs" role="tablist" aria-label="Idioma original"><button class="tab" role="tab" type="button" id="tab-es" aria-selected="true" aria-controls="libros-lista" data-grupo="es">20 en castellano</button><button class="tab" role="tab" type="button" id="tab-tr" aria-selected="false" aria-controls="libros-lista" data-grupo="tr">20 traducidos</button></div><input class="search" type="search" id="buscar" placeholder="Buscar por título, autor o editorial…" aria-label="Buscar libros"></div>
-<p class="count" id="contador" aria-live="polite"></p><div class="grid" id="libros-lista" role="tabpanel" aria-labelledby="tab-es"></div>
-<div class="notice"><strong>Cómo hemos elegido los libros</strong><p>Los puestos son los publicados en la lista y fecha indicadas: no una clasificación global de las 40 obras. Las listas de ventas proceden de El Cultural/Todos Tus Libros y de recopilaciones de ABC Cultural. Las reseñas y sus puntuaciones aún no están contrastadas: por eso no mostramos estrellas ni afirmamos que estos sean los veinte mejor valorados.</p><p>Los enlaces «Buscar en librería» muestran una búsqueda del título y autor en el catálogo correspondiente mediante un buscador externo; no son todavía fichas de edición verificadas. Se evitarán ediciones equivocadas al comprobar el ISBN.</p><p>En España los libros nuevos están sujetos al precio fijo editorial, normalmente con un descuento máximo del 5 %. Las ediciones, gastos de envío y excepciones pueden variar. <a href="https://www.boe.es/eli/es/l/2007/06/22/10/con" target="_blank" rel="noopener noreferrer">Consultar la ley</a>.</p></div></main>
-<footer class="footer">Hecho con cariño para <strong>¡Apáñate!</strong> · <a href="/cocina/">Cocina</a> <a href="/">Portada</a> <a href="https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html" target="_blank" rel="noopener noreferrer">Fuente de ventas (13/11/2026)</a></footer></div>
-<script id="catalogo" type="application/json">[{"grupo":"es","titulo":"Cosamala","autor":"Alana S. Portero","editorial":"Seix Barral","lista":"Ficción","puesto":1,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Todas las noches, todas las ciudades","autor":"Dolores Redondo","editorial":"Destino","lista":"Ficción","puesto":2,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"La hipótesis más peligrosa","autor":"Arturo Pérez-Reverte","editorial":"Alfaguara","lista":"Ficción","puesto":3,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Todo bajo control, menos tú","autor":"Megan Maxwell","editorial":"Espasa","lista":"Ficción","puesto":4,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Una familia moderna","autor":"Julia Navarro","editorial":"Plaza & Janés","lista":"Ficción","puesto":5,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Un hombre de honor","autor":"Paloma Sánchez-Garnica","editorial":"Planeta","lista":"Ficción","puesto":6,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Un día en la vida de Clarita","autor":"Rosa Montero","editorial":"Alfaguara","lista":"Ficción","puesto":7,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Contenta","autor":"Santiago Lorenzo","editorial":"Blackie Books","lista":"Ficción","puesto":8,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"La piedra oscura","autor":"Alberto Conejero","editorial":"Antígona","lista":"Ficción","puesto":9,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Los huérfanos","autor":"Carmen Mola","editorial":"Planeta","lista":"Ficción","puesto":11,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Comerás flores","autor":"Lucía Solla Sobral","editorial":"Libros del Asteroide","lista":"Ficción","puesto":13,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"El hombre ideal","autor":"La Vecina Rubia","editorial":"Libros Cúpula","lista":"Ficción","puesto":14,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Las leopardas","autor":"Marta Borraz","editorial":"Tusquets","lista":"Ficción","puesto":15,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"La mala costumbre","autor":"Alana S. Portero","editorial":"Seix Barral","lista":"Ficción","puesto":18,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Bajamar","autor":"Ibon Martín","editorial":"Plaza & Janés","lista":"Ficción","puesto":20,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Conversación con la oscuridad","autor":"Mariana Enriquez","editorial":"Páginas de Espuma","lista":"No ficción","puesto":1,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Qué hacemos con los domingos por la tarde","autor":"Ignacio Peyró","editorial":"Libros del Asteroide","lista":"No ficción","puesto":2,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Recuerdos. Breve historia de un amor","autor":"Juan Ramírez de Lucas","editorial":"Seix Barral","lista":"No ficción","puesto":3,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Cuanta más gente me jode, más buenos momentos tengo","autor":"Maruja Torres","editorial":"Temas de Hoy","lista":"No ficción","puesto":6,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"es","titulo":"Fantasma","autor":"Nerea Pérez de las Heras","editorial":"Alfaguara","lista":"No ficción","puesto":8,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"Las gratitudes","autor":"Delphine de Vigan","editorial":"Anagrama","lista":"Ficción","puesto":10,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"Cuando seas feliz, golpea tú primero","autor":"Tatiana Țîbuleac","editorial":"Impedimenta","lista":"Ficción","puesto":12,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"Lázár","autor":"Nelio Biedermann","editorial":"Salamandra","lista":"Ficción","puesto":19,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"El hijo del oligarca","autor":"Patrick Radden Keefe","editorial":"Seix Barral","lista":"No ficción","puesto":4,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"Sin respeto. Una crisis social","autor":"Byung-Chul Han","editorial":"Paidós","lista":"No ficción","puesto":5,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"Europa en siete capítulos y medio","autor":"Timothy Garton Ash","editorial":"Taurus","lista":"No ficción","puesto":10,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"Mi amor no muere","autor":"Roberto Saviano","editorial":"Alfaguara","lista":"No ficción","puesto":15,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"El hombre en busca de sentido","autor":"Viktor E. Frankl","editorial":"Herder","lista":"No ficción","puesto":18,"fecha":"13/11","fuente":"https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"},{"grupo":"tr","titulo":"La Biblioteca de la Medianoche","autor":"Matt Haig","editorial":"AdN","lista":"Ficción","puesto":10,"fecha":"21/10 ABC","fuente":"https://nuevoslibros.com/mas-leidos/"},{"grupo":"tr","titulo":"La inquilina","autor":"Freida McFadden","editorial":"Suma de Letras","lista":"Ficción","puesto":9,"fecha":"21/10 ABC","fuente":"https://nuevoslibros.com/mas-leidos/"},{"grupo":"tr","titulo":"Murdle","autor":"G. T. Karber","editorial":"Temas de Hoy","lista":"No ficción","puesto":3,"fecha":"28/10 ABC","fuente":"https://nuevoslibros.com/mas-leidos/"},{"grupo":"tr","titulo":"Psicología del dinero","autor":"Morgan Housel","editorial":"Booket","lista":"No ficción","puesto":6,"fecha":"28/10 ABC","fuente":"https://nuevoslibros.com/mas-leidos/"},{"grupo":"tr","titulo":"Hábitos atómicos","autor":"James Clear","editorial":"Diana","lista":"No ficción","puesto":10,"fecha":"28/10 ABC","fuente":"https://nuevoslibros.com/mas-leidos/"},{"grupo":"tr","titulo":"La asistenta","autor":"Freida McFadden","editorial":"Suma de Letras","lista":"Ficción","puesto":6,"fecha":"11/11 ABC","fuente":"https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"},{"grupo":"tr","titulo":"Nunca mientas","autor":"Freida McFadden","editorial":"Debolsillo","lista":"Ficción","puesto":7,"fecha":"11/11 ABC","fuente":"https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"},{"grupo":"tr","titulo":"Dorayaki","autor":"Durian Sukegawa","editorial":"Chai Editora","lista":"Ficción","puesto":8,"fecha":"11/11 ABC","fuente":"https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"},{"grupo":"tr","titulo":"La paciente silenciosa","autor":"Alex Michaelides","editorial":"Debolsillo","lista":"Ficción","puesto":5,"fecha":"11/11 ABC","fuente":"https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"},{"grupo":"tr","titulo":"El llanto de los muertos","autor":"Camilla Läckberg","editorial":"Planeta","lista":"Ficción","puesto":1,"fecha":"11/11 ABC","fuente":"https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"},{"grupo":"tr","titulo":"Una corte de armonía rota","autor":"Sarah J. Maas","editorial":"Crossbooks","lista":"General","puesto":1,"fecha":"02/11 T.T.Libros","fuente":"https://nuevoslibros.com/mas-leidos/"},{"grupo":"tr","titulo":"El día de la trilla","autor":"Rebecca Yarros","editorial":"Planeta","lista":"Infantil y juvenil","puesto":2,"fecha":"04/11 ABC","fuente":"https://nuevoslibros.com/mas-leidos/"}]</script>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f8f5ea">
+  <meta name="description" content="¡Apáñate! Libros: 40 lecturas con portadas, precios orientativos, valoraciones y acceso a librerías.">
+  <title>Libros · ¡Apáñate!</title>
+  <style>
+    :root{
+      --green:#234a37;
+      --green-2:#355f49;
+      --coral:#d36b51;
+      --coral-2:#e9a38f;
+      --cream:#fbf8ef;
+      --cream-2:#f4efe2;
+      --text:#26322c;
+      --muted:#5f6f64;
+      --line:#d9ddcf;
+      --light:#ecf1e7;
+      --shadow:0 16px 36px rgba(35,74,55,.08);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#fffdf7 0%,var(--cream) 180px,var(--cream) 100%);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    img{max-width:100%;display:block}
+    a{color:var(--green)}
+    button,input{font:inherit}
+    .wrap{max-width:1180px;margin:auto;padding:0 20px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 0}
+    .logo{font:700 clamp(28px,4vw,42px) Georgia,serif;text-decoration:none;color:var(--green);white-space:nowrap}
+    .c{color:var(--coral)}
+    .back{font-weight:700;text-decoration:none;color:var(--green);background:#fff;padding:10px 14px;border:1px solid var(--line);border-radius:999px;box-shadow:0 3px 10px rgba(0,0,0,.04)}
+    .hero{padding:14px 0 34px;border-top:1px solid var(--line);display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:stretch}
+    .hero-copy{background:linear-gradient(135deg,#fff 0%,#fff7f1 52%,#fff 100%);border:1px solid var(--line);border-radius:28px;padding:30px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero-copy::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--coral-2),transparent 70%);opacity:.25}
+    h1{font:700 clamp(42px,6vw,68px)/1.02 Georgia,serif;letter-spacing:-1.2px;color:var(--green);margin:0 0 16px;max-width:10ch}
+    .intro{font-size:19px;max-width:780px;margin:0 0 16px}
+    .hero-notes{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#f7efe5;color:#8d553f;border:1px solid #efdccf;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:700}
+    .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+    .stat .big{display:block;font:700 34px/1 Georgia,serif;color:var(--green);margin-bottom:10px}
+    .stat strong{display:block;margin-bottom:6px;color:var(--green)}
+    .stat p{margin:0;color:var(--muted);font-size:14px}
+    .controls{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin:28px 0 18px}
+    .tabs{display:flex;gap:6px;background:var(--light);padding:5px;border-radius:16px;box-shadow:inset 0 0 0 1px #dae5d5}
+    .tab{background:transparent;color:var(--green);border:0;padding:12px 16px;border-radius:12px;font-weight:800;cursor:pointer}
+    .tab[aria-selected=true]{background:var(--green);color:#fff}
+    .search-wrap{position:relative}
+    .search{width:100%;padding:15px 18px 15px 48px;border:1px solid #b9c6b7;border-radius:14px;background:#fff}
+    .search-wrap::before{content:"🔎";position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px}
+    .mini-note{font-size:13px;color:var(--muted);text-align:right}
+    .count{margin:0 0 18px;font-size:14px;color:#55645a}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:18px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:var(--shadow);display:grid;grid-template-columns:108px 1fr;gap:16px;align-items:start;min-height:250px;position:relative}
+    .cover-box{position:relative}
+    .cover{width:108px;height:160px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#e9ece3,#f7efe7);border:1px solid #d4dbcf;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(35,74,55,.11)}
+    .cover img{width:100%;height:100%;object-fit:cover}
+    .cover-fallback{padding:12px;text-align:center;color:var(--green);font:700 14px/1.2 Georgia,serif}
+    .rank{position:absolute;top:-8px;left:-8px;background:var(--coral);color:#fff;min-width:38px;height:38px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 6px 18px rgba(211,107,81,.35)}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;border:1px solid #efe2d6;background:#fcf4ec;color:#8f5b46}
+    .tag.green{background:#eef6ef;border-color:#d8e7d8;color:#41654f}
+    .title{font:700 24px/1.15 Georgia,serif;color:var(--green);margin:0 0 8px}
+    .author{font-weight:800;margin:0 0 4px}
+    .editorial{font-size:14px;color:var(--muted);margin:0 0 12px}
+    .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin:12px 0 14px}
+    .fact{background:#faf8f0;border:1px solid #ebe6d9;border-radius:14px;padding:10px 11px;min-height:58px}
+    .fact .label{display:block;font-size:11px;font-weight:800;color:#7a867e;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+    .fact .value{display:block;font-size:14px;font-weight:700;color:var(--green)}
+    .fact .value small{font-size:12px;color:var(--muted);font-weight:600}
+    .source{font-size:12px;color:var(--muted);margin:0 0 14px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+    .btn{font-size:13px;font-weight:800;text-decoration:none;border:1px solid #b8c8b8;padding:9px 11px;border-radius:12px;background:#fff;color:var(--green)}
+    .btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+    .btn:hover,.btn:focus-visible{transform:translateY(-1px)}
+    .shelf{margin:34px 0;padding:20px 22px;border-radius:22px;background:linear-gradient(135deg,#f1f6ef,#fff);border:1px solid var(--line)}
+    .shelf h2{margin:0 0 10px;font:700 30px/1.1 Georgia,serif;color:var(--green)}
+    .shelf p{margin:0;color:var(--muted)}
+    .notice{background:#f4f2e7;border:1px solid #e1ddd0;border-radius:18px;padding:18px 20px;margin:34px 0}
+    .notice p{margin:.55em 0}
+    .footer{border-top:1px solid var(--line);padding:24px 0 50px;font-size:14px;color:#5b675d}
+    .footer a{margin-right:14px}
+    .empty{padding:28px;border:1px dashed #c8d3c1;border-radius:18px;background:#fff}
+    .rating-stars{letter-spacing:1px;color:#e2a640;font-size:14px}
+    .loading::after{content:"·";animation:dots 1.1s steps(4,end) infinite}
+    @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}100%{content:""}}
+    button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr}
+      .controls{grid-template-columns:1fr;}
+      .mini-note{text-align:left}
+    }
+    @media (max-width:620px){
+      .top{align-items:flex-start;flex-direction:column}
+      h1{max-width:none}
+      .card{grid-template-columns:1fr}
+      .cover-box{justify-self:center}
+      .facts{grid-template-columns:1fr 1fr}
+      .stats{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:420px){
+      .grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr}
+      .facts{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="/" aria-label="¡Apáñate! portada"><span class="c">¡</span>Ap<span class="c">á</span>ñate<span class="c">!</span></a>
+    <a class="back" href="/">← Volver a la portada</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Libros que entran por los ojos.</h1>
+        <p class="intro">Una selección viva de <strong>20 libros escritos originalmente en castellano</strong> y <strong>20 traducidos al castellano</strong>, con <strong>fotos de sus portadas</strong>, <strong>precio orientativo</strong>, valoración cuando existe y accesos directos a librerías.</p>
+        <div class="hero-notes">
+          <span class="pill">📚 40 libros para empezar</span>
+          <span class="pill">💶 Precio fijo en España, con pequeñas variaciones</span>
+          <span class="pill">⭐ Valoraciones cuando están disponibles</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="big">20 + 20</span><strong>Dos listas claras</strong><p>Originales en castellano por un lado y traducidos por otro.</p></div>
+        <div class="stat"><span class="big">Portadas</span><strong>Más vida visual</strong><p>La ficha se completa automáticamente con imagen, datos y detalles del libro.</p></div>
+        <div class="stat"><span class="big">PVP</span><strong>Precio orientativo</strong><p>Tomado del primer resultado bibliográfico encontrado, cuando la fuente lo ofrece.</p></div>
+        <div class="stat"><span class="big">Comprar</span><strong>Sin comparar céntimos</strong><p>Accesos a librerías y recordatorio del precio fijo del libro nuevo.</p></div>
+      </div>
+    </section>
+
+    <section class="shelf">
+      <h2>Una estantería práctica, no fría.</h2>
+      <p>Aquí no solo ves un nombre y un autor: ves la portada, una referencia de precio, la lista en la que aparece y, cuando hay datos, su valoración lectora. Así es más fácil decidir si te llama o no.</p>
+    </section>
+
+    <div class="controls">
+      <div class="tabs" role="tablist" aria-label="Idioma original">
+        <button class="tab" role="tab" type="button" id="tab-es" aria-selected="true" aria-controls="libros-lista" data-grupo="es">20 en castellano</button>
+        <button class="tab" role="tab" type="button" id="tab-tr" aria-selected="false" aria-controls="libros-lista" data-grupo="tr">20 traducidos</button>
+      </div>
+      <div class="search-wrap">
+        <input class="search" type="search" id="buscar" placeholder="Buscar por título, autor o editorial…" aria-label="Buscar libros">
+      </div>
+      <div class="mini-note">Las portadas y precios se completan en unos segundos.</div>
+    </div>
+
+    <p class="count" id="contador" aria-live="polite"></p>
+    <div class="grid" id="libros-lista" role="tabpanel" aria-labelledby="tab-es"></div>
+
+    <div class="notice">
+      <strong>Nota sobre precios y datos</strong>
+      <p>En España el libro nuevo tiene <strong>precio fijo editorial</strong>, así que el importe suele variar poco entre librerías. Aquí mostramos un <strong>precio orientativo</strong> cuando la fuente bibliográfica lo ofrece.</p>
+      <p>Las <strong>portadas, valoraciones y precios</strong> se consultan automáticamente en una fuente bibliográfica abierta al cargar la página. Si en algún caso no aparece un dato, puedes usar los botones de librería para verlo directamente.</p>
+      <p>Los puestos son los publicados en la lista y fecha indicadas: no una clasificación oficial única por idioma ni una garantía de ser “los mejores” de forma absoluta.</p>
+    </div>
+  </main>
+
+  <footer class="footer">Hecho con cariño para <strong>¡Apáñate!</strong> · <a href="/cocina/">Cocina</a> <a href="/">Portada</a> <a href="https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html" target="_blank" rel="noopener noreferrer">Fuente principal de ventas</a></footer>
+</div>
+
 <script>
-(()=>{'use strict';const books=JSON.parse(document.getElementById('catalogo').textContent);const cards=document.getElementById('libros-lista'),count=document.getElementById('contador'),input=document.getElementById('buscar'),tabs=[...document.querySelectorAll('.tab')];let active='es';const norm=s=>(s||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'');const el=(t,cls,txt)=>{const n=document.createElement(t);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;};function searchLink(site,b){let q='site:'+site+' '+b.titulo+' '+b.autor;return 'https://www.google.com/search?q='+encodeURIComponent(q)}function render(){let q=norm(input.value.trim());let found=books.filter(b=>b.grupo===active&&norm([b.titulo,b.autor,b.editorial].join(' ')).includes(q));cards.replaceChildren();count.textContent=found.length+' de 20 libros';for(const b of found){let card=el('article','book'),title=el('h2','',b.titulo),author=el('div','author',b.autor),meta=el('div','meta',b.editorial+' · '+b.lista+' · puesto '+b.puesto),date=el('span','tag','Lista: '+b.fecha.replace(' ABC',' · ABC')),actions=el('div','actions');for(const [name,site] of [['Todos Tus Libros','todostuslibros.com'],['Casa del Libro','casadellibro.com']]){let a=el('a','', 'Buscar en '+name);a.href=searchLink(site,b);a.target='_blank';a.rel='noopener noreferrer';actions.append(a)}let src=el('a','','Ver lista de ventas');src.href=b.fuente;src.target='_blank';src.rel='noopener noreferrer';actions.append(src);card.append(title,author,meta,date,actions);cards.append(card)}if(!found.length)cards.append(el('p','small','No hay coincidencias. Prueba con otro título o autor.'))}for(const t of tabs)t.addEventListener('click',()=>{active=t.dataset.grupo;tabs.forEach(x=>x.setAttribute('aria-selected',String(x===t)));cards.setAttribute('aria-labelledby',t.id);render()});input.addEventListener('input',render);render()})();
-</script></body></html>
+const state={grupo:'es',query:'',cache:new Map(),loading:new Set()};
+const listEl=document.getElementById('libros-lista');
+const countEl=document.getElementById('contador');
+const searchEl=document.getElementById('buscar');
+let catalogo=[];
+
+function searchUrl(base, title, author){
+  return base + encodeURIComponent(`${title} ${author}`);
+}
+
+function normalize(s=''){
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9ñ]+/g,' ').trim();
+}
+
+function stars(value){
+  const n=Math.round(Number(value)||0);
+  return '★'.repeat(Math.max(0,Math.min(5,n))) + '☆'.repeat(Math.max(0,5-Math.round(n)));
+}
+
+function formatPrice(meta){
+  if(!meta) return '<span class="loading">Consultando</span>';
+  if(meta.priceText) return meta.priceText;
+  return 'Ver librería';
+}
+
+function bookCard(book,index){
+  const key=`${book.titulo}||${book.autor}`;
+  const meta=state.cache.get(key);
+  const portada=meta?.thumbnail ? `<img src="${meta.thumbnail}" alt="Portada de ${book.titulo}">` : `<div class="cover-fallback">${book.titulo}<br><small>${book.autor}</small></div>`;
+  const precio = meta?.priceText || '<span class="loading">Consultando</span>';
+  const rating = meta?.rating ? `<span class="rating-stars">${stars(meta.rating)}</span> ${meta.rating}${meta.ratingsCount ? ` <small>(${meta.ratingsCount} reseñas)</small>`:''}` : 'Sin valoración visible';
+  const pages = meta?.pageCount ? `${meta.pageCount} páginas` : 'Pendiente';
+  const fuenteLink = book.fuente ? `<a href="${book.fuente}" target="_blank" rel="noopener noreferrer">lista de ventas</a>` : 'fuente indicada';
+  return `
+  <article class="card" data-key="${key}">
+    <div class="cover-box">
+      <span class="rank">#${book.puesto}</span>
+      <div class="cover">${portada}</div>
+    </div>
+    <div>
+      <div class="tags">
+        <span class="tag">${book.lista}</span>
+        <span class="tag green">${book.grupo==='es' ? 'Original en castellano' : 'Traducido'}</span>
+      </div>
+      <h2 class="title">${book.titulo}</h2>
+      <p class="author">${book.autor}</p>
+      <p class="editorial">${book.editorial} · Lista del ${book.fecha}</p>
+      <div class="facts">
+        <div class="fact"><span class="label">Precio orientativo</span><span class="value">${precio}</span></div>
+        <div class="fact"><span class="label">Valoración</span><span class="value">${rating}</span></div>
+        <div class="fact"><span class="label">Extensión</span><span class="value">${pages}</span></div>
+        <div class="fact"><span class="label">Posición</span><span class="value">#${book.puesto} <small>en ${book.lista}</small></span></div>
+      </div>
+      <p class="source">Fuente de ventas: ${fuenteLink}.</p>
+      <div class="actions">
+        <a class="btn primary" href="${searchUrl('https://www.todostuslibros.com/busquedas?keyword=',book.titulo,book.autor)}" target="_blank" rel="noopener noreferrer">Todos Tus Libros</a>
+        <a class="btn" href="${searchUrl('https://www.casadellibro.com/?query=',book.titulo,book.autor)}" target="_blank" rel="noopener noreferrer">Casa del Libro</a>
+        <a class="btn" href="${meta?.infoLink || searchUrl('https://www.google.com/search?q=',book.titulo+' libro',book.autor)}" target="_blank" rel="noopener noreferrer">Más detalles</a>
+      </div>
+    </div>
+  </article>`;
+}
+
+function filteredBooks(){
+  const q=normalize(state.query);
+  return catalogo.filter(book=>book.grupo===state.grupo).filter(book=>{
+    if(!q) return true;
+    const bag=normalize(`${book.titulo} ${book.autor} ${book.editorial}`);
+    return bag.includes(q);
+  });
+}
+
+function render(){
+  const books=filteredBooks();
+  countEl.textContent = books.length ? `${books.length} libro${books.length===1?'':'s'} visibles en ${state.grupo==='es'?'la selección en castellano':'la selección traducida'}.` : 'No hay resultados con esa búsqueda.';
+  if(!books.length){
+    listEl.innerHTML = '<div class="empty">Prueba con otro título, autor o editorial.</div>';
+    return;
+  }
+  listEl.innerHTML = books.map(bookCard).join('');
+  books.forEach(queueEnrich);
+}
+
+function bestMatch(items,book){
+  if(!items?.length) return null;
+  const nt=normalize(book.titulo), na=normalize(book.autor);
+  let best=items[0], score=-1;
+  for(const item of items){
+    const vi=item.volumeInfo||{};
+    let s=0;
+    const t=normalize(vi.title||'');
+    const authors=(vi.authors||[]).map(normalize).join(' ');
+    if(t===nt) s+=5; else if(t.includes(nt)||nt.includes(t)) s+=3;
+    if(authors.includes(na) || na.includes(authors)) s+=4;
+    if((vi.language||'').startsWith('es')) s+=1;
+    if(vi.imageLinks?.thumbnail) s+=1;
+    if(s>score){score=s;best=item;}
+  }
+  return best;
+}
+
+async function enrichBook(book){
+  const key=`${book.titulo}||${book.autor}`;
+  if(state.cache.has(key) || state.loading.has(key)) return;
+  state.loading.add(key);
+  try{
+    const q=encodeURIComponent(`intitle:${book.titulo} inauthor:${book.autor}`);
+    const url=`https://www.googleapis.com/books/v1/volumes?q=${q}&langRestrict=es&printType=books&country=ES&maxResults=5`;
+    const res=await fetch(url);
+    if(!res.ok) throw new Error('API');
+    const data=await res.json();
+    const item=bestMatch(data.items||[],book);
+    if(item){
+      const vi=item.volumeInfo||{};
+      const sale=item.saleInfo||{};
+      const listP=sale.listPrice || sale.retailPrice || null;
+      const priceText = listP?.amount ? `${String(listP.amount).replace('.',',')} ${listP.currencyCode||'€'}` : '';
+      state.cache.set(key,{
+        thumbnail:(vi.imageLinks?.thumbnail || vi.imageLinks?.smallThumbnail || '').replace('http://','https://'),
+        rating:vi.averageRating || '',
+        ratingsCount:vi.ratingsCount || '',
+        pageCount:vi.pageCount || '',
+        infoLink:vi.infoLink || item.selfLink || '',
+        priceText
+      });
+    } else {
+      state.cache.set(key,{});
+    }
+  } catch (e){
+    state.cache.set(key,{});
+  } finally {
+    state.loading.delete(key);
+    const el=document.querySelector(`[data-key="${CSS.escape(key)}"]`);
+    if(el){
+      const books=filteredBooks();
+      const found=books.find(b=>`${b.titulo}||${b.autor}`===key);
+      if(found) el.outerHTML=bookCard(found,0);
+    }
+  }
+}
+
+function queueEnrich(book){ enrichBook(book); }
+
+async function init(){
+  try{
+    const res=await fetch('./libros.json');
+    catalogo=await res.json();
+  } catch(e){
+    listEl.innerHTML='<div class="empty">No hemos podido cargar el catálogo ahora mismo.</div>';
+    return;
+  }
+  document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+    state.grupo=btn.dataset.grupo;
+    document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected', String(b===btn)));
+    render();
+  }));
+  searchEl.addEventListener('input', e=>{state.query=e.target.value; render();});
+  render();
+}
+init();
+</script>
+</body>
+</html>
