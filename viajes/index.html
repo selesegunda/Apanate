@@ -16,7 +16,7 @@
   <section class="intro">
     <div class="eyebrow">🧳 VIAJES · SIN DESTINO FIJO</div>
     <h1>Con tu presupuesto, <em>¿a dónde te escapas?</em></h1>
-    <p>Tú no eliges el destino de entrada: nos dices desde dónde sales, cuánto quieres gastar y cuándo te viene bien. Nosotros te damos <strong>4 ideas regionales, 4 nacionales y 4 internacionales</strong> para que te busques la vida con opciones realistas.</p>
+    <p>Tú no eliges el destino de entrada: nos dices desde dónde sales, cuánto quieres gastar y cuándo te viene bien. Te damos <strong>4 ideas regionales, 4 nacionales y 4 internacionales</strong> que cambian con el origen y presupuesto. Si alguna se pasa de tu límite, te lo avisamos.</p>
     <div class="sticker-row" aria-hidden="true">
       <span title="Giralda">🕍</span>
       <span title="Puerta del Sol">🏛️</span>
@@ -36,7 +36,7 @@
       <span>🌞</span><span>🚆</span><span>🧭</span><span>🏨</span><span>🍦</span><span>✈️</span>
     </div>
     <form id="descubrir" class="search-form">
-      <div class="field"><label for="origen">¿Desde dónde sales?</label><input id="origen" name="origen" required maxlength="90" placeholder="Ej.: Sevilla, Madrid, Granada…" autocomplete="address-level2"><small>Usamos tu origen para priorizar primero propuestas cercanas.</small></div>
+      <div class="field"><label for="origen">¿Desde dónde sales?</label><input id="origen" name="origen" required maxlength="90" placeholder="Ej.: Sevilla, Madrid, Granada…" autocomplete="address-level2" list="origenes-sugeridos"><datalist id="origenes-sugeridos"></datalist><small>Elige una ciudad de las sugerencias para calcular cercanía (sin usar tu ubicación).</small></div>
       <div class="field"><label for="presupuesto">¿Cuánto quieres gastar en total?</label><div class="money-field"><input type="number" id="presupuesto" name="presupuesto" min="20" max="100000" step="10" value="250" required><span>€</span></div></div>
       <div class="field"><label for="personas">¿Cuántas personas?</label><select id="personas"><option value="1">1 persona</option><option value="2" selected>2 personas</option><option value="3">3 personas</option><option value="4">4 personas</option><option value="5">5 personas</option><option value="6">6 personas</option></select></div>
       <div class="field"><label for="duracion">¿Cuántas noches?</label><select id="duracion"><option value="0">Solo un día</option><option value="1">1 noche</option><option value="2" selected>2 noches</option><option value="3">3 noches</option><option value="4">4 noches</option><option value="5">5 noches</option><option value="7">Una semana</option></select></div>
@@ -50,7 +50,7 @@
   <section id="resultados" class="results" aria-live="polite" hidden></section>
 
   <section class="note">
-    <strong>Cómo funciona:</strong> esta versión ordena ideas por cercanía y te muestra <strong>12 propuestas</strong>: 4 regionales, 4 nacionales y 4 internacionales. Después te abre búsquedas para transporte y alojamiento. <strong>No consulta precios en tiempo real</strong>, así que conviene verificar el coste final antes de reservar.
+    <strong>Cómo funciona:</strong> esta versión ordena ideas por cercanía y te muestra <strong>12 propuestas</strong>: 4 regionales, 4 nacionales y 4 internacionales. Después te abre búsquedas para transporte y alojamiento. Los importes son simulaciones orientativas y <strong>no son precios en tiempo real</strong>, así que conviene verificar el coste final antes de reservar.
   </section>
 </main>
 <footer class="wrap foot">© <span id="year"></span> ¡Apáñate! · <a href="/privacidad.html">Privacidad</a></footer>

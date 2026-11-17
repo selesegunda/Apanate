@@ -83,3 +83,13 @@ a{color:var(--ink)}
   .topbar{padding-block:18px}.back{font-size:.85rem}.intro{padding-top:18px}.search-form,.suggestions{grid-template-columns:1fr}.field.wide,.dates,.primary{grid-column:1}.dates{grid-template-columns:1fr}.intro p{font-size:1rem}.result-hero{display:block}.result-badges{margin-top:12px}
 }
 @media(prefers-reduced-motion:no-preference){.trip,.primary,.back{transition:transform .15s ease,background .15s ease}.trip:hover{transform:translateY(-3px)}.back:hover,.primary:hover{transform:translateY(-1px)}}
+
+.trip h4{font:800 1.4rem Georgia,serif;color:var(--ink);margin:10px 0 7px}
+.trip-estimate{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f8f4eb;border-radius:12px;padding:10px 12px;margin:7px 0 4px;font-size:.84rem;font-weight:750}
+.trip-estimate strong{font-size:1.05rem;white-space:nowrap}
+.estimate-note{display:block;margin:0 0 13px;color:#59665b;font-size:.76rem}
+.trip.overbudget .trip-estimate{background:#fff0e6;color:#8d422e}
+.trip.plausible .trip-estimate{background:#e7f7e9;color:#22623d}
+.trip.overbudget{border-style:dashed}
+
+.trip .where{color:#667466;font-size:.78rem;font-weight:700;margin:-4px 0 6px}
