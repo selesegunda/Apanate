@@ -1420,33 +1420,6 @@
     "labels": ""
   },
   {
-    "name": "Ensalada de zanahoria y atún",
-    "category": "Ensaladas",
-    "ingredients": [
-      "zanahoria",
-      "atun de lata",
-      "aceite",
-      "vinagre",
-      "sal"
-    ],
-    "optional": [
-      "perejil"
-    ],
-    "steps": [
-      "Ralla la zanahoria.",
-      "Añade atún escurrido.",
-      "Aliña y mezcla."
-    ],
-    "time": 10,
-    "tip": "zanahoria, atún, sencillo",
-    "notes": "",
-    "servings": "Cantidades por ajustar a las raciones.",
-    "originKind": "user",
-    "origin": "Propuesta de recetas aportada al proyecto Apáñate; redacción y adaptación de Apáñate.",
-    "sourceUrl": "",
-    "labels": ""
-  },
-  {
     "name": "Pirriñaca de verduras",
     "category": "Ensaladas",
     "ingredients": [
