@@ -2,26 +2,56 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#fff9ed">
-<meta name="description" content="Encuentra ideas para escaparte sin elegir destino: indica presupuesto, ciudad de salida y fechas.">
+<meta name="theme-color" content="#fff4d7">
+<meta name="description" content="Encuentra ideas para escaparte sin elegir destino: dinos presupuesto, origen y fechas, y descubre 4 ideas regionales, 4 nacionales y 4 internacionales.">
 <title>Escapadas a tu medida · ¡Apáñate!</title>
 <link rel="stylesheet" href="/viajes/style.css"><script src="/viajes/app.js" defer></script>
 </head>
 <body>
-<header class="topbar wrap"><a class="brand" href="/"><span>¡</span>Ap<span>á</span>ñate<span>!</span></a><a class="back" href="/">← Volver al inicio</a></header>
+<header class="topbar wrap">
+  <a class="brand" href="/"><span>¡</span>Ap<span>á</span>ñate<span>!</span></a>
+  <a class="back" href="/">← Volver al inicio</a>
+</header>
 <main class="wrap">
-<section class="intro"><div class="eyebrow">🧳 VIAJES · BUSCADOR DE IDEAS</div><h1>¿Hasta dónde te lleva <em>tu presupuesto?</em></h1><p>No tienes que saber adónde ir. Dinos desde dónde sales, cuánto puedes gastar y cuándo te viene bien. Te sugerimos destinos y te ayudamos a buscar opciones reales.</p></section>
-<section class="panel"><form id="descubrir" class="search-form">
-<div class="field"><label for="origen">¿Desde dónde sales?</label><input id="origen" name="origen" required maxlength="90" placeholder="Ej.: Sevilla, Madrid, Granada…" autocomplete="address-level2"><small>Una ciudad de España; sirve para orientar las ideas.</small></div>
-<div class="field"><label for="presupuesto">¿Cuánto quieres gastar en total?</label><div class="money-field"><input type="number" id="presupuesto" name="presupuesto" min="20" max="100000" step="10" value="250" required><span>€</span></div></div>
-<div class="field"><label for="personas">¿Cuántas personas?</label><select id="personas"><option value="1">1 persona</option><option value="2" selected>2 personas</option><option value="3">3 personas</option><option value="4">4 personas</option><option value="5">5 personas</option><option value="6">6 personas</option></select></div>
-<div class="field"><label for="duracion">¿Cuántas noches?</label><select id="duracion"><option value="0">Solo un día</option><option value="1">1 noche</option><option value="2" selected>2 noches</option><option value="3">3 noches</option><option value="4">4 noches</option><option value="5">5 noches</option><option value="7">Una semana</option></select></div>
-<div class="field wide"><label for="cuando">¿Cuándo puedes viajar?</label><select id="cuando"><option value="flexible">Me da igual, cuando salga mejor</option><option value="fechas">Tengo fechas concretas</option><option value="primavera">En primavera</option><option value="verano">En verano</option><option value="otono">En otoño</option><option value="invierno">En invierno</option><option value="puente">En algún puente o festivo</option></select></div>
-<div class="field dates hidden" id="fechas-contenedor"><div><label for="salida">Salida</label><input id="salida" type="date"></div><div><label for="regreso">Regreso</label><input id="regreso" type="date"></div></div>
-<div class="field wide"><label for="transporte">¿Cómo prefieres viajar?</label><select id="transporte"><option value="cualquiera">Lo que salga mejor</option><option value="tren">Tren / autobús</option><option value="coche">Coche</option><option value="avion">Avión</option></select></div>
-<button type="submit" class="primary">🔎 Buscarme la vida ↗</button>
-</form></section>
-<section id="resultados" class="results" aria-live="polite" hidden></section>
-<section class="note"><strong>Cómo funciona:</strong> esta versión propone destinos orientativos y crea enlaces para consultar tarifas actualizadas. <strong>No consulta disponibilidad ni precios en tiempo real</strong> y, por tanto, no asegura que una escapada entre en el presupuesto. Revisa el coste total antes de reservar.</section>
-</main><footer class="wrap foot">© <span id="year"></span> ¡Apáñate! · <a href="/privacidad.html">Privacidad</a></footer>
+  <section class="intro">
+    <div class="eyebrow">🧳 VIAJES · SIN DESTINO FIJO</div>
+    <h1>Con tu presupuesto, <em>¿a dónde te escapas?</em></h1>
+    <p>Tú no eliges el destino de entrada: nos dices desde dónde sales, cuánto quieres gastar y cuándo te viene bien. Nosotros te damos <strong>4 ideas regionales, 4 nacionales y 4 internacionales</strong> para que te busques la vida con opciones realistas.</p>
+    <div class="sticker-row" aria-hidden="true">
+      <span title="Giralda">🕍</span>
+      <span title="Puerta del Sol">🏛️</span>
+      <span title="Sombrilla">⛱️</span>
+      <span title="Árbol">🌳</span>
+      <span title="Ciclista">🚴</span>
+      <span title="Camino de Santiago">🥾</span>
+      <span title="Torre Eiffel">🗼</span>
+      <span title="Big Ben">🕰️</span>
+      <span title="Estatua de la Libertad">🗽</span>
+      <span title="Torre inclinada de Pisa">🏰</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="mini-banner" aria-hidden="true">
+      <span>🌞</span><span>🚆</span><span>🧭</span><span>🏨</span><span>🍦</span><span>✈️</span>
+    </div>
+    <form id="descubrir" class="search-form">
+      <div class="field"><label for="origen">¿Desde dónde sales?</label><input id="origen" name="origen" required maxlength="90" placeholder="Ej.: Sevilla, Madrid, Granada…" autocomplete="address-level2"><small>Usamos tu origen para priorizar primero propuestas cercanas.</small></div>
+      <div class="field"><label for="presupuesto">¿Cuánto quieres gastar en total?</label><div class="money-field"><input type="number" id="presupuesto" name="presupuesto" min="20" max="100000" step="10" value="250" required><span>€</span></div></div>
+      <div class="field"><label for="personas">¿Cuántas personas?</label><select id="personas"><option value="1">1 persona</option><option value="2" selected>2 personas</option><option value="3">3 personas</option><option value="4">4 personas</option><option value="5">5 personas</option><option value="6">6 personas</option></select></div>
+      <div class="field"><label for="duracion">¿Cuántas noches?</label><select id="duracion"><option value="0">Solo un día</option><option value="1">1 noche</option><option value="2" selected>2 noches</option><option value="3">3 noches</option><option value="4">4 noches</option><option value="5">5 noches</option><option value="7">Una semana</option></select></div>
+      <div class="field wide"><label for="cuando">¿Cuándo puedes viajar?</label><select id="cuando"><option value="flexible">Me da igual, cuando salga mejor</option><option value="fechas">Tengo fechas concretas</option><option value="primavera">En primavera</option><option value="verano">En verano</option><option value="otono">En otoño</option><option value="invierno">En invierno</option><option value="puente">En algún puente o festivo</option></select></div>
+      <div class="field dates hidden" id="fechas-contenedor"><div><label for="salida">Salida</label><input id="salida" type="date"></div><div><label for="regreso">Regreso</label><input id="regreso" type="date"></div></div>
+      <div class="field wide"><label for="transporte">¿Cómo prefieres viajar?</label><select id="transporte"><option value="cualquiera">Lo que salga mejor</option><option value="tren">Tren / autobús</option><option value="coche">Coche</option><option value="avion">Avión</option></select></div>
+      <button type="submit" class="primary">🔎 Buscarme la vida ↗</button>
+    </form>
+  </section>
+
+  <section id="resultados" class="results" aria-live="polite" hidden></section>
+
+  <section class="note">
+    <strong>Cómo funciona:</strong> esta versión ordena ideas por cercanía y te muestra <strong>12 propuestas</strong>: 4 regionales, 4 nacionales y 4 internacionales. Después te abre búsquedas para transporte y alojamiento. <strong>No consulta precios en tiempo real</strong>, así que conviene verificar el coste final antes de reservar.
+  </section>
+</main>
+<footer class="wrap foot">© <span id="year"></span> ¡Apáñate! · <a href="/privacidad.html">Privacidad</a></footer>
 </body></html>

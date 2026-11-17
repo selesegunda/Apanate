@@ -1,31 +1,27 @@
-¡APAÑATE! — ACTUALIZACIÓN DE VIAJES
+ACTUALIZACIÓN VIAJES · ¡APAÑATE!
 
-OBJETIVO
-Sustituye la calculadora anterior de viajes por un explorador de escapadas
-sin destino prefijado. Pide presupuesto total, origen, personas y fechas o época.
+Contenido del ZIP:
+- index.html (portada principal actualizada si quieres sustituirla; en esta versión no es obligatorio)
+- js/app.js (sin cambios necesarios para Viajes)
+- carpeta viajes/
+  - index.html
+  - style.css
+  - app.js
 
-ARCHIVOS QUE DEBES SUBIR A GITHUB
-- /index.html       -> sustituye el de la raíz
-- /js/app.js        -> sustituye el antiguo
-- /viajes/index.html -> nuevo
-- /viajes/style.css  -> nuevo
-- /viajes/app.js     -> nuevo
+Qué cambia en Viajes:
+- La herramienta ya no pide elegir destino.
+- Ahora muestra 12 propuestas organizadas en:
+  * 4 regionales
+  * 4 nacionales
+  * 4 internacionales
+- Se prioriza la cercanía desde el origen introducido.
+- El diseño es más alegre y visual, con guiños viajeros.
+- Se mantienen búsquedas externas para transporte, alojamiento y qué hacer.
 
-MANTÉN el resto de carpetas y archivos del repositorio. En particular,
-no elimines cocina, cine, libros ni planes-gratis.
+Instalación mínima:
+1) Sustituye la carpeta /viajes completa por la de este ZIP.
+2) Si ya enlazas /viajes/ desde la portada, no necesitas cambiar nada más.
 
-FUNCIONAMIENTO Y LÍMITES
-- Genera ideas de destinos según la ciudad de salida (varias zonas de España).
-- Ofrece enlaces externos para comprobar transporte y alojamiento.
-- No accede a APIs de reservas ni verifica los precios en tiempo real.
-- No promete que los destinos sean asequibles; eso requiere contrastar tarifas.
-- Si el origen no está reconocido, muestra destinos generales de referencia.
-- No se recogen ni almacenan los datos del formulario.
-
-CÓMO COMPROBAR
-1. Abre /viajes/ después del despliegue en Cloudflare Pages.
-2. Prueba ciudad: Sevilla; presupuesto: 250; personas: 2; 2 noches.
-3. Prueba fechas concretas y las diferentes épocas.
-4. Comprueba el botón «¡Nos escapamos!» desde la portada.
-
-Este ZIP NO cambia la sección de Cine.
+Notas:
+- No se consultan precios en tiempo real.
+- Las propuestas son orientativas para ayudarte a descubrir destinos.
