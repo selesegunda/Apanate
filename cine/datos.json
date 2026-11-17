@@ -1,0 +1,182 @@
+{
+  "fecha_tv": "2026-11-17",
+  "fecha_ranking": "2026-11-17",
+  "actualizacion_ranking": "05:38",
+  "fuente_ranking": "https://www.justwatch.com/es/streaming-charts",
+  "fuente_tv": "https://www.formulatv.com/programacion/",
+  "streaming": [
+    {
+      "puesto": 1,
+      "titulo": "El final de Oak Street",
+      "movimiento": 16,
+      "donde": "HBO Max · Movistar Plus+ / alquiler",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 2,
+      "titulo": "Los juegos del hambre: Balada de pájaros cantores y serpientes",
+      "movimiento": 4,
+      "donde": "Prime Video · Movistar Plus+",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 3,
+      "titulo": "Colisión",
+      "movimiento": -2,
+      "donde": "Netflix",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 4,
+      "titulo": "La muerte de Stalin",
+      "movimiento": 801,
+      "donde": "JustWatch TV Free · Prime Video · Filmin",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 5,
+      "titulo": "Incontrolable (I Swear)",
+      "movimiento": 0,
+      "donde": "Movistar Plus+ · alquiler",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 6,
+      "titulo": "Vengadores: Endgame Encore",
+      "movimiento": 816,
+      "donde": "Disney+",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 7,
+      "titulo": "Proyecto Salvación",
+      "movimiento": 1,
+      "donde": "Prime Video · MGM+",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 8,
+      "titulo": "Godzilla Minus One",
+      "movimiento": -5,
+      "donde": "Netflix · alquiler",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 9,
+      "titulo": "Los Juegos del Hambre: Sinsajo - Parte 1",
+      "movimiento": 1,
+      "donde": "Prime Video · alquiler",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    },
+    {
+      "puesto": 10,
+      "titulo": "Los Juegos del Hambre: En llamas",
+      "movimiento": 8,
+      "donde": "Prime Video · alquiler",
+      "enlace": "https://www.justwatch.com/es/streaming-charts",
+      "fecha": "2026-11-17"
+    }
+  ],
+  "tv": [
+    {
+      "titulo": "Atrapado en un pirado",
+      "hora": "21:05",
+      "canal": "Be Mad",
+      "fecha": "2026-11-17",
+      "genero": "Comedia",
+      "fuente": "https://www.formulatv.com/programacion/"
+    },
+    {
+      "titulo": "En los márgenes",
+      "hora": "22:35",
+      "canal": "La 2",
+      "fecha": "2026-11-17",
+      "genero": "Drama",
+      "fuente": "https://www.formulatv.com/programacion/"
+    },
+    {
+      "titulo": "Corazones de acero",
+      "hora": "22:55",
+      "canal": "FDF",
+      "fecha": "2026-11-17",
+      "genero": "Bélico",
+      "fuente": "https://www.formulatv.com/programacion/"
+    },
+    {
+      "titulo": "La cena de los idiotas",
+      "hora": "23:15",
+      "canal": "La 1",
+      "fecha": "2026-11-17",
+      "genero": "Comedia",
+      "fuente": "https://www.formulatv.com/programacion/"
+    },
+    {
+      "titulo": "Un paseo para recordar",
+      "hora": "22:45",
+      "canal": "Canal Sur",
+      "fecha": "2026-11-17",
+      "genero": "Romántica · Andalucía",
+      "fuente": "https://www.formulatv.com/programacion/"
+    }
+  ],
+  "gratis": [
+    {
+      "nombre": "RTVE Play",
+      "tipo": "Televisión pública",
+      "descripcion": "Cine español, clásicos e internacional para ver a la carta.",
+      "url": "https://www.rtve.es/play/cine/",
+      "nota": "Algunos títulos caducan o tienen restricciones."
+    },
+    {
+      "nombre": "ARTE en español",
+      "tipo": "Cine de autor",
+      "descripcion": "Películas europeas, cortos y documentales para descubrir.",
+      "url": "https://www.arte.tv/es/videos/cine/",
+      "nota": "La disponibilidad depende del territorio y de la fecha."
+    },
+    {
+      "nombre": "Pluto TV",
+      "tipo": "Gratis con anuncios",
+      "descripcion": "Canales de películas y títulos bajo demanda.",
+      "url": "https://pluto.tv/es/",
+      "nota": "Con publicidad; catálogo cambiante."
+    },
+    {
+      "nombre": "Rakuten TV Gratis",
+      "tipo": "Gratis con anuncios",
+      "descripcion": "Busca la sección gratuita, distinta del alquiler y compra.",
+      "url": "https://www.rakuten.tv/es",
+      "nota": "No todos los títulos de la plataforma son gratuitos."
+    },
+    {
+      "nombre": "Plex",
+      "tipo": "Gratis con anuncios",
+      "descripcion": "Películas y canales gratuitos, incluida una selección en español.",
+      "url": "https://watch.plex.tv/es/on-demand/category/en-espanol",
+      "nota": "Algunos títulos pueden variar según la ubicación."
+    },
+    {
+      "nombre": "eFilm",
+      "tipo": "Con carné de biblioteca",
+      "descripcion": "Cine español, europeo, independiente y clásico en bibliotecas participantes.",
+      "url": "https://www.bibliotecaspublicas.es/utrera/Prestamo/-eFilm--servicio-de-visionado-de-pel-culas--series-y-manga.html",
+      "nota": "Necesita credenciales de una biblioteca adherida."
+    },
+    {
+      "nombre": "JustWatch TV Free",
+      "tipo": "Gratis · consulta disponibilidad",
+      "descripcion": "Selección de películas gratuitas de JustWatch.",
+      "url": "https://www.justwatch.com/es",
+      "nota": "Revisa si la película concreta está disponible gratis."
+    }
+  ]
+}

@@ -1,12 +1,14 @@
-¡Apáñate! Libros — versión mediterránea.
+¡APÁÑATE! CINE
 
-Sustituir libros/index.html y libros/libros.json en el repositorio. El logo mantiene sus colores originales; el resto utiliza tonos mar, turquesa, cal, arena y terracota.
+Esta entrega contiene la carpeta cine/, lista para arrastrar descomprimida a la raíz main del repositorio.
 
-Mi estantería guarda fichas completas en el navegador, de modo que continúan aunque el libro salga de futuros rankings. No requiere registro. Datos guardados solo en el navegador actual.
+Archivos:
+  cine/index.html  web completa, datos incluidos para funcionar estáticamente
+  cine/datos.json   copia editable de la selección de datos (requiere actualizar también el JSON embebido en index.html si se cambian títulos)
 
-Las portadas oficiales siguen dependiendo de su disponibilidad en la fuente por ISBN. No se han inventado imágenes de editoriales ni precios.
+IMPORTANTE: JustWatch mostraba 10 posiciones públicas verificables a 17/11/2026; no se inventan las posiciones 11 a 20. Para uso comercial o actualización automática de los datos, solicitar acceso a la API y revisar la licencia de JustWatch.
+La cartelera TDT es una muestra fechada; pasado el 17/11/2026, la página advierte que está archivada y enlaza la programación actual.
+Mi filmoteca guarda películas en localStorage, distinto para cada navegador.
 
-Actualización: acceso al Catálogo Colectivo de Bibliotecas Públicas, catálogos regionales, eBiblio y Biblioteca Nacional; sin cambios en el catálogo o los favoritos.
-
-
-Actualización: se han añadido portadas locales verificadas para una selección amplia de títulos, con fallback elegante para las restantes.
+No se cambia index.html de la portada general ni los directorios libros/ o cocina/.
+Para añadir Cine en la portada general, incorporar un enlace a /cine/.
