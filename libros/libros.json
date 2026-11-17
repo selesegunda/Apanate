@@ -10,7 +10,14 @@
     "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
     "isbn": "9788432251436",
     "portada": "https://imagessl6.casadellibro.com/a/l/s5/36/9788432251436.webp",
-    "comprar": "https://www.casadellibro.com/libro-cosamala/9788432251436/18312315"
+    "comprar": "https://www.casadellibro.com/libro-cosamala/9788432251436/18312315",
+    "precio": "19,85 €",
+    "precio_tienda": "Casa del Libro",
+    "ranking_puesto": 1,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Cosamala+Alana+S.+Portero+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788432251436-L.jpg?default=false"
   },
   {
     "grupo": "es",
@@ -25,7 +32,12 @@
     "portada": "https://imagessl4.casadellibro.com/a/l/s5/04/9788423370504.webp",
     "comprar": "https://www.casadellibro.com/libro-todas-las-noches-todas-las-ciudades/9788423370504/18308659",
     "valoracion": 5,
-    "resenas": 16
+    "resenas": 16,
+    "ranking_puesto": 2,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Todas+las+noches%2C+todas+las+ciudades+Dolores+Redondo+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788423370504-L.jpg?default=false"
   },
   {
     "grupo": "es",
@@ -35,7 +47,11 @@
     "lista": "Ficción",
     "puesto": 3,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 3,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+hip%C3%B3tesis+m%C3%A1s+peligrosa+Arturo+P%C3%A9rez-Reverte+libro"
   },
   {
     "grupo": "es",
@@ -45,7 +61,11 @@
     "lista": "Ficción",
     "puesto": 4,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 4,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Todo+bajo+control%2C+menos+t%C3%BA+Megan+Maxwell+libro"
   },
   {
     "grupo": "es",
@@ -58,7 +78,12 @@
     "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
     "isbn": "9788401033797",
     "portada": "https://imagessl7.casadellibro.com/a/l/s5/97/9788401033797.webp",
-    "comprar": "https://www.casadellibro.com/libro-una-familia-moderna/9788401033797/18293354"
+    "comprar": "https://www.casadellibro.com/libro-una-familia-moderna/9788401033797/18293354",
+    "ranking_puesto": 5,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Una+familia+moderna+Julia+Navarro+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788401033797-L.jpg?default=false"
   },
   {
     "grupo": "es",
@@ -68,7 +93,11 @@
     "lista": "Ficción",
     "puesto": 6,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 6,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Un+hombre+de+honor+Paloma+S%C3%A1nchez-Garnica+libro"
   },
   {
     "grupo": "es",
@@ -78,7 +107,11 @@
     "lista": "Ficción",
     "puesto": 7,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 7,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Un+d%C3%ADa+en+la+vida+de+Clarita+Rosa+Montero+libro"
   },
   {
     "grupo": "es",
@@ -92,7 +125,13 @@
     "isbn": "9791388154751",
     "portada": "https://imagessl1.casadellibro.com/a/l/s5/51/9791388154751.webp",
     "comprar": "https://www.casadellibro.com/libro-contenta/9791388154751/18577179",
-    "precio": "21,76 €"
+    "precio": "21,76 €",
+    "precio_tienda": "Casa del Libro",
+    "ranking_puesto": 8,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Contenta+Santiago+Lorenzo+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9791388154751-L.jpg?default=false"
   },
   {
     "grupo": "es",
@@ -102,7 +141,11 @@
     "lista": "Ficción",
     "puesto": 9,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 9,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+piedra+oscura+Alberto+Conejero+libro"
   },
   {
     "grupo": "es",
@@ -112,7 +155,11 @@
     "lista": "Ficción",
     "puesto": 11,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 11,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Los+hu%C3%A9rfanos+Carmen+Mola+libro"
   },
   {
     "grupo": "es",
@@ -125,7 +172,12 @@
     "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
     "isbn": "9788410178595",
     "portada": "https://imagessl5.casadellibro.com/a/l/s5/95/9788410178595.webp",
-    "comprar": "https://www.casadellibro.com/libro-comeras-flores/9788410178595/17139851"
+    "comprar": "https://www.casadellibro.com/libro-comeras-flores/9788410178595/17139851",
+    "ranking_puesto": 13,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Comer%C3%A1s+flores+Luc%C3%ADa+Solla+Sobral+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788410178595-L.jpg?default=false"
   },
   {
     "grupo": "es",
@@ -135,7 +187,11 @@
     "lista": "Ficción",
     "puesto": 14,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 14,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=El+hombre+ideal+La+Vecina+Rubia+libro"
   },
   {
     "grupo": "es",
@@ -145,7 +201,11 @@
     "lista": "Ficción",
     "puesto": 15,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 15,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Las+leopardas+Marta+Borraz+libro"
   },
   {
     "grupo": "es",
@@ -160,7 +220,12 @@
     "portada": "https://imagessl0.casadellibro.com/a/l/s5/20/9788432242120.webp",
     "comprar": "https://www.casadellibro.com/libro-la-mala-costumbre/9788432242120/13570679",
     "valoracion": 5,
-    "resenas": 123
+    "resenas": 123,
+    "ranking_puesto": 18,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+mala+costumbre+Alana+S.+Portero+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788432242120-L.jpg?default=false"
   },
   {
     "grupo": "es",
@@ -170,7 +235,11 @@
     "lista": "Ficción",
     "puesto": 20,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 20,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Bajamar+Ibon+Mart%C3%ADn+libro"
   },
   {
     "grupo": "es",
@@ -180,7 +249,11 @@
     "lista": "No ficción",
     "puesto": 1,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 1,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Conversaci%C3%B3n+con+la+oscuridad+Mariana+Enriquez+libro"
   },
   {
     "grupo": "es",
@@ -190,7 +263,11 @@
     "lista": "No ficción",
     "puesto": 2,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 2,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Qu%C3%A9+hacemos+con+los+domingos+por+la+tarde+Ignacio+Peyr%C3%B3+libro"
   },
   {
     "grupo": "es",
@@ -200,7 +277,11 @@
     "lista": "No ficción",
     "puesto": 3,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 3,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Recuerdos.+Breve+historia+de+un+amor+Juan+Ram%C3%ADrez+de+Lucas+libro"
   },
   {
     "grupo": "es",
@@ -210,7 +291,11 @@
     "lista": "No ficción",
     "puesto": 6,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 6,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Cuanta+m%C3%A1s+gente+me+jode%2C+m%C3%A1s+buenos+momentos+tengo+Maruja+Torres+libro"
   },
   {
     "grupo": "es",
@@ -220,7 +305,11 @@
     "lista": "No ficción",
     "puesto": 8,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 8,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Fantasma+Nerea+P%C3%A9rez+de+las+Heras+libro"
   },
   {
     "grupo": "tr",
@@ -234,7 +323,13 @@
     "isbn": "9788433980830",
     "portada": "https://imagessl0.casadellibro.com/a/l/s5/30/9788433980830.webp",
     "comprar": "https://www.casadellibro.com/libro-las-gratitudes/9788433980830/12163053",
-    "precio": "17,95 €"
+    "precio": "17,95 €",
+    "precio_tienda": "Casa del Libro",
+    "ranking_puesto": 10,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Las+gratitudes+Delphine+de+Vigan+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788433980830-L.jpg?default=false"
   },
   {
     "grupo": "tr",
@@ -244,7 +339,11 @@
     "lista": "Ficción",
     "puesto": 12,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 12,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Cuando+seas+feliz%2C+golpea+t%C3%BA+primero+Tatiana+%C8%9A%C3%AEbuleac+libro"
   },
   {
     "grupo": "tr",
@@ -254,7 +353,11 @@
     "lista": "Ficción",
     "puesto": 19,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 19,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=L%C3%A1z%C3%A1r+Nelio+Biedermann+libro"
   },
   {
     "grupo": "tr",
@@ -264,7 +367,11 @@
     "lista": "No ficción",
     "puesto": 4,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 4,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=El+hijo+del+oligarca+Patrick+Radden+Keefe+libro"
   },
   {
     "grupo": "tr",
@@ -274,7 +381,11 @@
     "lista": "No ficción",
     "puesto": 5,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 5,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Sin+respeto.+Una+crisis+social+Byung-Chul+Han+libro"
   },
   {
     "grupo": "tr",
@@ -284,7 +395,11 @@
     "lista": "No ficción",
     "puesto": 10,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 10,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Europa+en+siete+cap%C3%ADtulos+y+medio+Timothy+Garton+Ash+libro"
   },
   {
     "grupo": "tr",
@@ -294,7 +409,11 @@
     "lista": "No ficción",
     "puesto": 15,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 15,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=Mi+amor+no+muere+Roberto+Saviano+libro"
   },
   {
     "grupo": "tr",
@@ -304,7 +423,11 @@
     "lista": "No ficción",
     "puesto": 18,
     "fecha": "13/11",
-    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html"
+    "fuente": "https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html",
+    "ranking_puesto": 18,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "13/11",
+    "enlace_amazon": "https://www.amazon.es/s?k=El+hombre+en+busca+de+sentido+Viktor+E.+Frankl+libro"
   },
   {
     "grupo": "tr",
@@ -317,7 +440,12 @@
     "fuente": "https://nuevoslibros.com/mas-leidos/",
     "isbn": "9788413621654",
     "portada": "https://imagessl4.casadellibro.com/a/l/s5/54/9788413621654.webp",
-    "comprar": "https://www.casadellibro.com/libro-la-biblioteca-de-la-medianoche-premio-goodreads-ficcion-2020/9788413621654/12056384"
+    "comprar": "https://www.casadellibro.com/libro-la-biblioteca-de-la-medianoche-premio-goodreads-ficcion-2020/9788413621654/12056384",
+    "ranking_puesto": 10,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "21/10 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+Biblioteca+de+la+Medianoche+Matt+Haig+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788413621654-L.jpg?default=false"
   },
   {
     "grupo": "tr",
@@ -332,7 +460,12 @@
     "portada": "https://imagessl6.casadellibro.com/a/l/s5/46/9791387512446.webp",
     "comprar": "https://www.casadellibro.com/libro-la-inquilina/9791387512446/18200840",
     "valoracion": 4.5,
-    "resenas": 46
+    "resenas": 46,
+    "ranking_puesto": 9,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "21/10 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+inquilina+Freida+McFadden+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9791387512446-L.jpg?default=false"
   },
   {
     "grupo": "tr",
@@ -342,7 +475,11 @@
     "lista": "No ficción",
     "puesto": 3,
     "fecha": "28/10 ABC",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "ranking_puesto": 3,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "28/10 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=Murdle+G.+T.+Karber+libro"
   },
   {
     "grupo": "tr",
@@ -355,7 +492,12 @@
     "fuente": "https://nuevoslibros.com/mas-leidos/",
     "isbn": "9788408268130",
     "portada": "https://imagessl0.casadellibro.com/a/l/s5/30/9788408268130.webp",
-    "comprar": "https://www.casadellibro.com/libro-la-psicologia-del-dinero-como-piensan-los-ricos/9788408268130/13344376"
+    "comprar": "https://www.casadellibro.com/libro-la-psicologia-del-dinero-como-piensan-los-ricos/9788408268130/13344376",
+    "ranking_puesto": 6,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "28/10 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=Psicolog%C3%ADa+del+dinero+Morgan+Housel+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788408268130-L.jpg?default=false"
   },
   {
     "grupo": "tr",
@@ -368,7 +510,12 @@
     "fuente": "https://nuevoslibros.com/mas-leidos/",
     "isbn": "9788418118036",
     "portada": "https://imagessl6.casadellibro.com/a/l/s5/36/9788418118036.webp",
-    "comprar": "https://www.casadellibro.com/libro-habitos-atomicos/9788418118036/11364192"
+    "comprar": "https://www.casadellibro.com/libro-habitos-atomicos/9788418118036/11364192",
+    "ranking_puesto": 10,
+    "ranking_lista": "No ficción",
+    "ranking_fecha": "28/10 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=H%C3%A1bitos+at%C3%B3micos+James+Clear+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788418118036-L.jpg?default=false"
   },
   {
     "grupo": "tr",
@@ -382,7 +529,13 @@
     "isbn": "9788491294283",
     "portada": "https://imagessl3.casadellibro.com/a/l/s5/83/9788491294283.webp",
     "comprar": "https://www.casadellibro.com/libro-la-asistenta/9788491294283/13931484",
-    "precio": "11,36 €"
+    "precio": "11,36 €",
+    "precio_tienda": "Casa del Libro",
+    "ranking_puesto": 6,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "11/11 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+asistenta+Freida+McFadden+libro",
+    "portada_alternativa": "https://covers.openlibrary.org/b/isbn/9788491294283-L.jpg?default=false"
   },
   {
     "grupo": "tr",
@@ -392,7 +545,11 @@
     "lista": "Ficción",
     "puesto": 7,
     "fecha": "11/11 ABC",
-    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"
+    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/",
+    "ranking_puesto": 7,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "11/11 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=Nunca+mientas+Freida+McFadden+libro"
   },
   {
     "grupo": "tr",
@@ -402,7 +559,11 @@
     "lista": "Ficción",
     "puesto": 8,
     "fecha": "11/11 ABC",
-    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"
+    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/",
+    "ranking_puesto": 8,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "11/11 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=Dorayaki+Durian+Sukegawa+libro"
   },
   {
     "grupo": "tr",
@@ -412,7 +573,11 @@
     "lista": "Ficción",
     "puesto": 5,
     "fecha": "11/11 ABC",
-    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"
+    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/",
+    "ranking_puesto": 5,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "11/11 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=La+paciente+silenciosa+Alex+Michaelides+libro"
   },
   {
     "grupo": "tr",
@@ -422,7 +587,11 @@
     "lista": "Ficción",
     "puesto": 1,
     "fecha": "11/11 ABC",
-    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/"
+    "fuente": "https://radarcultural.es/los-libros-mas-vendidos-de-ficcion-esta-semana/",
+    "ranking_puesto": 1,
+    "ranking_lista": "Ficción",
+    "ranking_fecha": "11/11 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=El+llanto+de+los+muertos+Camilla+L%C3%A4ckberg+libro"
   },
   {
     "grupo": "tr",
@@ -432,7 +601,11 @@
     "lista": "General",
     "puesto": 1,
     "fecha": "02/11 T.T.Libros",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "ranking_puesto": 1,
+    "ranking_lista": "General",
+    "ranking_fecha": "02/11 T.T.Libros",
+    "enlace_amazon": "https://www.amazon.es/s?k=Una+corte+de+armon%C3%ADa+rota+Sarah+J.+Maas+libro"
   },
   {
     "grupo": "tr",
@@ -442,6 +615,10 @@
     "lista": "Infantil y juvenil",
     "puesto": 2,
     "fecha": "04/11 ABC",
-    "fuente": "https://nuevoslibros.com/mas-leidos/"
+    "fuente": "https://nuevoslibros.com/mas-leidos/",
+    "ranking_puesto": 2,
+    "ranking_lista": "Infantil y juvenil",
+    "ranking_fecha": "04/11 ABC",
+    "enlace_amazon": "https://www.amazon.es/s?k=El+d%C3%ADa+de+la+trilla+Rebecca+Yarros+libro"
   }
 ]
