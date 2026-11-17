@@ -2,73 +2,122 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#faf8ef"><meta name="description" content="¡Apáñate! Libros: 20 más vendidos de ficción y 20 de no ficción, con posiciones reales, edición y enlaces a librerías.">
-<title>Libros · ¡Apáñate!</title>
+<meta name="theme-color" content="#f8f3e8">
+<meta name="description" content="¡Apáñate! Libros: los 20 libros más vendidos de ficción y no ficción, con edición, precio editorial comprobado y enlaces a librerías.">
+<title>Libros | ¡Apáñate!</title>
 <style>
-:root{--green:#234a37;--coral:#d36b51;--cream:#faf8ef;--ink:#26362d;--muted:#677468;--line:#dfe4d8}
-*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}a{color:var(--green)}button,input{font:inherit}.wrap{max-width:1190px;margin:auto;padding:0 22px}
-header{padding:18px 0;border-bottom:1px solid var(--line);display:flex;gap:15px;align-items:center;justify-content:space-between}
-.brand{font:700 clamp(29px,4vw,42px) Georgia,serif;color:var(--green);text-decoration:none;white-space:nowrap}.coral{color:var(--coral)}.back{text-decoration:none;font-weight:700}
-.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:20px;margin:28px 0 25px}.hero-main{background:#fff;padding:32px;border:1px solid var(--line);border-radius:23px;box-shadow:0 5px 24px #17432b0b}
-h1{color:var(--green);font:700 clamp(40px,6vw,65px)/1.05 Georgia,serif;margin:0 0 14px;letter-spacing:-1px}.intro{font-size:19px;max-width:62ch;margin:0 0 10px}.muted{color:var(--muted)}.small{font-size:13px}
-.hero-extra{background:var(--green);color:#fff;border-radius:23px;padding:29px;display:flex;flex-direction:column;justify-content:center}.hero-extra strong{font:700 37px/1.1 Georgia,serif}.hero-extra p{color:#e4eee5;margin-bottom:0}
-.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:22px 0 12px}.tabs{display:flex;gap:5px;background:#e8efe5;padding:5px;border-radius:14px}.tab{border:0;border-radius:10px;padding:12px 18px;background:transparent;color:var(--green);font-weight:800;cursor:pointer}.tab[aria-selected=true]{background:var(--green);color:white}
-#buscar{flex:1;min-width:220px;min-height:49px;border:1px solid #bac9b7;background:#fff;border-radius:12px;padding:11px 15px}.counter{color:var(--muted);font-size:14px;margin:6px 0 17px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:17px;margin-bottom:33px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 3px 17px #13341f09}
-.cardtop{display:grid;grid-template-columns:100px 1fr;gap:14px}.cover{width:100px;height:150px;border-radius:9px;background:#eef3ea;overflow:hidden;border:1px solid #dbe3d5;display:flex;align-items:center;justify-content:center}
-.cover img{width:100%;height:100%;object-fit:contain;display:block}.fallback{height:100%;width:100%;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(140deg,#315a42,#93a788);color:#fff;font:700 13px/1.2 Georgia,serif;padding:11px}
-.rank{display:inline-block;border-radius:9px;color:#fff;background:var(--coral);padding:5px 10px;font-weight:900;font-size:16px;margin-bottom:7px}.title{font:700 22px/1.18 Georgia,serif;color:var(--green);margin:0 0 7px}.author{font-weight:700;margin:0 0 5px}.publisher{font-size:13px;color:var(--muted);margin:0}
-.meta{border-top:1px solid var(--line);padding-top:10px;font-size:13px;color:var(--muted)}.meta span{display:block}.price{margin-top:auto;padding-top:11px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.price strong{font-size:23px;color:var(--green)}.price label{display:block;font-size:11px;color:var(--muted)}.links{display:flex;flex-wrap:wrap;gap:7px}.links a{font-size:12px;text-decoration:none;font-weight:750;padding:9px 10px;border-radius:9px;border:1px solid #bccabc}.links a:first-child{background:var(--green);color:#fff;border-color:var(--green)}.links a:hover{text-decoration:underline}
-.notice{margin:12px 0 32px;border-radius:16px;padding:16px 20px;background:#f1f0e7;border:1px solid #e1e2d5}.notice p{margin:7px 0}.empty{padding:25px;background:#fff;border-radius:16px;border:1px dashed #cad3c5}
-footer{border-top:1px solid var(--line);padding:23px 0 45px;font-size:14px;color:var(--muted)}footer a{margin-right:15px}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
-@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-extra{padding:20px}.hero-extra strong{font-size:27px}}@media(max-width:520px){header{flex-direction:column;align-items:flex-start}.hero-main{padding:23px}.grid{grid-template-columns:1fr}.controls{align-items:stretch}.tabs{width:100%}.tab{flex:1;padding:11px}.cardtop{grid-template-columns:92px 1fr}.cover{width:92px;height:138px}}
-</style></head>
-<body><div class="wrap"><header><a class="brand" href="/" aria-label="¡Apáñate! Inicio"><span class="coral">¡</span>Ap<span class="coral">á</span>ñate<span class="coral">!</span></a><a class="back" href="/">← Portada</a></header>
-<main><section class="hero"><div class="hero-main"><h1>Los libros más vendidos.</h1><p class="intro">Las dos listas que de verdad publican las librerías: <b>20 de Ficción</b> y <b>20 de No ficción</b>, con su puesto del 1 al 20.</p><p class="muted small">Clasificación publicada el 13 de noviembre de 2026 por El Cultural, con datos de Todos Tus Libros. Un único ranking y una única fecha para cada categoría.</p></div><aside class="hero-extra"><strong>20 + 20</strong><p>Historias, ideas y lecturas para descubrir. Busca, compara y encuentra dónde comprar.</p></aside></section>
-<div class="controls"><div class="tabs" role="tablist" aria-label="Clasificación"><button type="button" class="tab" data-group="ficcion" id="tab-ficcion" role="tab" aria-selected="true" aria-controls="lista">📚 Ficción · 20</button><button type="button" class="tab" data-group="no-ficcion" id="tab-noficcion" role="tab" aria-selected="false" aria-controls="lista">📖 No ficción · 20</button></div><input type="search" id="buscar" placeholder="Buscar título, autor o editorial…" aria-label="Buscar libros"></div>
-<p class="counter" id="counter" aria-live="polite"></p><section class="grid" id="lista" aria-labelledby="tab-ficcion" role="tabpanel"></section>
-<div class="notice"><strong>Cómo leemos estas listas</strong><p>El número en coral es el <b>puesto real</b> en la categoría indicada, no un número inventado de nuestra selección. «Semana anterior» y «Semanas en lista» proceden de la clasificación publicada.</p><p>El <b>PVP editorial</b> solo aparece si disponemos de un precio comprobado para la edición concreta; en las demás fichas hay enlaces para consultar el importe. Los precios y portadas no se buscan automáticamente al abrir la web: las cubiertas se solicitan por ISBN mediante una dirección fija cuando se dispone de él, con una alternativa estática si falta la imagen.</p><p><a href="https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html" target="_blank" rel="noopener noreferrer">Ver la lista de origen</a>. Las reseñas y calificaciones no aparecen mientras no estén verificadas.</p></div></main>
-<footer>Hecho para <strong>¡Apáñate!</strong> · <a href="/">Inicio</a> <a href="/cocina/">Cocina</a> <a href="https://www.todostuslibros.com/" target="_blank" rel="noopener noreferrer">Todos Tus Libros</a></footer></div>
+:root{--forest:#214a36;--forest2:#36644b;--coral:#d86f55;--cream:#f8f3e8;--paper:#fffdf8;--gold:#e0b66e;--ink:#27362c;--muted:#65716b;--line:#dfded2;--shadow:0 16px 36px rgba(24,58,39,.075)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--forest)}button,input{font:inherit}button{cursor:pointer}img{display:block;max-width:100%}
+.wrap{max-width:1180px;padding:0 24px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:19px 0;border-bottom:1px solid var(--line)}
+.brand{font:700 clamp(29px,4vw,43px) Georgia,serif;color:var(--forest);text-decoration:none;white-space:nowrap}.co{color:var(--coral)}.back{font-weight:750;text-decoration:none;border-bottom:2px solid var(--coral);padding-bottom:2px}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:12px;font-weight:900;color:var(--coral)}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin:28px 0 30px;min-height:370px}
+.hero-main{position:relative;overflow:hidden;border-radius:30px;padding:clamp(27px,4vw,52px);background:var(--paper);box-shadow:var(--shadow);border:1px solid var(--line)}
+.hero-main:before{content:"";position:absolute;width:260px;height:260px;border:30px solid #f4d9cf;border-radius:50%;right:-145px;top:-125px;opacity:.65}
+h1{position:relative;font:700 clamp(44px,5.6vw,73px)/.99 Georgia,serif;letter-spacing:-.045em;color:var(--forest);margin:12px 0 19px;max-width:11ch}
+.hero-main .lead{position:relative;max-width:58ch;font-size:19px;margin:0 0 24px}
+.hero-meta{position:relative;display:flex;flex-wrap:wrap;gap:9px}.pill{font-size:12px;font-weight:750;background:#f3eee3;color:#49614f;padding:7px 12px;border-radius:99px;border:1px solid #e6e3d4}
+.hero-art{position:relative;overflow:hidden;border-radius:30px;background:radial-gradient(circle at 76% 20%,#648975 0,transparent 42%),linear-gradient(160deg,#284f3e,#143a29);color:#fff;padding:26px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow)}
+.hero-art .script{font:italic 26px/1.15 Georgia,serif;max-width:250px;z-index:1}.hero-art .spark{position:absolute;font:50px Georgia,serif;color:#f4d39c;opacity:.75;right:28px;top:8px}
+.bookshelf{display:flex;align-items:end;gap:7px;justify-content:center;border-bottom:13px solid #a9845e;padding-top:48px;height:220px;position:relative}
+.spine{height:var(--h);width:var(--w);border-radius:4px 6px 2px 2px;background:var(--s);box-shadow:inset -5px 0 rgba(0,0,0,.14),3px 5px 7px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;position:relative}
+.spine:after{content:"";height:70%;width:1px;background:rgba(255,255,255,.5);position:absolute;left:8px;top:15%}.spine em{writing-mode:vertical-rl;transform:rotate(180deg);font:700 12px Georgia,serif;color:#fff9e8;letter-spacing:.07em}
+.section-head{margin:38px 0 18px;display:flex;align-items:end;justify-content:space-between;gap:16px}
+.section-head h2{margin:6px 0 0;color:var(--forest);font:700 clamp(31px,4vw,43px)/1.1 Georgia,serif}
+.section-head p{color:var(--muted);margin:0;font-size:14px}
+.spotlights{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.spot{border:1px solid var(--line);background:#fff;border-radius:20px;padding:16px;display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;box-shadow:0 5px 16px rgba(25,60,41,.05)}
+.spot-icon{height:56px;width:56px;background:#f6e4dc;border-radius:14px;display:flex;align-items:center;justify-content:center;font:700 24px Georgia,serif;color:#b45542}
+.spot-label{color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:.05em}.spot-title{font:700 17px/1.17 Georgia,serif;color:var(--forest);margin:4px 0 1px}.spot-author{font-size:12px;color:var(--muted)}
+.controls{display:flex;gap:13px;flex-wrap:wrap;align-items:center;margin-top:17px}.tabs{display:flex;gap:5px;background:#e8ecdf;padding:5px;border-radius:15px}
+.tab{border:0;background:transparent;color:var(--forest);padding:11px 17px;border-radius:11px;font-weight:800}.tab[aria-selected=true]{background:var(--forest);color:#fff}
+.search{flex:1;min-width:230px;background:#fff;border:1px solid #bfcbbc;border-radius:13px;min-height:50px;padding:12px 17px}.counter{font-size:14px;color:var(--muted);margin:15px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.card{border:1px solid var(--line);background:#fffdf9;border-radius:23px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 18px rgba(30,60,42,.043)}
+.cardtop{display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:start}
+.cover-wrap{position:relative;min-width:0}.cover{height:177px;width:118px;border-radius:5px 10px 10px 5px;overflow:hidden;background:#e6e9e2;box-shadow:6px 9px 12px #23402c2e;position:relative;border:1px solid #cfd6ca}
+.cover:before{position:absolute;content:"";z-index:1;pointer-events:none;left:0;top:0;bottom:0;width:8px;background:linear-gradient(90deg,#0002,transparent)}
+.cover img{height:100%;width:100%;object-fit:contain;background:#f6f6f0;position:absolute;inset:0;z-index:2}
+.faux{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 12px 10px;text-align:center;background:linear-gradient(160deg,var(--cover1),var(--cover2));color:#fff;gap:11px}
+.faux:before{content:"✦";font:26px Georgia,serif;color:#f2d6aa}.faux strong{font:700 15px/1.08 Georgia,serif;overflow-wrap:anywhere}.faux span{font:10px/1.2 system-ui,sans-serif;opacity:.82}
+.rank{position:absolute;left:-9px;top:-10px;z-index:3;background:var(--coral);color:white;border:3px solid #fff;border-radius:99px;font:800 15px system-ui,sans-serif;width:43px;height:43px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px #662f212a}
+.title{font:700 clamp(19px,1.7vw,24px)/1.12 Georgia,serif;color:var(--forest);margin:0 0 9px;overflow-wrap:anywhere}.author{font-size:14px;font-weight:800;margin:0 0 5px}.editorial{font-size:12px;color:var(--muted);margin:0}
+.trend{align-self:flex-start;display:inline-flex;align-items:center;font-size:11px;font-weight:800;gap:5px;border-radius:99px;padding:5px 10px;background:#ebf3e9;color:#39674a}.trend.down{background:#faede8;color:#985843}.trend.new{background:#fff1db;color:#94682d}.trend.same{background:#f0f1eb;color:#637162}
+.book-meta{border-top:1px dashed #d9ded3;padding-top:10px;font-size:12px;color:var(--muted);line-height:1.65}.book-meta .isbn{font-variant-numeric:tabular-nums;display:block}
+.card-bottom{margin-top:auto;padding-top:11px;border-top:1px solid var(--line)}.p-label{display:block;font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#68766b}.price{font:700 26px Georgia,serif;color:var(--forest)}.unknown{font-size:14px;color:var(--muted);font-weight:700}.p-source{display:block;font-size:11px;color:#77847a;margin-top:3px}
+.buy-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.buy{font-size:12px;font-weight:800;border:1px solid #bccab9;border-radius:9px;padding:8px 9px;text-decoration:none;color:var(--forest);background:#fff}.buy:first-child{background:var(--forest);color:white;border-color:var(--forest)}
+.how{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:35px 0}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}.panel h3{font:700 24px Georgia,serif;color:var(--forest);margin:0 0 10px}.panel p{font-size:14px;color:#56665b;margin:8px 0}
+footer{margin-top:35px;border-top:1px solid var(--line);padding:23px 0 40px;color:#66766a;font-size:13px}footer a{margin-right:12px}
+.empty{background:white;border:1px dashed var(--line);border-radius:20px;padding:25px;grid-column:1/-1}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.spotlights{grid-template-columns:1fr 1fr}.how{grid-template-columns:1fr}}
+@media(max-width:600px){.top{align-items:start;flex-direction:column}.spotlights{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.hero-art{min-height:305px}.section-head{align-items:start;flex-direction:column}.cardtop{grid-template-columns:110px 1fr}.cover{width:110px;height:165px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body><div class="wrap"><header class="top"><a class="brand" href="/"><span class="co">¡</span>Ap<span class="co">á</span>ñate<span class="co">!</span></a><a href="/" class="back">← Volver a la portada</a></header>
+<main>
+<section class="hero" aria-labelledby="cabecera"><div class="hero-main"><span class="eyebrow">Tu rincón de lectura</span><h1 id="cabecera">Libros que están dando que hablar.</h1><p class="lead">Los <strong>20 de ficción</strong> y los <strong>20 de no ficción</strong> más vendidos de la semana. Con sus posiciones reales y dónde encontrarlos.</p><div class="hero-meta"><span class="pill">🗓️ 13 de noviembre de 2026</span><span class="pill">📚 El Cultural · Todos Tus Libros</span><span class="pill">💚 Sin enlaces patrocinados</span></div></div>
+<div class="hero-art" aria-hidden="true"><div><span class="eyebrow" style="color:#f2c4a7">Un buen libro...</span><p class="script">...y siempre hay otra historia esperándote.</p></div><div class="bookshelf"><div class="spine" style="--h:126px;--w:40px;--s:#c16b52"><em>LEER</em></div><div class="spine" style="--h:163px;--w:43px;--s:#ceb477"><em>IMAGINAR</em></div><div class="spine" style="--h:142px;--w:50px;--s:#76948d"><em>DESCUBRIR</em></div><div class="spine" style="--h:182px;--w:46px;--s:#e0b79e"><em>SOÑAR</em></div><div class="spine" style="--h:150px;--w:43px;--s:#647b54"><em>HISTORIAS</em></div><div class="spine" style="--h:170px;--w:46px;--s:#b481a2"><em>VIAJAR</em></div></div><span class="spark">✳</span></div></section>
+<div class="section-head"><div><span class="eyebrow">El escaparate</span><h2>Los que destacan</h2></div><p>Dos primeros puestos y una entrada nueva.</p></div>
+<div class="spotlights" id="destacados" aria-label="Libros destacados"></div>
+<div class="section-head" id="clasificacion"><div><span class="eyebrow">El ranking completo</span><h2>Encuentra tu próxima lectura</h2></div><p>20 puestos, una sola semana y una sola fuente.</p></div>
+<div class="controls"><div class="tabs" role="tablist" aria-label="Tipo de libros"><button class="tab" type="button" role="tab" id="tab-ficcion" aria-selected="true" aria-controls="libros-grid" data-grupo="ficcion">Ficción · 20</button><button class="tab" type="button" role="tab" id="tab-no-ficcion" aria-selected="false" aria-controls="libros-grid" data-grupo="no-ficcion">No ficción · 20</button></div><input id="buscar" class="search" type="search" placeholder="Buscar título, autor, editorial o ISBN…" aria-label="Buscar libros"></div>
+<p class="counter" id="contador" aria-live="polite"></p><section class="grid" id="libros-grid" role="tabpanel" aria-labelledby="tab-ficcion"></section>
+<section class="how"><div class="panel"><h3>El precio, sin líos</h3><p>Mostramos el <strong>PVP editorial</strong> solo cuando está documentado para el ISBN indicado. Cuando no lo tenemos comprobado, puedes consultar el precio en la librería.</p><p>En España el precio del libro nuevo suele ser fijo, con descuentos ordinarios de hasta el 5 %.</p></div><div class="panel"><h3>De dónde salen los datos</h3><p>Los puestos proceden del mismo ranking semanal de El Cultural / Todos Tus Libros. Las portadas se buscan por ISBN, pero <strong>solo se muestran si existe una imagen</strong>; en otro caso verás una cubierta ilustrativa, no una portada falsa.</p><p>Las valoraciones no se publican hasta contar con una fuente comprobable y comparable.</p><p><a href="https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html" target="_blank" rel="noopener noreferrer">Ver el ranking original</a></p></div></section>
+</main><footer>¡Apáñate! · <a href="/">Portada</a><a href="/cocina/">Cocina</a><a href="https://www.todostuslibros.com/" target="_blank" rel="noopener noreferrer">Todos Tus Libros</a><span>Clasificación: 13/11/2026 · Catálogo de consulta estática, sin API de precios por visita.</span></footer></div>
 <script>
 'use strict';
-const lista=document.getElementById('lista');const contador=document.getElementById('counter');const buscar=document.getElementById('buscar');let libros=[];let grupo='ficcion';
-const quitarTildes=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-const dinero=n=>Number(n).toLocaleString('es-ES',{style:'currency',currency:'EUR'});
-function a(url,text,primary=false){const el=document.createElement('a');el.href=url;el.target='_blank';el.rel='noopener noreferrer';el.textContent=text;return el;}
-function card(book){
- const article=document.createElement('article');article.className='card';
- const top=document.createElement('div');top.className='cardtop';
- const cover=document.createElement('div');cover.className='cover';
- const fb=document.createElement('div');fb.className='fallback';fb.textContent=book.titulo;cover.appendChild(fb);
- if(book.isbn && /^(97[89])\d{10}$/.test(book.isbn)){
-  const img=document.createElement('img');img.alt='Cubierta de '+book.titulo;img.loading='lazy';img.decoding='async';img.hidden=true;
-  img.onload=()=>{if(img.naturalWidth>1 && img.naturalHeight>1){fb.hidden=true;img.hidden=false;}};
-  img.onerror=()=>{img.remove();};
-  img.src='https://covers.openlibrary.org/b/isbn/'+encodeURIComponent(book.isbn)+'-M.jpg?default=false';cover.appendChild(img);
- }
- const desc=document.createElement('div');
- const rank=document.createElement('span');rank.className='rank';rank.textContent='#'+book.puesto;desc.appendChild(rank);
- const h=document.createElement('h2');h.className='title';h.textContent=book.titulo;desc.appendChild(h);
- const au=document.createElement('p');au.className='author';au.textContent=book.autor;desc.appendChild(au);
- const pub=document.createElement('p');pub.className='publisher';pub.textContent=book.editorial;desc.appendChild(pub);
- top.append(cover,desc);article.appendChild(top);
- const meta=document.createElement('div');meta.className='meta';
- let t=document.createElement('span');t.textContent='Puesto '+book.puesto+' · '+(book.grupo==='ficcion'?'Ficción':'No ficción')+' · 13/11/2026';meta.appendChild(t);
- t=document.createElement('span');t.textContent='Semana anterior: '+(book.semana_anterior===null?'Nueva entrada':book.semana_anterior)+' · '+book.semanas_en_lista+' semanas en lista';meta.appendChild(t);
- if(book.isbn){t=document.createElement('span');t.textContent='Edición de referencia · ISBN '+book.isbn;meta.appendChild(t)}article.appendChild(meta);
- const price=document.createElement('div');price.className='price';const priceText=document.createElement('div');
- if(typeof book.pvp_editorial==='number' && book.pvp_fuente){const label=document.createElement('label');label.textContent='PVP editorial · '+(book.pvp_fecha||'fecha pendiente');const strong=document.createElement('strong');strong.textContent=dinero(book.pvp_editorial);priceText.append(label,strong);}
- else {const label=document.createElement('label');label.textContent='Precio de la edición';const strong=document.createElement('strong');strong.textContent='Consultar';priceText.append(label,strong)}price.appendChild(priceText);article.appendChild(price);
- const links=document.createElement('div');links.className='links';let q=encodeURIComponent(book.isbn || (book.titulo+' '+book.autor));
- links.appendChild(a('https://www.todostuslibros.com/busquedas?keyword='+q,'Todos Tus Libros'));
- links.appendChild(a(book.comprar||book.enlace_casa||book.ficha_fuente||('https://www.casadellibro.com/?query='+q),'Casa del Libro'));
- links.appendChild(a('https://www.amazon.es/s?k='+q,'Amazon'));
- links.appendChild(a('https://www.elcorteingles.es/search/?s='+q,'El Corte Inglés'));
- article.appendChild(links);return article;
+const $=id=>document.getElementById(id);
+let catalogo=[],grupo='ficcion',texto='';
+const imagenesVerificadas={}; // Sustituir manualmente por rutas /libros/portadas/ISBN.jpg cuando se tengan permisos y archivos verificados.
+const colors=[['#345c4c','#65806b'],['#7b4a46','#ca947f'],['#496782','#9eb8b7'],['#73536a','#c99aa8'],['#645d3e','#af9e6c'],['#6e6a91','#a7a2c2']];
+const normal=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const money=n=>Number(n).toLocaleString('es-ES',{style:'currency',currency:'EUR'});
+const make=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
+function link(text,url,klass='buy'){const a=make('a',klass,text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
+function shop(book,host){const query=[book.isbn||'',book.titulo,book.autor].filter(Boolean).join(' ');return 'https://www.google.com/search?q='+encodeURIComponent('site:'+host+' '+query)}
+function trend(book){const prev=book.semana_anterior;
+ if(prev==null)return ['new','✦ Nueva entrada'];if(prev>book.puesto)return ['','↑ Sube '+(prev-book.puesto)];if(prev<book.puesto)return ['down','↓ Baja '+(book.puesto-prev)];return ['same','→ Se mantiene'];}
+function cover(book,index){
+ const frame=make('div','cover-wrap'),shape=make('div','cover');
+ const palette=colors[index%colors.length];const fallback=make('div','faux');fallback.style.setProperty('--cover1',palette[0]);fallback.style.setProperty('--cover2',palette[1]);
+ fallback.append(make('strong','',book.titulo),make('span','','CUBIERTA ILUSTRATIVA'));
+ shape.append(fallback);
+ const source=book.portada_local||imagenesVerificadas[book.isbn]||book.portada_externa;
+ if(source){const img=make('img');img.alt='Portada de '+book.titulo;img.loading='lazy';img.decoding='async';img.hidden=true;img.onload=()=>{if(img.naturalWidth>20 && img.naturalHeight>20){fallback.hidden=true;img.hidden=false;}else img.remove()};img.onerror=()=>{img.remove()};img.src=source;shape.append(img)}
+ frame.append(shape,make('span','rank','#'+book.puesto));return frame;
 }
-function render(){const query=quitarTildes(buscar.value.trim());const selected=libros.filter(b=>b.grupo===grupo).filter(b=>quitarTildes([b.titulo,b.autor,b.editorial,b.isbn||''].join(' ')).includes(query)).sort((a,b)=>a.puesto-b.puesto);
- contador.textContent=selected.length+' de 20 libros · '+(grupo==='ficcion'?'Ficción':'No ficción')+' · Ranking del 13/11/2026';lista.replaceChildren();if(!selected.length){const p=document.createElement('p');p.className='empty';p.textContent='No hay títulos con esa búsqueda.';lista.appendChild(p);return;}const frag=document.createDocumentFragment();selected.forEach(b=>frag.appendChild(card(b)));lista.appendChild(frag);}
-async function init(){try{const resp=await fetch('./libros.json');if(!resp.ok)throw Error('catalog');libros=await resp.json();}catch(e){contador.textContent='No ha sido posible cargar el catálogo.';return;}render();}
-document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{grupo=btn.dataset.group;document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',String(b===btn)));lista.setAttribute('aria-labelledby',btn.id);render();}));buscar.addEventListener('input',render);init();
-</script></body></html>
+function bookCard(book,index){const card=make('article','card');
+ const top=make('div','cardtop'),right=make('div');right.append(make('h3','title',book.titulo),make('p','author',book.autor),make('p','editorial',book.editorial));
+ const [cl,label]=trend(book);right.append(make('span','trend '+cl,label));top.append(cover(book,index),right);card.append(top);
+ const meta=make('div','book-meta');meta.append(make('div','',book.semanas_en_lista+' semanas en lista · Semana anterior: '+(book.semana_anterior==null?'No figuraba':'#'+book.semana_anterior)));
+ if(book.isbn)meta.append(make('span','isbn','ISBN '+book.isbn+(book.isbn_verificado?'':' · Pendiente de confirmar')));else meta.append(make('span','isbn','ISBN por identificar'));
+ card.append(meta);
+ const bottom=make('div','card-bottom');bottom.append(make('span','p-label','Precio del libro en papel'));
+ if(book.precio_comprobado&&typeof book.pvp_editorial==='number'){
+ bottom.append(make('div','price',money(book.pvp_editorial)),make('span','p-source','PVP editorial · Comprobado '+(book.pvp_fecha||'sin fecha')));
+ }else bottom.append(make('div','unknown','Consultar precio en la librería'));
+ const links=make('div','buy-links');
+ if(book.ficha_fuente && /^https:\/\//.test(book.ficha_fuente))links.append(link('Ver edición',book.ficha_fuente));
+ else links.append(link('Todos Tus Libros',shop(book,'todostuslibros.com')));
+ links.append(link('Casa del Libro',shop(book,'casadellibro.com')),link('Amazon',shop(book,'amazon.es')),link('El Corte Inglés',shop(book,'elcorteingles.es')));
+ if(book.ficha_fuente)links.append(link('Todos Tus Libros',shop(book,'todostuslibros.com')));
+ bottom.append(links);card.append(bottom);return card;
+}
+function render(){const target=$('libros-grid');target.replaceChildren();const list=catalogo.filter(b=>b.grupo===grupo).sort((a,b)=>a.puesto-b.puesto).filter(b=>normal([b.titulo,b.autor,b.editorial,b.isbn].join(' ')).includes(normal(texto)));
+ $('contador').textContent=list.length+' de 20 libros · '+(grupo==='ficcion'?'Ficción':'No ficción')+' · Ranking del 13/11/2026';
+ if(!list.length){target.append(make('p','empty','No hay libros que coincidan con tu búsqueda.'));return}
+ const fragment=document.createDocumentFragment();list.forEach((b,i)=>fragment.append(bookCard(b,i)));target.append(fragment);
+}
+function highlights(){const box=$('destacados');const topF=catalogo.find(b=>b.grupo==='ficcion'&&b.puesto===1),topN=catalogo.find(b=>b.grupo==='no-ficcion'&&b.puesto===1),fresh=catalogo.find(b=>b.grupo==='ficcion'&&b.semana_anterior===null)||catalogo.find(b=>b.semana_anterior===null);
+ [['#1','N.º 1 de ficción',topF],['#1','N.º 1 de no ficción',topN],['✦','Nueva esta semana',fresh]].forEach(([sig,label,b])=>{if(!b)return;const spot=make('article','spot');const icon=make('div','spot-icon',sig);const r=make('div');r.append(make('div','spot-label',label),make('div','spot-title',b.titulo),make('div','spot-author',b.autor));spot.append(icon,r);box.append(spot)})}
+function init(){document.querySelectorAll('[data-grupo]').forEach(btn=>btn.addEventListener('click',()=>{grupo=btn.dataset.grupo;document.querySelectorAll('[data-grupo]').forEach(x=>x.setAttribute('aria-selected',String(x===btn)));$('libros-grid').setAttribute('aria-labelledby',btn.id);render()}));$('buscar').addEventListener('input',e=>{texto=e.target.value;render()});
+ fetch('./libros.json').then(r=>{if(!r.ok)throw Error('Catálogo no encontrado');return r.json()}).then(d=>{catalogo=d;highlights();render()}).catch(()=>{$('contador').textContent='No se pudo abrir el catálogo.';$('libros-grid').append(make('p','empty','Vuelve a intentarlo. Si estás abriendo el archivo desde tu ordenador, publícalo junto a libros.json en GitHub Pages.'))})}
+init();
+</script>
+</body></html>
