@@ -6,11 +6,53 @@
 <meta name="theme-color" content="#fff9ed"><title>Planes gratis en España — ¡Apáñate!</title>
 <link rel="stylesheet" href="/planes-gratis/style.css"><script defer src="/planes-gratis/app.js"></script>
 
+
+<style>
+/* Escena astronómica para Planes gratis */
+.astro-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);align-items:center;gap:clamp(20px,4vw,44px)}
+.astro-copy{min-width:0}
+.astro-scene{position:relative;overflow:hidden;isolation:isolate;min-height:280px;border-radius:30px;background:linear-gradient(180deg,#0e2448 0%,#163362 32%,#305987 62%,#e6a36a 100%);border:2px solid rgba(18,58,67,.22);box-shadow:0 12px 0 #d8d0bb}
+.astro-scene::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 18%,rgba(255,245,204,.95) 0 10%,rgba(255,245,204,.16) 10.5%,transparent 22%),radial-gradient(circle at 18% 24%,rgba(255,255,255,.95) 0 1.5px,transparent 1.8px),radial-gradient(circle at 23% 11%,rgba(255,255,255,.82) 0 1.3px,transparent 1.6px),radial-gradient(circle at 41% 20%,rgba(255,255,255,.88) 0 1.6px,transparent 1.9px),radial-gradient(circle at 54% 13%,rgba(255,255,255,.9) 0 1.7px,transparent 2px),radial-gradient(circle at 64% 28%,rgba(255,255,255,.82) 0 1.4px,transparent 1.7px),radial-gradient(circle at 84% 34%,rgba(255,255,255,.88) 0 1.7px,transparent 2px),radial-gradient(circle at 88% 12%,rgba(255,255,255,.85) 0 1.4px,transparent 1.7px)}
+.astro-caption{position:absolute;top:18px;left:22px;z-index:2;color:#eef8ff;font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:#123e52b3;padding:7px 11px;border-radius:999px;border:1px solid #ffffff26}
+.astro-shooting{position:absolute;top:42px;left:-20%;width:150px;height:3px;background:linear-gradient(90deg,#fff0b7 0%,#ffffff 35%,rgba(255,255,255,0) 100%);border-radius:999px;transform:rotate(-20deg);box-shadow:0 0 12px rgba(255,240,183,.9);animation:astro-fall 4.6s linear infinite}
+.astro-shooting::after{content:"";position:absolute;right:-7px;top:-3px;width:10px;height:10px;border-radius:50%;background:#fff5c0;box-shadow:0 0 18px rgba(255,247,196,.95)}
+@keyframes astro-fall{0%{transform:translate(-10px,0) rotate(-20deg);opacity:0}12%{opacity:1}55%{transform:translate(320px,108px) rotate(-20deg);opacity:1}100%{transform:translate(420px,150px) rotate(-20deg);opacity:0}}
+.astro-ground{position:absolute;left:-2%;right:-2%;bottom:-2px;height:110px;background:linear-gradient(180deg,#183d2d 0%,#102c21 100%);border-top-left-radius:45% 50px;border-top-right-radius:40% 44px}
+.astro-telescope,.astro-kid,.astro-bush,.astro-flower{position:absolute;z-index:2}
+.astro-bush{bottom:14px;width:72px;height:46px;background:#2e6b45;border-radius:40px 42px 18px 18px;box-shadow:18px 5px 0 #347951,-14px 8px 0 #255e3c}
+.astro-bush.left{left:22px}.astro-bush.right{right:28px;bottom:18px}
+.astro-flower{bottom:52px;left:44px;width:14px;height:14px;border-radius:50%;background:#ff6a74;box-shadow:20px 8px 0 #ffb347,44px 6px 0 #ff6a74,265px 18px 0 #ffb347,292px 12px 0 #ff6a74,312px 22px 0 #ff89a1}
+.astro-kid{bottom:54px;left:148px;width:84px;height:110px}
+.astro-kid .head{position:absolute;left:31px;top:2px;width:30px;height:30px;border-radius:50%;background:#f4c093;z-index:3}
+.astro-kid .hair{position:absolute;left:26px;top:0;width:38px;height:20px;border-radius:22px 22px 10px 10px;background:#3e2b22;z-index:4}
+.astro-kid .body{position:absolute;left:25px;top:27px;width:38px;height:45px;border-radius:18px 18px 10px 10px;background:#ff876d}
+.astro-kid .arm{position:absolute;left:18px;top:40px;width:22px;height:10px;border-radius:999px;background:#f4c093;transform:rotate(-25deg);transform-origin:right center}
+.astro-kid .leg1,.astro-kid .leg2{position:absolute;top:70px;width:10px;height:36px;border-radius:999px;background:#2d4567}
+.astro-kid .leg1{left:31px;transform:rotate(18deg)} .astro-kid .leg2{left:48px;transform:rotate(-12deg)}
+.astro-kid .shoe1,.astro-kid .shoe2{position:absolute;top:99px;width:18px;height:8px;border-radius:999px;background:#1c2231}
+.astro-kid .shoe1{left:26px;transform:rotate(8deg)} .astro-kid .shoe2{left:47px;transform:rotate(-10deg)}
+.astro-telescope{bottom:74px;left:202px;width:112px;height:78px}
+.astro-telescope .tube{position:absolute;left:10px;top:8px;width:76px;height:16px;border-radius:999px;background:linear-gradient(180deg,#85d0dc 0%,#4f98b0 100%);transform:rotate(-18deg);transform-origin:left center;border:2px solid #d6f5ff}
+.astro-telescope .tube::before{content:"";position:absolute;left:-10px;top:-3px;width:14px;height:22px;border-radius:8px;background:#2c4657}
+.astro-telescope .tube::after{content:"";position:absolute;right:-6px;top:3px;width:10px;height:10px;border-radius:50%;background:#26475e}
+.astro-telescope .mount{position:absolute;left:55px;top:28px;width:14px;height:14px;border-radius:50%;background:#f7d48e;border:2px solid #36515f}
+.astro-telescope .leg{position:absolute;left:60px;top:40px;width:4px;height:48px;border-radius:999px;background:#c29e6d;transform-origin:top center}
+.astro-telescope .leg.l1{transform:rotate(20deg)} .astro-telescope .leg.l2{transform:rotate(-18deg)} .astro-telescope .leg.l3{transform:rotate(0deg);height:52px}
+.astro-note{margin-top:14px;color:#4f665a;font-size:.95rem;max-width:690px}
+.astro-action{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}
+.astro-button{appearance:none;border:0;background:linear-gradient(180deg,#203e63 0%,#132844 100%);color:#fff;border-radius:14px;padding:14px 18px;font:800 .98rem system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 0 rgba(19,40,68,.22)}
+.astro-button:hover{transform:translateY(-1px)}
+.astro-help{font-size:.88rem;color:#5a6f65}
+.astro-tip{display:inline-flex;align-items:center;gap:8px;background:#fff7e8;border:1px solid #ecdcbf;padding:8px 12px;border-radius:999px;font-size:.88rem;color:#3a5547}
+@media(max-width:760px){.astro-layout{grid-template-columns:1fr}.astro-scene{max-width:460px;margin:10px auto 0;min-height:260px}.astro-action{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.astro-shooting,.astro-button{animation:none;transition:none}}
+</style>
+
 </head>
 <body>
 <header class="topbar wrap"><a class="brand" href="/" aria-label="¡Apáñate!, inicio"><span>¡</span>Ap<span>á</span>ñate<span>!</span></a><a class="back" href="/">← Volver al inicio</a></header>
 <main class="wrap">
-<section class="intro"><span class="eyebrow">DESCUBRE · DISFRUTA · AHORRA</span><h1>Los mejores planes no siempre <em>cuestan dinero.</em></h1><p>Encuentra pistas para descubrir <strong>exposiciones, espectáculos, conciertos y actividades gratuitas</strong> en España. Tú eliges el lugar y el momento.</p><div class="chips"><span>🎭 Teatro</span><span>🖼️ Exposiciones</span><span>🎵 Música</span><span>👨‍👩‍👧 Familia</span><span>🎪 Festivales</span></div></section>
+<section class="intro"><div class="astro-layout"><div class="astro-copy"><span class="eyebrow">DESCUBRE · DISFRUTA · AHORRA</span><h1>Los mejores planes no siempre <em>cuestan dinero.</em></h1><p>Encuentra pistas para descubrir <strong>exposiciones, espectáculos, conciertos y actividades gratuitas</strong> en España. Y, de vez en cuando, levanta la mirada: también hay noches preciosas para <strong>mirar las estrellas</strong>.</p><div class="chips"><span>🎭 Teatro</span><span>🖼️ Exposiciones</span><span>🎵 Música</span><span>👨‍👩‍👧 Familia</span><span>🎪 Festivales</span><span>✨ Cielo nocturno</span></div><div class="astro-action"><button type="button" id="astro-button" class="astro-button">Efemérides astronómicas ↗</button><span class="astro-tip">🌠 Esta semana bajo tu cielo</span></div><p class="astro-help">Busca observaciones, planetarios, noches de estrellas, lluvias de meteoros y actividades astronómicas relacionadas con la semana que has elegido.</p></div><div class="astro-scene" role="img" aria-label="Un niño mira por un telescopio en una loma verde mientras una estrella fugaz cruza el cielo"><span class="astro-caption">Mira arriba</span><div class="astro-shooting"></div><div class="astro-ground"></div><div class="astro-bush left"></div><div class="astro-bush right"></div><div class="astro-flower"></div><div class="astro-kid"><div class="hair"></div><div class="head"></div><div class="body"></div><div class="arm"></div><div class="leg1"></div><div class="leg2"></div><div class="shoe1"></div><div class="shoe2"></div></div><div class="astro-telescope"><div class="tube"></div><div class="mount"></div><div class="leg l1"></div><div class="leg l2"></div><div class="leg l3"></div></div></div></div></section>
 <section class="search-card" aria-labelledby="search-title"><div class="heading"><span class="ticket">🎟️</span><div><span class="eyebrow">BUSCADOR DE PLANES</span><h2 id="search-title">¿Qué hacemos hoy?</h2></div></div>
 <form id="events-form">
 <div class="form-grid"><div class="field"><label for="place">Ciudad o provincia</label><input id="place" maxlength="90" placeholder="Ej.: Sevilla, Málaga, Madrid…" autocomplete="address-level2" required></div>
@@ -18,7 +60,43 @@
 <div class="field"><label for="when">¿Cuándo?</label><select id="when"><option value="semana">Esta semana</option><option value="hoy">Hoy</option><option value="fin">Este fin de semana</option><option value="mes">Este mes</option><option value="libre">Sin fecha concreta</option></select></div></div>
 <button type="submit" class="btn">Buscar planes gratuitos ↗</button><p class="hint">Se abrirán resultados de búsqueda externos. Consulta siempre el organizador para confirmar que la entrada es gratis, la fecha y la disponibilidad.</p>
 </form><div id="feedback" class="feedback" role="status" aria-live="polite"></div></section>
-<section class="below"><h2>Ideas para empezar</h2><p>También puedes buscar directamente una categoría. Solo tienes que escribir tu ciudad o provincia arriba.</p><div class="suggestions"><button type="button" data-kind="exposiciones museos">🖼️ Museos y exposiciones <b>↗</b></button><button type="button" data-kind="conciertos música">🎶 Música gratis <b>↗</b></button><button type="button" data-kind="actividades infantiles familia">🧸 En familia <b>↗</b></button><button type="button" data-kind="teatro espectáculos">🎭 Espectáculos <b>↗</b></button></div></section>
-<section class="note"><h2>¿Cómo funciona?</h2><p>Este primer buscador <strong>no mantiene una agenda propia</strong>: prepara una búsqueda con tus filtros y la abre en Google. Así no mostramos eventos ficticios o caducados como si fueran actuales. Los resultados pueden incluir actividades de pago, por lo que es importante comprobar los detalles en la página oficial antes de ir.</p></section>
+<section class="below"><h2>Ideas para empezar</h2><p>También puedes buscar directamente una categoría. Solo tienes que escribir tu ciudad o provincia arriba.</p><div class="suggestions"><button type="button" data-kind="exposiciones museos">🖼️ Museos y exposiciones <b>↗</b></button><button type="button" data-kind="conciertos música">🎶 Música gratis <b>↗</b></button><button type="button" data-kind="actividades infantiles familia">🧸 En familia <b>↗</b></button><button type="button" data-kind="teatro espectáculos">🎭 Espectáculos <b>↗</b></button><button type="button" id="astro-suggestion">✨ Efemérides astronómicas <b>↗</b></button></div></section>
+<section class="note"><h2>¿Cómo funciona?</h2><p>Este primer buscador <strong>no mantiene una agenda propia</strong>: prepara una búsqueda con tus filtros y la abre en Google. Así no mostramos eventos ficticios o caducados como si fueran actuales. Los resultados pueden incluir actividades de pago, por lo que es importante comprobar los detalles en la página oficial antes de ir. En el botón de efemérides astronómicas priorizamos búsquedas relacionadas con la semana elegida para animarte a mirar el cielo con un poco de curiosidad.</p></section>
 </main><footer class="wrap foot"><span>© <span id="year"></span> ¡Apáñate!</span><a href="/">Inicio</a><a href="/privacidad.html">Privacidad</a></footer>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const whenMap = {
+    hoy: 'hoy',
+    semana: 'esta semana',
+    fin: 'este fin de semana',
+    mes: 'este mes',
+    libre: 'próximos días'
+  };
+  function makeQuery(){
+    const place = ($('place') && $('place').value.trim()) || 'España';
+    const when = ($('when') && $('when').value) || 'semana';
+    const span = whenMap[when] || 'esta semana';
+    return `efemérides astronómicas ${span} ${place} observación astronómica planetario lluvia de estrellas actividades gratis`;
+  }
+  function openAstro(){
+    const query = makeQuery();
+    const feedback = $('feedback');
+    if(feedback){
+      const place = ($('place') && $('place').value.trim()) || 'España';
+      const when = ($('when') && $('when').value) || 'semana';
+      feedback.innerHTML = `<strong>Miramos al cielo...</strong> Abrimos una búsqueda de <em>efemérides astronómicas</em> para <strong>${place}</strong>, ${whenMap[when] || 'esta semana'}.`;
+    }
+    window.open('https://www.google.com/search?q=' + encodeURIComponent(query), '_blank', 'noopener');
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    const astroMain = $('astro-button');
+    const astroAlt = $('astro-suggestion');
+    if(astroMain) astroMain.addEventListener('click', openAstro);
+    if(astroAlt) astroAlt.addEventListener('click', openAstro);
+  });
+})();
+</script>
+
 </body></html>
