@@ -385,19 +385,44 @@ const BCN_KNOWN_MUNICIPALITIES=new Set([
  'mollet del valles','parets del valles','la roca del valles','sant celoni',
  'berga','sant sadurni d anoia'
 ]);
-function cataloniaLocation(e){
- const raw=tidy(fieldValue(e,[/^municipi$/, /^nommunicipi$/, /^comarcaimunicipi$/, /^poblacio$/, /^localitat$/, /^ciutat$/]));
- const explicitProvince=norm(tidy(fieldValue(e,[/^provincia$/, /^nomprovincia$/])));
- if(!raw||explicitProvince&&explicitProvince!=='barcelona')return '';
- const parts=raw.split(/\s*(?:\||\/|;|>|,| · | - )\s*/).map(x=>x.trim()).filter(Boolean);
- const comarca=parts.find(x=>BCN_COMARQUES.has(norm(x)));
- // La localidad debe ser distinta de la comarca y no ser únicamente un nombre provincial.
- const municipalities=parts.filter(x=>!BCN_COMARQUES.has(norm(x))&&norm(x)!=='provincia de barcelona');
- if(!municipalities.length)return '';
- const city=municipalities[municipalities.length-1];
- if(comarca||explicitProvince==='barcelona'||BCN_KNOWN_MUNICIPALITIES.has(norm(city).replace(/[’']/g,'')))return city;
- return '';
+// Geografía verificable: no confundimos «sin ubicación» con «fuera de Barcelona».
+// Esta clasificación solo afecta a la fuente cultural de la Generalitat.
+function cataloniaLocationDetail(e){
+ const explicitProvince=norm(tidy(fieldValue(e,[/^provincia$/, /^nomprovincia$/, /^province$/])));
+ const code=tidy(fieldValue(e,[/^codimunicipi$/, /^codimun$/, /^codimunicipal$/, /^codiine$/, /^inecode$/, /^municipicode$/]));
+ const officialCode=code.replace(/\D/g,'');
+ const codeProvince=officialCode.length>=5&&officialCode.length<=6?officialCode.slice(0,2):'';
+ const normalizeCity=s=>norm(s).replace(/[’'`´]/g,'').replace(/\s+/g,' ').trim();
+ const BCN=BCN_COMARQUES;
+ const independentComarca=tidy(fieldValue(e,[/^comarca$/, /^nomcomarca$/]));
+ const composite=tidy(fieldValue(e,[/^comarcaimunicipi$/, /^comarca.*municipi$/]));
+ const direct=tidy(fieldValue(e,[/^municipi$/, /^nommunicipi$/, /^nomdelmunicipi$/, /^poblacio$/, /^localitat$/, /^ciutat$/]));
+ const geoLat=fieldValue(e,[/^latitud$/, /^latitude$/, /^lat$/]);
+ const geoLon=fieldValue(e,[/^longitud$/, /^longitude$/, /^lon$/, /^lng$/]);
+ const lat=Number(String(geoLat).replace(',','.')),lon=Number(String(geoLon).replace(',','.'));
+ const hasCoords=geoLat!==''&&geoLon!==''&&Number.isFinite(lat)&&Number.isFinite(lon)&&Math.abs(lat)<=90&&Math.abs(lon)<=180&&!(lat===0&&lon===0);
+ const split=s=>String(s||'').split(/\s*(?:\||\/|;|>|,| · | - )\s*/).map(x=>x.trim()).filter(Boolean);
+ const parts=split(composite);
+ const comarca=independentComarca||parts.find(x=>BCN.has(normalizeCity(x)))||'';
+ const provinceExplicit=explicitProvince==='barcelona'||explicitProvince==='08'||/^barcelona\s*\(provincia\)$/.test(explicitProvince);
+ const provinceOther=!!explicitProvince&&!provinceExplicit;
+ const candidates=direct?split(direct):parts.filter(x=>normalizeCity(x)!==normalizeCity(comarca)&&normalizeCity(x)!=='provincia de barcelona');
+ // Nunca convertir el nombre de la comarca en nombre de ciudad.
+ const city=candidates.find(x=>normalizeCity(x)!==normalizeCity(comarca))||'';
+ const recognized=!!city&&BCN_KNOWN_MUNICIPALITIES.has(normalizeCity(city));
+ // Comarcas enteramente barcelonesas; otras (p. ej. Osona) pueden cruzar provincias.
+ const safeComarques=new Set(['alt penedes','anoia','bages','baix llobregat','barcelones','garraf','maresme','moianes','valles occidental','valles oriental']);
+ const countyVerified=!!city&&safeComarques.has(normalizeCity(comarca));
+ if(provinceOther||codeProvince&&codeProvince!=='08')return {city:'',reason:'outsideProvince',hasCoords,comarca};
+ if(!city)return {city:'',reason:hasCoords?'coordinatesUnresolved':'noMunicipality',hasCoords,comarca};
+ if(provinceExplicit||codeProvince==='08')return {city,reason:'verifiedProvince',hasCoords,comarca};
+ if(recognized)return {city,reason:'knownMunicipality',hasCoords,comarca};
+ if(countyVerified)return {city,reason:'verifiedComarca',hasCoords,comarca};
+ // Una comarca por sí sola NO prueba provincia de todos sus municipios.
+ // Se guarda como evidencia para una validación futura contra Idescat/ICGC.
+ return {city:'',reason:hasCoords?'coordinatesUnresolved':comarca?'unknownMunicipalityWithComarca':'unknownMunicipality',hasCoords,comarca};
 }
+function cataloniaLocation(e){return cataloniaLocationDetail(e).city;}
 function cataloniaLink(e){
  const value=fieldValue(e,[/^urlactivitat$/, /^enllaos$/, /^enllacos$/, /^enllacos?$/, /^enllac1url$/, /^linkbotoentrades$/, /^url.*activ/, /^enllac/, /^web.*activ/, /^url$/, /^link$/]);
  if(Array.isArray(value)){
@@ -422,9 +447,17 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
   if(!title){diagnostic.missingTitle++;continue;}
   if(!start){diagnostic.missingDate++;continue;}
   if(start>to||(end||start)<from){diagnostic.outOfRange++;continue;}
-  const municipality=cataloniaLocation(e);
-  if(!municipality){diagnostic.missingPlace++;continue;}
-  if(!municipality){diagnostic.wrongProvince++;continue;}
+  const geo=cataloniaLocationDetail(e);
+  if(!geo.city){
+   diagnostic.geography ||= {outsideProvince:0,noMunicipality:0,unknownMunicipality:0,unknownMunicipalityWithComarca:0,coordinatesUnresolved:0,verifiedProvince:0,knownMunicipality:0,verifiedComarca:0};
+   diagnostic.geography[geo.reason]=(diagnostic.geography[geo.reason]||0)+1;
+   if(geo.reason==='outsideProvince')diagnostic.wrongProvince++;
+   else diagnostic.missingPlace++;
+   continue;
+  }
+  const municipality=geo.city;
+  diagnostic.geography ||= {outsideProvince:0,noMunicipality:0,unknownMunicipality:0,unknownMunicipalityWithComarca:0,coordinatesUnresolved:0,verifiedProvince:0,knownMunicipality:0,verifiedComarca:0};
+  diagnostic.geography[geo.reason]=(diagnostic.geography[geo.reason]||0)+1;
   const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adrea/,/^adreca/,/^localitzacio/]))||municipality;
   const desc=tidy(fieldValue(e,[/^descripci/,/^resum/,/^text/,/^observacio/]));
   const explicitFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuit/, /^gratuitat$/]);
