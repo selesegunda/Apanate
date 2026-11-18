@@ -215,6 +215,11 @@ const buy=b=>({todostuslibros:`https://www.todostuslibros.com/busquedas?keyword=
 const reviewSearch=(site,b)=>`https://www.google.com/search?q=${encodeURIComponent(`site:${site} "${b.titulo}" "${b.autor}"`)}`;
 const movement=b=>{let n=Number(b.semana_anterior);if(!n) return {label:'Nueva entrada',c:'new'};if(n>b.puesto) return {label:`↑ ${n-b.puesto} puestos`,c:'up'};if(n<b.puesto) return {label:`↓ ${b.puesto-n} puestos`,c:'down'};return {label:'= Se mantiene',c:'same'};};
 function fallback(){return `<div class="no-cover" role="img" aria-label="Portada en actualización"><svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="2"><path d="M25 10c-5-4-11-5-18-3v32c7-2 13-1 18 3 5-4 11-5 18-3V7c-7-2-13-1-18 3Z"/><path d="M25 10v32"/></svg><span class="n">Portada en<br>actualización</span></div>`;}
+const verifiedIsbns=[{"titulo": "Principio, medio, fin", "autor": "Valeria Luiselli", "isbn": "9791388111006"}, {"titulo": "Pinacoteca soñada", "autor": "Rafael Argullol", "isbn": "9791387964740"}, {"titulo": "La mochila. Vida de Muñagorri", "autor": "Ander Izagirre", "isbn": "9791387839505"}, {"titulo": "JOMO. El gusto de perder", "autor": "Juan Evaristo Valls Boix", "isbn": "9788433949707"}, {"titulo": "La Guerra Fría contada para escépticos", "autor": "Juan Eslava Galán", "isbn": "9788408326380"}, {"titulo": "Sucesión", "autor": "Pilar Eyre", "isbn": "9788410943872"}, {"titulo": "A 55 millas por hora", "autor": "Guillermo Fesser", "isbn": "9791388337000"}];
+function isbnForVerifiedBook(b){
+  const item=verifiedIsbns.find(x=>norm(x.titulo)===norm(b.titulo||'')&&norm(x.autor)===norm(b.autor||''));
+  return item?.isbn||'';
+}
 for(const book of catalog){if(!book.isbn){const checked=isbnForVerifiedBook(book);if(checked){book.isbn=checked;book.isbn_verificado=true;}}}
 function coverMarkup(b,w=110,h=165){
   const dynamicUrl='/api/libros-portada?'+new URLSearchParams({titulo:b.titulo||'',autor:b.autor||'',isbn:b.isbn||''}).toString();
@@ -255,11 +260,7 @@ const coversCacheName='apanate-libros-portadas-v1';
 const coverUsageKey='apanate-libros-portadas-uso-v1';
 const cleanupKey='apanate-libros-portadas-limpieza-v1';
 let latestDate=catalog[0]?.fecha_ranking||'2026-11-13';
-const verifiedIsbns=[{"titulo": "Principio, medio, fin", "autor": "Valeria Luiselli", "isbn": "9791388111006"}, {"titulo": "Pinacoteca soñada", "autor": "Rafael Argullol", "isbn": "9791387964740"}, {"titulo": "La mochila. Vida de Muñagorri", "autor": "Ander Izagirre", "isbn": "9791387839505"}, {"titulo": "JOMO. El gusto de perder", "autor": "Juan Evaristo Valls Boix", "isbn": "9788433949707"}, {"titulo": "La Guerra Fría contada para escépticos", "autor": "Juan Eslava Galán", "isbn": "9788408326380"}, {"titulo": "Sucesión", "autor": "Pilar Eyre", "isbn": "9788410943872"}, {"titulo": "A 55 millas por hora", "autor": "Guillermo Fesser", "isbn": "9791388337000"}];
-function isbnForVerifiedBook(b){
-  const item=verifiedIsbns.find(x=>norm(x.titulo)===norm(b.titulo||'')&&norm(x.autor)===norm(b.autor||''));
-  return item?.isbn||'';
-}
+
 function copyToCatalog(fresh,fecha,source){
   if(!Array.isArray(fresh)||fresh.length!==40)return false;
   const count=g=>fresh.filter(b=>b.grupo===g&&Number(b.puesto)>=1&&Number(b.puesto)<=20).length;
