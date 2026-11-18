@@ -44,6 +44,8 @@ const SOURCE={
   ],
   cyl:[0,100,200,300].map(offset=>({name:'Castilla y León · Cultura',url:`${CYL}?limit=100&offset=${offset}`,parser:'cyl'})),
   andalucia:[{name:'Andalucía · Agenda cultural',url:'https://datos.juntadeandalucia.es/api/v0/schedule/all?format=json',parser:'andalucia'}],
+  // Sevilla: fuente autonómica de datos abiertos CC BY 4.0; JSON y CSV son alternativas, no duplicados.
+  sevilla:[{name:'Sevilla · Junta de Andalucía · Agenda de eventos (CC BY 4.0)',parser:'sevilla-open-data'}],
   canarias:[{name:'Canarias · Agenda cultural',url:'https://datos.canarias.es/catalogos/general/dataset/11dc9d88-b456-4ae2-bcf9-07ad624fd025/resource/d179079c-a2ed-40dc-a748-7b64d093c342/download/agendaproxima.csv',parser:'canarias',csv:true}],
   // API cultural de Euskadi publicada oficialmente, validación de gratuidad estricta.
   euskadi:[{name:'Euskadi · Agenda cultural',url:'https://opendata.euskadi.eus/contenidos/ds_eventos/agenda_cultura_euskadi/es_kultura/adjuntos/kulturklik.geojson',parser:'euskadi'}],
@@ -682,6 +684,75 @@ async function readJob(job){
  }
  throw new Error(attempts.join('; '));
 }
+// Sevilla (provincia). El formato de la descarga pública no se presupone:
+// se acepta únicamente información explícita sobre fecha, localidad y enlace.
+// JSON y CSV del mismo conjunto nunca se acumulan como dos fuentes distintas.
+function sevillaRows(raw){
+ const standard=records(raw);
+ if(standard.length)return standard;
+ for(const path of [raw?.hits?.hits,raw?.result?.items,raw?.result?.results,raw?.result?.data,raw?.response?.results,raw?.data?.items]){
+  if(Array.isArray(path))return path;
+ }
+ return [];
+}
+function sevillaValue(e,names){
+ const normalized=new Map(Object.entries(e||{}).map(([k,v])=>[norm(k).replace(/[^a-z0-9]/g,''),v]));
+ for(const k of names){const v=normalized.get(norm(k).replace(/[^a-z0-9]/g,''));if(v!==undefined&&v!==null&&v!=='')return v;}
+ return '';
+}
+function sevillaObjects(raw){
+ return sevillaRows(raw).map(r=>{
+  const e=r?._source?.data||r?._source||r?.fields||r?.properties?.data||r?.properties||r?.data||r;
+  return e&&typeof e==='object'&&!Array.isArray(e)?e:{};
+ });
+}
+function sevillaEvents(raw,from,to,source,d){
+ const out=[];const items=sevillaObjects(raw);d.received=items.length;
+ d.fields=[...new Set(items.slice(0,5).flatMap(e=>Object.keys(e)))].slice(0,45).join(', ');
+ for(const e of items){
+  const val=(...keys)=>sevillaValue(e,keys);
+  const title=tidy(val('titulo','título','title','nombre','denominacion','denominación','nombre_evento','nombreActividad'));
+  if(!title){d.missingTitle++;continue;}
+  const start=isoDate(val('fecha_inicio','fechaInicio','fechainicio','fecha_de_inicio','startDate','start_date','fecha','inicio','date','f_inicio','fechaDesde'));
+  const end=isoDate(val('fecha_fin','fechaFin','fechafin','fecha_de_fin','endDate','end_date','fin','f_fin','fechaHasta'));
+  if(!start){d.missingDate++;continue;}
+  if(start>to||(end||start)<from){d.outOfRange++;continue;}
+  const location=e.ubicacion||e.location||e.lugar||{};
+  const loc=typeof location==='object'&&location?location:{};
+  const city=tidy(val('municipio','localidad','poblacion','ciudad','municipality','nombreMunicipio','nombreLocalidad')||get(loc,['municipio','localidad','addressLocality','city']));
+  const province=tidy(val('provincia','nombreProvincia','nombre_provincia','province','provinciaNombre')||get(loc,['provincia','province','addressRegion']));
+  if(!city||!province){d.missingPlace++;continue;}
+  if(norm(province)!=='sevilla'&&norm(province)!=='41'){d.wrongProvince++;continue;}
+  const url=secureLink(val('url','enlace','enlace_evento','urlEvento','url_actividad','enlace_al_contenido','web','link','contentUrl','urlDetalle','url_detalle'));
+  if(!url){d.missingLink++;continue;}
+  const desc=tidy(val('descripcion','descripción','description','resumen','contenido','detalle'));
+  const freeFlag=val('gratuito','gratuita','es_gratuito','esGratuito','freeAdmission','gratis');
+  const hasFlag=freeFlag!=='';
+  const cost=hasFlag?freeFlag:val('precio','precioEntrada','precio_entrada','coste','tarifa','importe');
+  const status=classify(cost,desc,title,hasFlag);
+  const place=tidy(val('espacio','lugar_celebracion','lugarCelebracion','espacioNombre','nombreLugar','direccion','dirección','recinto')||get(loc,['nombre','name','lugar','direccion','address']))||city;
+  const time=tidy(val('hora','hora_inicio','horaInicio','horario')).slice(0,36);
+  const kinds=kindsFor(title,desc,tidy(val('categoria','categoría','tipo','tematica','temática')));
+  out.push({title,start:start<from?from:start,end:end||'',city,province:'Sevilla',place,time,kind:kinds[0],kinds,description:desc,source,url,freeType:status==='condicional'?'condicional':'confirmada',status});
+  d.classified[status]++;d.accepted++;
+ }
+ return out;
+}
+async function readSevilla(){
+ const base='https://datos.juntadeandalucia.es/api/v0/schedule/all?format=';
+ const attempts=[];
+ for(const fmt of ['json','csv']){
+  try{
+   const dl=await readJob({parser:'sevilla-open-data',url:base+fmt,csv:fmt==='csv',allowEmpty:true});
+   const items=sevillaRows(dl.raw);
+   // No interpretar una respuesta de error como una agenda vacía.
+   if(!items.length)throw Error('Respuesta sin actividades reconocibles');
+   return {...dl,format:fmt};
+  }catch(e){attempts.push(fmt+': '+String(e?.message||e).slice(0,120));}
+ }
+ throw Error('La fuente oficial de Sevilla no entregó registros utilizables. '+attempts.join(' | '));
+}
+
 // Consultar primero fechas vigentes. Si falla la consulta filtrada, usar
 // alternativas conservando la comprobación estricta del municipio y período.
 // Las páginas vacías terminan la paginación sin marcar fallo.
@@ -761,7 +832,7 @@ export async function onRequestGet({request}){
  const p=new URL(request.url).searchParams;const province=tidy(p.get('province')).slice(0,80),city=tidy(p.get('city')).slice(0,80);const from=p.get('from')||'',to=p.get('to')||'';
  if(!province||!/^20\d\d-\d\d-\d\d$/.test(from)||!/^20\d\d-\d\d-\d\d$/.test(to)||to<from||(Date.parse(to)-Date.parse(from))/864e5>45)return json({events:[],notice:'Elige provincia y hasta 45 días.'},400);
  const region=Object.keys(REGIONS).find(k=>REGIONS[k].split('|').some(n=>norm(n)===norm(province)));
- const jobs=[...(SOURCE[region]||[])];
+ const jobs=[...(norm(province)==='sevilla'?SOURCE.sevilla:(SOURCE[region]||[]))];
  if(norm(province)==='madrid')jobs.push(...SOURCE.madrid);
  if(norm(province)==='barcelona')jobs.push(...SOURCE.barcelona,...SOURCE.barcelonaMunicipios);
  if(norm(province)==='zaragoza')jobs.push(...SOURCE.zaragoza);
@@ -771,6 +842,13 @@ export async function onRequestGet({request}){
  const settled=await Promise.all(jobs.map(async j=>{
    const diagnostic={received:0,missingTitle:0,missingDate:0,outOfRange:0,missingPlace:0,wrongProvince:0,missingLink:0,accepted:0,classified:{gratis:0,condicional:0,pendiente:0,pago:0}};
    try{
+    if(j.parser==='sevilla-open-data'){
+      const dl=await readSevilla();
+      const events=sevillaEvents(dl.raw,from,to,j.name,diagnostic);
+      diagnostic.sourceFormat=dl.format;
+      diagnostic.endpoint=dl.endpoint;
+      return {name:j.name,ok:true,events,diagnostic,endpoint:dl.endpoint};
+    }
     if(j.parser==='barcelona-html'){
       const result=await readBarcelonaHtml(j,from,to);
       diagnostic.fields=result.debug||`Fichas con enlace detectadas: ${result.received}`;diagnostic.received=result.received;diagnostic.outOfRange=result.outOfRange;diagnostic.missingDate=result.missingDate||0;diagnostic.accepted=result.events.length;
@@ -812,7 +890,7 @@ export async function onRequestGet({request}){
  }));
  const paginationFailures=settled.filter(x=>x.diagnostic?.paginationPartial).length;
  const isMadrid=norm(province)==='madrid';
- const isPilot=isMadrid||norm(province)==='barcelona';
+ const isPilot=isMadrid||norm(province)==='barcelona'||norm(province)==='sevilla';
  let all,duplicates=0,conflicts=0;
  if(isPilot){
  // Los duplicados se detectan antes de paginar. Un mismo título en dos
