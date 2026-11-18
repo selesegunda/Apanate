@@ -34,15 +34,11 @@ const SOURCE={
   // Primera fase de municipios de la provincia de Barcelona. Cada fuente conserva
   // su municipio declarado: nunca se asignan localizaciones por defecto a terceros.
   barcelonaMunicipios:[
-    // L'Hospitalet: el antiguo endpoint de Socrata devuelve HTML. La Diputació
-    // ofrece el recurso JSON oficial con municipio filtrado por código INE.
-    {name:'L’Hospitalet · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'L’Hospitalet de Llobregat',dibaCode:'08101',urls:[
-      'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-rel_municipis-like/08101'
-    ]},
-    {name:'Badalona · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'Badalona',dibaCode:'08015',urls:[
-      'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-rel_municipis-like/08015',
-      'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-municipi_nom/Badalona'
-    ]},
+    // La fuente municipal oficial es prioritaria. Solo se mostrarán registros
+    // si su CSV contiene fecha, título, enlace HTTPS y gratuidad contrastable.
+    // La fuente provincial queda como alternativa, sin atribuirle otras ciudades.
+    {name:'L’Hospitalet · Agenda municipal / Diputació',parser:'municipal-barcelona',municipio:'L’Hospitalet de Llobregat',dibaCode:'08101',municipalCsvUrl:'https://dadesobertes.seu-e.cat/dataset/a01d7e53-c4c8-40a1-83f2-4cff9ea8acf2/resource/fd1d251a-fa70-4522-b805-a964f063c6c8/download/agenda_actes.csv'},
+    {name:'Badalona · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'Badalona',dibaCode:'08015'},
     {name:'Santa Coloma · Agenda municipal',parser:'municipal-barcelona',municipio:'Santa Coloma de Gramenet',csv:true,url:'https://dadesobertes.seu-e.cat/csv/santacolomadegramenet/ADOvstActivitatsAgenda.csv'}
   ],
   cyl:[0,100,200,300].map(offset=>({name:'Castilla y León · Cultura',url:`${CYL}?limit=100&offset=${offset}`,parser:'cyl'})),
@@ -418,7 +414,8 @@ function municipalBarcelonaEvents(raw,from,to,job,d){
   if(!e||typeof e!=='object'){d.missingTitle++;continue;}
   const val=patterns=>tidy(fieldValue(e,patterns));
   const isColoma=job.municipio==='Santa Coloma de Gramenet';
-  const title=val(isColoma?[/^descripcio$/, /^titol$/, /^nom$/]:[/^titol$/, /^titolact/, /^titolactiv/, /^titol.*act/, /^nomactiv/, /^activitat$/, /^activitatnom$/, /^denominaci/, /^nomacte/, /^title$/, /^nombre$/, /^nom$/, /^descripciobreu$/]);
+  const isHospitaletCsv=!!job.hospitaletCsv;
+  const title=val(isHospitaletCsv?[/^titol$/, /^titolactivitat$/, /^nomactivitat$/, /^nomacte$/, /^activitat$/, /^denominacio$/, /^nom$/, /^title$/, /^descripcio$/]:isColoma?[/^descripcio$/, /^titol$/, /^nom$/]:[/^titol$/, /^titolact/, /^titolactiv/, /^titol.*act/, /^nomactiv/, /^activitat$/, /^activitatnom$/, /^denominaci/, /^nomacte/, /^title$/, /^nombre$/, /^nom$/, /^descripciobreu$/]);
   // Santa Coloma incluye fechas del registro y de la sesión; priorizar la sesión
   // solo cuando el valor sea una fecha válida, nunca cuando sea una hora.
   const start=(isColoma?isoDate(fieldValue(e,[/^inicievent$/])):'')||isoDate(fieldValue(e,[/^datainici$/, /^datainicial$/, /^datainicidela/, /^datainici/, /^dataacte$/, /^dataactivitat$/, /^diaactivitat$/, /^data$/, /^inici$/, /^fecha.*inicio/, /^startdate$/]));
@@ -426,7 +423,7 @@ function municipalBarcelonaEvents(raw,from,to,job,d){
   if(!title){d.missingTitle++;continue;}
   if(!start){d.missingDate++;continue;}
   if(start>to||end<from){d.outOfRange++;continue;}
-  if(job.dibaCode){
+  if(job.dibaCode&&!isHospitaletCsv){
    if(!dibaMunicipalityMatches(e,job)){d.missingPlace++;continue;}
   }else{
    const declared=val([/^municipinom$/, /^nommunicipi$/, /^municipi$/, /^localitat$/, /^poblacio$/, /^ciutat$/, /^city$/]);
@@ -434,9 +431,17 @@ function municipalBarcelonaEvents(raw,from,to,job,d){
   }
   const place=val(isColoma?[/^centre$/, /^adrecanom$/, /^nomlloc$/, /^equipament$/, /^espai$/]:[/^adrecanom$/, /^nomlloc$/, /^nomequipament$/, /^equipament$/, /^espai$/, /^lloc$/, /^adreca$/, /^direccion$/, /^ubicacio$/])||job.municipio;
   const desc=val(isColoma?[/^descripcio$/, /^centre$/]:[/^descripcio$/, /^descripcioact/, /^descripcio.*activ/, /^resum$/, /^observaci/, /^contingut$/, /^text$/]);
-  const rawUrl=fieldValue(e,isColoma?[/^urll$/, /^url$/, /^enllac$/, /^link$/]:[/^urlacte$/, /^acteurl$/, /^urlactiv/, /^urlinscrip/, /^urlenllac/, /^enllacweb$/, /^enllac$/, /^url$/, /^web$/, /^link$/, /^enlace$/, /^urlgeneral$/, /^url.*general$/]);
+  const rawUrl=fieldValue(e,isHospitaletCsv?[/^urlactivitat$/, /^urlacte$/, /^enllacactivitat$/, /^urlfitxa$/, /^url$/, /^enllac$/, /^web$/, /^link$/]:isColoma?[/^urll$/, /^url$/, /^enllac$/, /^link$/]:[/^urlacte$/, /^acteurl$/, /^urlactiv/, /^urlinscrip/, /^urlenllac/, /^enllacweb$/, /^enllac$/, /^url$/, /^web$/, /^link$/, /^enlace$/, /^urlgeneral$/, /^url.*general$/]);
   const link=secureLink(typeof rawUrl==='object'?(rawUrl?.url||rawUrl?.href||rawUrl?.value):rawUrl);
-  if(!link){d.missingLink++;continue;}
+  if(!link){
+   d.missingLink++;
+   if(isColoma){
+    const signal=classify(fieldValue(e,[/^preu$/, /^precio$/, /^cost$/, /^tarifa$/]),desc,title);
+    if(signal==='gratis')d.missingLinkFree=(d.missingLinkFree||0)+1;
+    else d.missingLinkUnverified=(d.missingLinkUnverified||0)+1;
+   }
+   continue;
+  }
   const freeFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuita$/, /^esgratuit$/]);
   const hasFlag=freeFlag!==''&&freeFlag!==undefined&&freeFlag!==null;
   const cost=hasFlag?freeFlag:fieldValue(e,[/^preu$/, /^precio$/, /^cost$/, /^tarifa$/, /^entrades$/, /^preuentrada$/]);
@@ -599,12 +604,70 @@ async function readJob(job){
     }
    }
    if(!Array.isArray(raw)&&typeof raw!=='object')throw new Error('Formato de datos desconocido');
-   if(!(job.parser==='municipal-barcelona'?municipalRecords(raw):records(raw)).length)throw new Error('Respuesta sin registros reconocibles');
+   if(!(job.parser==='municipal-barcelona'?municipalRecords(raw):records(raw)).length&&!job.allowEmpty)throw new Error('Respuesta sin registros reconocibles');
    return {raw,endpoint:url};
   }catch(err){attempts.push(`${new URL(url).pathname.split('/').pop()}: ${err?.name==='AbortError'?'tiempo de espera':String(err?.message||err).slice(0,100)}`)}
   finally{clearTimeout(timer)}
  }
  throw new Error(attempts.join('; '));
+}
+// Consultar primero fechas vigentes. Si falla la consulta filtrada, usar
+// alternativas conservando la comprobación estricta del municipio y período.
+// Las páginas vacías terminan la paginación sin marcar fallo.
+async function readDibaMunicipal(job,from,to){
+ const base='https://do.diba.cat/api/dataset/actesturisme_ca';
+ const attempts=[];
+ const filters=[
+  `camp-rel_municipis-like/${job.dibaCode}/camp-data_fi-greaterequal/${from}/ord-data_fi/asc`,
+  `camp-rel_municipis-like/${job.dibaCode}/ord-data_fi/desc`,
+  `camp-rel_municipis-like/${job.dibaCode}`
+ ];
+ const perPage=150,maxPages=4;
+ for(const [index,filter] of filters.entries()){
+  const merged=[];let failure='',pages=0,complete=false;
+  for(let page=0;page<maxPages;page++){
+   const start=page*perPage+1,end=start+perPage-1;
+   const url=`${base}/${filter}/format/json/pag-ini/${start}/pag-fi/${end}`;
+   try{
+    const chunk=await readJob({parser:'municipal-barcelona',url,allowEmpty:true});
+    const rows=municipalRecords(chunk.raw);
+    merged.push(...rows);pages++;
+    if(rows.length<perPage){complete=true;break;}
+   }catch(error){failure=String(error?.message||error).slice(0,150);break;}
+  }
+  // A filtered response may be syntactically valid but consist solely of
+  // old events, wrong municipalities or rows without dates. Try fallback.
+  const usable=merged.some(row=>{
+   const e=row?.properties||row?.fields||row;
+   if(!e||!dibaMunicipalityMatches(e,job))return false;
+   const first=isoDate(fieldValue(e,[/^datainici$/]));
+   const last=isoDate(fieldValue(e,[/^datafi$/]))||first;
+   return !!first&&first<=to&&last>=from;
+  });
+  if(merged.length&&usable)
+   return {raw:merged,endpoint:`${base}/${filter}`,pages,partial:!complete||!!failure,warning:failure,queryFallback:index>0};
+  attempts.push(`${filter}: ${failure||(!merged.length?'sin registros':'sin actividades vigentes del municipio')}`);
+ }
+ throw new Error(attempts.join('; ').slice(0,300));
+}
+async function readMunicipalBarcelona(job,from,to){
+ if(job.municipalCsvUrl){
+  try{
+   const csv=await readJob({parser:'municipal-barcelona',csv:true,url:job.municipalCsvUrl});
+   // Usar solo campos reales; nunca atribuir a la fuente municipal
+   // nombres de la API provincial ni inventar URL de actividad.
+   const fields=Object.keys(municipalRecords(csv.raw)[0]||{});
+   const normalized=fields.map(norm).map(x=>x.replace(/[^a-z0-9]/g,''));
+   const hasDate=normalized.some(x=>/^(datainici|datainicial|inicievent|startdate|fecha.*inicio)$/.test(x));
+   const hasTitle=normalized.some(x=>/^(titol|titolactivitat|nomactivitat|nomacte|activitat|denominacio|nom|title|descripcio)$/.test(x));
+   if(hasDate&&hasTitle){
+    const preview={received:0,missingTitle:0,missingDate:0,outOfRange:0,missingPlace:0,wrongProvince:0,missingLink:0,accepted:0,classified:{gratis:0,condicional:0,pendiente:0,pago:0}};
+    const parsed=municipalBarcelonaEvents(csv.raw,from,to,{...job,hospitaletCsv:true},preview);
+    if(parsed.length)return {...csv,municipalCsv:true};
+   }
+  }catch(_){ /* La fuente municipal puede cambiar: conservar alternativa provincial. */ }
+ }
+ return readDibaMunicipal(job,from,to);
 }
 function json(data,status=200){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=180, s-maxage=600','x-content-type-options':'nosniff'}})}
 export async function onRequestGet({request}){
@@ -633,8 +696,13 @@ export async function onRequestGet({request}){
       return {name:j.name,ok:true,events,diagnostic,endpoint:source.endpoint};
     }
     if(j.parser==='municipal-barcelona'){
-      const downloaded=await readJob(j);
-      const events=municipalBarcelonaEvents(downloaded.raw,from,to,j,diagnostic);
+      const downloaded=j.dibaCode?await readMunicipalBarcelona(j,from,to):await readJob(j);
+      const events=municipalBarcelonaEvents(downloaded.raw,from,to,{...j,hospitaletCsv:!!downloaded.municipalCsv},diagnostic);
+      if(downloaded.pages)diagnostic.pages=downloaded.pages;
+      if(downloaded.queryFallback)diagnostic.queryFallback=true;
+      if(downloaded.partial)diagnostic.paginationPartial=true;
+      if(downloaded.warning)diagnostic.sourceWarning=downloaded.warning;
+      diagnostic.endpoint=downloaded.endpoint;
       return {name:j.name,ok:true,events,diagnostic,endpoint:downloaded.endpoint};
     }
     if(j.parser==='comunidad-madrid'){
@@ -650,6 +718,7 @@ export async function onRequestGet({request}){
     return {name:j.name,ok:true,events,diagnostic,endpoint:downloaded.endpoint};
    }catch(error){return {name:j.name,ok:false,events:[],diagnostic,error:String(error?.message||error).slice(0,240)};}
  }));
+ const paginationFailures=settled.filter(x=>x.diagnostic?.paginationPartial).length;
  const isMadrid=norm(province)==='madrid';
  const isPilot=isMadrid||norm(province)==='barcelona';
  let all,duplicates=0,conflicts=0;
@@ -719,9 +788,9 @@ export async function onRequestGet({request}){
  const events=selected.slice(offset,offset+pageSize).map(({status,...ev})=>ev);
  const displayed=events.length,confirmed=checked.length;
  const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length+settled.reduce((n,x)=>n+(x.pageErrors||0),0);
- return json({events,displayed,confirmed,requestedType:type,stats:working.length===0?null:stats,sources:working,sourceCount:jobs.length,failed:working.length===0,partial:failures>0,
+ return json({events,displayed,confirmed,requestedType:type,stats:working.length===0?null:stats,sources:working,sourceCount:jobs.length,failed:working.length===0,partial:failures>0||paginationFailures>0,
   pagination:isPilot?{offset,limit:pageSize,total:selected.length,hasMore:offset+displayed<selected.length}:undefined,
   deduplication:{duplicates,conflicts},
   diagnostic:isPilot?settled.map(({name,ok,diagnostic,error,pageErrors})=>({name,ok,...diagnostic,...(pageErrors?{error:`${pageErrors} página(s) de la agenda autonómica no respondieron`}:{}),...(error?{error}: {})})):undefined,
-  notice:working.length===0?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':failures?`${failures} fuente(s) sin respuesta. El recuento es parcial.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
+  notice:working.length===0?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':(failures||paginationFailures)?`Consulta parcial: ${failures} fuente(s) sin respuesta y ${paginationFailures} fuente(s) con paginación incompleta.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
 }
