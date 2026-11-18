@@ -34,11 +34,12 @@ const SOURCE={
   // Primera fase de municipios de la provincia de Barcelona. Cada fuente conserva
   // su municipio declarado: nunca se asignan localizaciones por defecto a terceros.
   barcelonaMunicipios:[
-    {name:'L’Hospitalet · Agenda municipal',parser:'municipal-barcelona',municipio:'L’Hospitalet de Llobregat',csv:true,urls:[
-      'https://opendata.l-h.cat/api/views/qtv3-9x52/rows.csv?accessType=DOWNLOAD&bom=true&format=true&delimiter=%3B',
-      'https://opendata.l-h.cat/resource/eaz9-6ynn.json'
+    // L'Hospitalet: el antiguo endpoint de Socrata devuelve HTML. La Diputació
+    // ofrece el recurso JSON oficial con municipio filtrado por código INE.
+    {name:'L’Hospitalet · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'L’Hospitalet de Llobregat',dibaCode:'08101',urls:[
+      'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-rel_municipis-like/08101'
     ]},
-    {name:'Badalona · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'Badalona',urls:[
+    {name:'Badalona · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'Badalona',dibaCode:'08015',urls:[
       'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-rel_municipis-like/08015',
       'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-municipi_nom/Badalona'
     ]},
@@ -386,6 +387,27 @@ function municipalRecords(raw){
  }
  return [];
 }
+// La Diputació representa municipios como relaciones (a veces código 08015,
+// otras como objeto/lista). Solo aceptar coincidencias expresas de código o nombre.
+function dibaMunicipalityMatches(e,job){
+ const raw=fieldValue(e,[/^municipinom$/, /^nommunicipi$/, /^relmunicipis$/, /^municipi$/]);
+ const tokens=[];
+ function visit(v,depth=0){
+  if(depth>3||v===null||v===undefined)return;
+  if(Array.isArray(v)){for(const item of v)visit(item,depth+1);return;}
+  if(typeof v==='object'){
+   for(const [k,x] of Object.entries(v))if(/^(?:id|codi|code|valor|value|nom|name|municipi|municipinom|relmunicipis)$/i.test(k))visit(x,depth+1);
+   return;
+  }
+  tokens.push(String(v));
+ }
+ visit(raw);
+ const expected=norm(job.municipio).replace(/[’']/g,'');
+ return tokens.some(v=>{
+  const n=norm(v).replace(/[’']/g,'');
+  return n===expected||n===job.dibaCode||new RegExp('(?:^|[^0-9])'+job.dibaCode+'(?:[^0-9]|$)').test(n);
+ });
+}
 function municipalBarcelonaEvents(raw,from,to,job,d){
  const items=municipalRecords(raw);
  d.received=items.length;
@@ -395,22 +417,25 @@ function municipalBarcelonaEvents(raw,from,to,job,d){
   const e=original?.properties||original?.fields||original;
   if(!e||typeof e!=='object'){d.missingTitle++;continue;}
   const val=patterns=>tidy(fieldValue(e,patterns));
-  const title=val([/^titol$/, /^titolact/, /^titolactiv/, /^titol.*act/, /^nomactiv/, /^activitat$/, /^activitatnom$/, /^denominaci/, /^nomacte/, /^title$/, /^nombre$/, /^nom$/, /^descripciobreu$/]);
-  const start=isoDate(fieldValue(e,[/^datainici$/, /^datainicial$/, /^datainicidela/, /^datainici/, /^dataacte$/, /^dataactivitat$/, /^diaactivitat$/, /^data$/, /^inici$/, /^fecha.*inicio/, /^startdate$/]));
-  const end=isoDate(fieldValue(e,[/^datafi$/, /^datafinal$/, /^datafinalitzacio$/, /^datafinal/, /^enddate$/]))||start;
+  const isColoma=job.municipio==='Santa Coloma de Gramenet';
+  const title=val(isColoma?[/^descripcio$/, /^titol$/, /^nom$/]:[/^titol$/, /^titolact/, /^titolactiv/, /^titol.*act/, /^nomactiv/, /^activitat$/, /^activitatnom$/, /^denominaci/, /^nomacte/, /^title$/, /^nombre$/, /^nom$/, /^descripciobreu$/]);
+  // Santa Coloma incluye fechas del registro y de la sesión; priorizar la sesión
+  // solo cuando el valor sea una fecha válida, nunca cuando sea una hora.
+  const start=(isColoma?isoDate(fieldValue(e,[/^inicievent$/])):'')||isoDate(fieldValue(e,[/^datainici$/, /^datainicial$/, /^datainicidela/, /^datainici/, /^dataacte$/, /^dataactivitat$/, /^diaactivitat$/, /^data$/, /^inici$/, /^fecha.*inicio/, /^startdate$/]));
+  const end=(isColoma?isoDate(fieldValue(e,[/^fievent$/])):'')||isoDate(fieldValue(e,[/^dataacabament$/, /^datafi$/, /^datafinal$/, /^datafinalitzacio$/, /^datafinal/, /^enddate$/]))||start;
   if(!title){d.missingTitle++;continue;}
   if(!start){d.missingDate++;continue;}
   if(start>to||end<from){d.outOfRange++;continue;}
-  const declared=val([/^municipinom$/, /^nommunicipi$/, /^municipi$/, /^localitat$/, /^poblacio$/, /^ciutat$/, /^city$/]);
-  // En Badalona (Diputació) la población es obligatoria; las dos fuentes
-  // municipales pueden documentar explícitamente la localidad en su catálogo.
-  if(job.municipio==='Badalona'&&!declared){d.missingPlace++;continue;}
-  if(declared&&norm(declared)!==norm(job.municipio)&&!(job.municipio.startsWith('L’')&&/^(?:l['’]?)?hospitalet(?: de llobregat)?$/.test(norm(declared)))){d.wrongProvince++;continue;}
-  const place=val([/^adrecanom$/, /^nomlloc$/, /^nomequipament$/, /^equipament$/, /^espai$/, /^lloc$/, /^adreca$/, /^direccion$/, /^ubicacio$/])||job.municipio;
-  const desc=val([/^descripcio$/, /^descripcioact/, /^descripcio.*activ/, /^resum$/, /^observaci/, /^contingut$/, /^text$/]);
-  const rawUrl=fieldValue(e,[/^urlacte$/, /^acteurl$/, /^urlactiv/, /^urlinscrip/, /^urlenllac/, /^enllacweb$/, /^enllac$/, /^url$/, /^web$/, /^link$/, /^enlace$/, /^urlgeneral$/, /^url.*general$/]);
-  let link=secureLink(typeof rawUrl==='object'?(rawUrl?.url||rawUrl?.href||rawUrl?.value):rawUrl);
-  // No publicar URL genérica del portal ni deducir URL de un identificador.
+  if(job.dibaCode){
+   if(!dibaMunicipalityMatches(e,job)){d.missingPlace++;continue;}
+  }else{
+   const declared=val([/^municipinom$/, /^nommunicipi$/, /^municipi$/, /^localitat$/, /^poblacio$/, /^ciutat$/, /^city$/]);
+   if(declared&&norm(declared)!==norm(job.municipio)){d.wrongProvince++;continue;}
+  }
+  const place=val(isColoma?[/^centre$/, /^adrecanom$/, /^nomlloc$/, /^equipament$/, /^espai$/]:[/^adrecanom$/, /^nomlloc$/, /^nomequipament$/, /^equipament$/, /^espai$/, /^lloc$/, /^adreca$/, /^direccion$/, /^ubicacio$/])||job.municipio;
+  const desc=val(isColoma?[/^descripcio$/, /^centre$/]:[/^descripcio$/, /^descripcioact/, /^descripcio.*activ/, /^resum$/, /^observaci/, /^contingut$/, /^text$/]);
+  const rawUrl=fieldValue(e,isColoma?[/^urll$/, /^url$/, /^enllac$/, /^link$/]:[/^urlacte$/, /^acteurl$/, /^urlactiv/, /^urlinscrip/, /^urlenllac/, /^enllacweb$/, /^enllac$/, /^url$/, /^web$/, /^link$/, /^enlace$/, /^urlgeneral$/, /^url.*general$/]);
+  const link=secureLink(typeof rawUrl==='object'?(rawUrl?.url||rawUrl?.href||rawUrl?.value):rawUrl);
   if(!link){d.missingLink++;continue;}
   const freeFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuita$/, /^esgratuit$/]);
   const hasFlag=freeFlag!==''&&freeFlag!==undefined&&freeFlag!==null;
@@ -419,7 +444,7 @@ function municipalBarcelonaEvents(raw,from,to,job,d){
   const categories=val([/^categoria$/, /^categories$/, /^tipus$/, /^tags$/, /^tematica$/, /^public$/]);
   const kinds=kindsFor(title,desc,categories);
   result.push({title,start:start<from?from:start,end:end===start?'':end,city:job.municipio,province:'Barcelona',place,
-   time:val([/^horari$/, /^horainici$/, /^hora$/, /^hores$/]),kind:kinds[0],kinds,description:desc,source:job.name,url:link,
+   time:val(isColoma?[/^horaevent$/, /^horari$/, /^hora$/]:[/^horari$/, /^horainici$/, /^hora$/, /^hores$/]),kind:kinds[0],kinds,description:desc,source:job.name,url:link,
    status,freeType:status==='condicional'?'condicional':'confirmada'});
   d.classified[status]++;d.accepted++;
  }
