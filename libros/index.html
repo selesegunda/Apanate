@@ -128,7 +128,18 @@ const buy=b=>({todostuslibros:`https://www.todostuslibros.com/busquedas?keyword=
 const reviewSearch=(site,b)=>`https://www.google.com/search?q=${encodeURIComponent(`site:${site} "${b.titulo}" "${b.autor}"`)}`;
 const movement=b=>{let n=Number(b.semana_anterior);if(!n) return {label:'Nueva entrada',c:'new'};if(n>b.puesto) return {label:`↑ ${n-b.puesto} puestos`,c:'up'};if(n<b.puesto) return {label:`↓ ${b.puesto-n} puestos`,c:'down'};return {label:'= Se mantiene',c:'same'};};
 function fallback(){return `<div class="no-cover" role="img" aria-label="Portada en actualización"><svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="2"><path d="M25 10c-5-4-11-5-18-3v32c7-2 13-1 18 3 5-4 11-5 18-3V7c-7-2-13-1-18 3Z"/><path d="M25 10v32"/></svg><span class="n">Portada en<br>actualización</span></div>`;}
-function coverMarkup(b,w=110,h=165){const dynamic=!b.portada_local&&!b.portada_externa;const dynamicUrl='/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor);const primary=b.portada_local||b.portada_externa||(dynamic?dynamicUrl:'');const secondary=(b.portada_local&&b.portada_externa)?b.portada_externa:'';if(!primary)return `<div class="bookimg" style="width:${w}px;height:${h}px">${fallback()}</div>`;const swap=secondary?`if(!this.dataset.fallbackUsed){this.dataset.fallbackUsed='1';this.src=this.dataset.fallback;return;}`:'';const extra=secondary?` data-fallback="${esc(secondary)}"`:'';const cacheAttr=dynamic?` data-cover-cache="${esc(dynamicUrl)}"`:'';return `<div class="bookimg" style="width:${w}px;height:${h}px"><img loading="lazy" decoding="async" src="${dynamic?'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=':esc(primary)}" alt="Cubierta de ${esc(b.titulo)}"${extra}${cacheAttr} style="${dynamic?'display:none;':''}" onerror="${swap}this.style.display='none'" />${fallback()}</div>`;}
+function coverMarkup(b,w=110,h=165){
+  const dynamicUrl='/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor)+'&isbn='+encodeURIComponent(b.isbn||'')+'&isbn='+encodeURIComponent(b.isbn||'');
+  const sources=[b.portada_local,b.portada_externa].filter(Boolean);
+  const primary=sources[0]||dynamicUrl;
+  const dynamic=sources.length===0;
+  // Si la cubierta local o externa falla, probar la siguiente y finalmente
+  // el buscador de Open Library + Google Books. El aviso original queda debajo.
+  const extra=` data-cover-chain="${esc(JSON.stringify([...sources.slice(1),dynamicUrl]))}"`;
+  const cacheAttr=dynamic?` data-cover-cache="${esc(dynamicUrl)}"`:'';
+  const onerror=`const chain=JSON.parse(this.dataset.coverChain||'[]');if(chain.length){const next=chain.shift();this.dataset.coverChain=JSON.stringify(chain);this.src=next;}else{this.style.display='none';}`;
+  return `<div class="bookimg" style="width:${w}px;height:${h}px"><img loading="lazy" decoding="async" src="${dynamic?'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=':esc(primary)}" alt="Cubierta de ${esc(b.titulo)}"${extra}${cacheAttr} style="${dynamic?'display:none;':''}" onerror="${esc(onerror)}" />${fallback()}</div>`;
+}
 function cover(b){return coverMarkup(b,110,165);}
 function coverFeatures(b){return coverMarkup(b,135,200);}
 function features(){let a=catalog.find(b=>b.grupo==='ficcion'&&b.puesto===1),b=catalog.find(b=>b.grupo==='no-ficcion'&&b.puesto===1);$('features').innerHTML=[a,b].map((v,i)=>`<article class="feature"><div class="art">${coverFeatures(v)}</div><div><span class="rankpill">N.º 1 · ${i===0?'Ficción':'No ficción'}</span><h3>${esc(v.titulo)}</h3><p class="author">${esc(v.autor)}</p><p class="hint">${i===0?'La historia que encabeza las ventas de ficción.':'La obra que encabeza las ventas de no ficción.'}</p><a href="#ranking-heading" data-jump="${v.grupo}">Explorar la lista</a></div></article>`).join('');hydrateCovers();}
@@ -206,7 +217,7 @@ async function checkRanking(){
 // Se guardan imágenes nuevas en el navegador, no se duplican en GitHub.
 // Se retienen 30 días tras desaparecer del ranking; la limpieza se revisa una vez al mes.
 function usage(){try{return JSON.parse(localStorage.getItem(coverUsageKey)||'{}')}catch(_){return {}}}
-function coverSet(){return new Set(catalog.map(b=>'/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor)))}
+function coverSet(){return new Set(catalog.map(b=>'/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor)+'&isbn='+encodeURIComponent(b.isbn||'')))}
 async function cleanupCovers(){
   if(!('caches' in window))return;
   const now=Date.now(), last=Number(localStorage.getItem(cleanupKey)||0);
