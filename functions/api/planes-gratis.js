@@ -22,16 +22,14 @@ const SOURCE={
       'https://datos.madrid.es/id/id/dataset/206717-0-agenda-eventos-bibliotecas/resource/206717-1-agenda-eventos-bibliotecas-json/download/206717-1-agenda-eventos-bibliotecas-json.json'
     ]}
   ],
-  // Barcelona capital: tres canales independientes. JSON paginado (nunca descargar
-  // los archivos gigantes de 110-210 MB), CSV municipal y agenda HTML oficial.
-  // El scraping es solo complemento: una respuesta vacía queda en diagnóstico.
+  // Barcelona capital: datos AUTORIZADOS y vigentes de Generalitat (Socrata),
+  // más Agenda 500 municipal (HTML). Se elimina Open Data BCN agenda-diaria:
+  // su cobertura termina en 2025 y su DataStore devolvía 404.
   barcelona:[
-    {name:'Barcelona · Agenda JSON (API municipal)',parser:'barcelona',jsonPaged:true,
-     resourceId:'da9e71de-0f8e-417d-928a-56380bfd0231',pages:3,limit:200},
-    {name:'Barcelona · Agenda cultural CSV',parser:'barcelona',csv:true,
-     url:'https://opendata-ajuntament.barcelona.cat/data/dataset/2767159c-1c98-46b8-a686-2b25b40cb053/resource/3abb2414-1ee0-446e-9c25-380e938adb73/download'},
-    {name:'Barcelona · Agenda oficial (acceso gratuito)',parser:'barcelona-html',
-     url:'https://agenda500.barcelona.cat/es/llistat?ajax=search&canal=agenda500&cerca=*:*&d=mes&nr=60&pg=search&sort=namesort,asc&ticket=3&wtarget=agenda500&xout=1'}
+    {name:'Barcelona · Generalitat cultural JSON',parser:'catalonia-json',dataset:'rhpv-yr4f'},
+    {name:'Barcelona · Generalitat cultural CSV',parser:'catalonia-csv',dataset:'2n2k-gg9s'},
+    {name:'Barcelona · Agenda 500 (acceso gratuito)',parser:'barcelona-html',
+     url:'https://agenda500.barcelona.cat/es/llistat?ajax=search&canal=agenda500&cerca=*:*&d=mes&nr=60&pg=search&sort=popularity%2Cdesc&ticket=3&wtarget=agenda500&xout=1'}
   ],
   cyl:[0,100,200,300].map(offset=>({name:'Castilla y León · Cultura',url:`${CYL}?limit=100&offset=${offset}`,parser:'cyl'})),
   andalucia:[{name:'Andalucía · Agenda cultural',url:'https://datos.juntadeandalucia.es/api/v0/schedule/all?format=json',parser:'andalucia'}],
@@ -260,64 +258,127 @@ async function readMadridRegional(job,from,to){
  return {events,received:rawEvents.length,outOfRange:rawEvents.length-events.length,pageErrors:results.filter(x=>!x.ok).length};
 }
 
-// JSON de Open Data BCN: lectura por API CKAN paginada, no por archivo masivo.
-async function readBarcelonaJson(job){
- const rows=[];let pages=0;
- for(let page=0;page<(job.pages||3);page++){
-  const u='https://opendata-ajuntament.barcelona.cat/data/api/action/datastore_search?'+
-   new URLSearchParams({resource_id:job.resourceId,limit:String(job.limit||200),offset:String(page*(job.limit||200))});
-  const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),10000);
-  try{
-   const response=await fetch(u,{signal:ctl.signal,headers:{accept:'application/json'},cf:{cacheEverything:true,cacheTtl:900}});
-   if(!response.ok)throw Error(`HTTP ${response.status}`);
-   const data=await response.json();
-   if(data.success!==true||!Array.isArray(data.result?.records))throw Error('La API no devolvió registros CKAN reconocibles');
-   rows.push(...data.result.records);pages++;
-   if(data.result.records.length<(job.limit||200))break;
-  }finally{clearTimeout(timer)}
+// Conjuntos autonómicos vigentes: consultamos su esquema antes de pedir datos.
+// Los campos Socrata cambian entre conjuntos; nunca suponemos que los campos
+// de 2021 de Open Data BCN siguen vigentes.
+const CT_API='https://analisi.transparenciacatalunya.cat';
+const normalizedKey=s=>norm(s).replace(/[^a-z0-9]/g,'');
+function fieldValue(e,regexes){
+ for(const [key,value] of Object.entries(e||{})){
+  if(regexes.some(r=>r.test(normalizedKey(key)))&&value!==null&&value!==undefined&&value!=='')return value;
  }
- if(!rows.length)throw Error('La API JSON no devolvió registros; comprobar si el recurso admite DataStore');
- return {raw:rows,endpoint:'Open Data BCN / datastore_search',pageErrors:0};
+ return '';
+}
+async function fetchTimed(url,accept='application/json',ms=14000){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),ms);
+ try{const res=await fetch(url,{signal:controller.signal,headers:{accept},cf:{cacheEverything:true,cacheTtl:900}});
+  if(!res.ok)throw Error(`HTTP ${res.status}`);
+  return res;
+ }finally{clearTimeout(timer)}
+}
+function socrataDateColumn(columns){
+ return columns.find(c=>/date|calendar_date/.test(c.dataTypeName||'')&&/data.*(inici|comenc|acte)|(?:fecha|date).*?(inicio|inici|start)|^data$|^datainici$/.test(normalizedKey(c.fieldName||c.name)))
+  ||columns.find(c=>/date|calendar_date/.test(c.dataTypeName||'')&&/inici|start|comen/.test(normalizedKey(c.fieldName||c.name)))
+  ||columns.find(c=>/date|calendar_date/.test(c.dataTypeName||''));
+}
+async function readCatalonia(job,from,to){
+ const meta=await (await fetchTimed(`${CT_API}/api/views/${job.dataset}.json`)).json();
+ const cols=(meta.columns||[]).filter(x=>x.fieldName&&!x.fieldName.startsWith(':'));
+ if(!cols.length)throw Error('No fue posible consultar columnas del conjunto oficial');
+ const dateCol=socrataDateColumn(cols),q=new URLSearchParams();
+ // Filtro de fecha en servidor, evitando descargar toda la historia.
+ if(dateCol){
+  const f=dateCol.fieldName.replace(/[^a-zA-Z0-9_]/g,'');
+  if(f===dateCol.fieldName)q.set('$where',`${f} >= '${from}T00:00:00' AND ${f} <= '${to}T23:59:59'`);
+ }
+ if(!q.has('$where'))q.set('$order',':id DESC');
+ q.set('$limit','1500');
+ const isCsv=job.parser==='catalonia-csv';
+ const endpoint=`${CT_API}/resource/${job.dataset}.${isCsv?'csv':'json'}?${q}`;
+ const r=await fetchTimed(endpoint,isCsv?'text/csv':'application/json',16000);
+ const body=await r.text();
+ const raw=isCsv?rowsFromCSV(body):JSON.parse(body);
+ if(!Array.isArray(raw))throw Error('Respuesta autonómica no contiene una lista');
+ return {raw,endpoint,dateFiltered:!!q.get('$where')};
+}
+function cataloniaEvents(raw,from,to,source,diagnostic){
+ diagnostic.received=raw.length;const events=[];
+ for(const record of raw){
+  const e=record.fields||record;
+  const title=tidy(fieldValue(e,[/^titol/,/^titul/,/^nomactiv/,/^nomesdev/,/^activitat/,/^denominacio/,/^nom$/,/^title$/]));
+  const rawBegin=fieldValue(e,[/^datainici/,/^datacomenc/,/^datadeinici/,/^startdate/,/^inici/,/^datacelebracio/,/^dataacte/,/^fecha/]);
+  const rawEnd=fieldValue(e,[/^datafi/,/^datafinal/,/^enddate/,/^finalitzacio/]);
+  const start=isoDate(rawBegin),end=isoDate(rawEnd);
+  if(!title){diagnostic.missingTitle++;continue;}
+  if(!start){diagnostic.missingDate++;continue;}
+  if(start>to||(end||start)<from){diagnostic.outOfRange++;continue;}
+  const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adreca/,/^localitzacio/]))||'Barcelona';
+  const municipality=tidy(fieldValue(e,[/^nommunicip/,/^municipi/,/^poblacio/,/^localitat/,/^nompoblacio/,/^ciutat/]));
+  const province=tidy(fieldValue(e,[/^nomprovinc/,/^provincia/]));
+  if(!municipality){diagnostic.missingPlace++;continue;}
+  // Piloto solo Barcelona capital, nunca atribuir Barcelona como municipio
+  // cuando una fuente regional describe expresamente otra población.
+  if(norm(municipality)!=='barcelona'||(province&&norm(province)!=='barcelona')){diagnostic.wrongProvince++;continue;}
+  const desc=tidy(fieldValue(e,[/^descripcio/,/^resum/,/^text/,/^entrad/,/^observacio/]));
+  const price=fieldValue(e,[/^preu/,/^gratuit/,/^cost/,/^tarifa/,/^entrada/]);
+  const freeFlag=Object.keys(e).some(k=>/^gratuit/.test(normalizedKey(k)));
+  const status=classify(price,desc,title,freeFlag);
+  const url=secureLink(fieldValue(e,[/^urlactiv/,/^urlacte/,/^enllac/,/^webactiv/,/^url/,/^link/,/^web/,/^enlace/]));
+  if(!url){diagnostic.missingLink++;continue;}
+  const kinds=kindsFor(title,desc,tidy(fieldValue(e,[/^categoria/,/^tematica/,/^tipus/,/^ambit/])));
+  events.push({title,start:start<from?from:start,end:end||'',city:municipality,province:'Barcelona',place,time:tidy(fieldValue(e,[/^horainici/,/^hora/])),kind:kinds[0],kinds,description:desc,source,url,status,freeType:status==='condicional'?'condicional':'confirmada'});
+  diagnostic.classified[status]++;diagnostic.accepted++;
+ }
+ return events;
 }
 function barcelonaHtmlEntries(html,from,to){
- // Fichas individuales en Agenda 500, con filtro oficial ticket=3 (gratis).
- // No considerar gratuito ningún enlace fuera de una ficha fechada.
- const hits=[];const re=/<a\b([^>]*\bhref\s*=\s*["']([^"']*\/detall\/[^"']+)["'][^>]*)>([\s\S]*?)<\/a>/gi;
- let m;const seen=new Set();
- while((m=re.exec(html))!==null){
-  const urlStr=m[2].replace(/&amp;/g,'&');
-  let url;try{url=new URL(urlStr,'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
-  const title=tidy(htmlText(m[3]));if(title.length<5||title.length>210)continue;
-  const marker=url.pathname+'|'+title;
-  if(seen.has(marker))continue;seen.add(marker);
-  hits.push({title,url:url.href,index:m.index,end:re.lastIndex});
+ // Agenda 500 presenta las fichas como encabezados h3 con enlaces /detall/.
+ // El lector anterior buscaba <a> y luego una fecha a continuación, pero
+ // confundía los límites de las tarjetas y perdía todas las fichas.
+ const parsed=[];const cards=[];
+ const h3=/<h3\b[^>]*>([\s\S]*?)<\/h3>/gi;let m;
+ while((m=h3.exec(html))!==null){
+  const inside=m[1];const anchor=inside.match(/<a\b[^>]*href\s*=\s*(["'])([^"']*\/detall\/[^"']+)\1[^>]*>([\s\S]*?)<\/a>/i)
+   ||inside.match(/<a\b[^>]*href\s*=\s*(["'])([^"']*\/detall\/[^"']+)\1/i);
+  if(!anchor)continue;
+  const rawTitle=anchor[3]||inside;const title=htmlText(rawTitle);
+  if(title.length<4||title.length>250)continue;
+  let url;try{url=new URL(decodeHtml(anchor[2]),'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
+  cards.push({title,url:url.href,startIndex:m.index,endIndex:h3.lastIndex});
  }
- const parsed=[],allCandidates=hits.length;
- for(let i=0;i<hits.length;i++){
-  const hit=hits[i],next=hits[i+1];
-  const text=htmlText(html.slice(hit.end,Math.min(hit.end+1900,next?next.index:hit.end+1900)));
-  const date=text.match(/(?:Del?\s+)?(\d{1,2})\/(\d{1,2})\/(20\d{2})(?:\s+al\s+(\d{1,2})\/(\d{1,2})\/(20\d{2}))?/i);
-  if(!date)continue; // Eventos permanentes sin fechas concretas se excluyen.
-  const first=`${date[3]}-${date[2].padStart(2,'0')}-${date[1].padStart(2,'0')}`;
-  const last=date[6]?`${date[6]}-${date[5].padStart(2,'0')}-${date[4].padStart(2,'0')}`:first;
-  if(first>to||last<from)continue;
-  const where=text.match(/(?:D[oó]nde|On)\s*:\s*([^\n]{3,160}?)(?=\s+(?:Cu[aá]ndo|Quan)\s*:|$)/i);
-  const place=tidy(where?.[1]||'Barcelona · lugar detallado por el organizador').slice(0,120);
-  const kinds=kindsFor(hit.title,text,'');
-  parsed.push({title:hit.title,start:first<from?from:first,end:last,city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,description:text.slice(0,320),source:'Barcelona · Agenda oficial (acceso gratuito)',url:hit.url,freeType:'confirmada',status:'gratis'});
+ // Algunas versiones ponen h3 dentro del enlace. Fallback por URL de detalle.
+ if(!cards.length){
+  const a=/<a\b[^>]*href\s*=\s*(["'])([^"']*\/detall\/[^"']+)\1[^>]*>([\s\S]*?)<\/a>/gi;
+  while((m=a.exec(html))!==null){
+   let url;try{url=new URL(decodeHtml(m[2]),'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
+   const title=htmlText(m[3]);if(title.length<4||title.length>250)continue;
+   cards.push({title,url:url.href,startIndex:m.index,endIndex:a.lastIndex});
+  }
  }
- return {events:parsed,received:allCandidates,outOfRange:Math.max(0,allCandidates-parsed.length)};
+ let undated=0,expired=0;
+ for(let i=0;i<cards.length;i++){
+  const c=cards[i],next=cards[i+1];
+  const segment=html.slice(c.endIndex,Math.min(c.endIndex+4200,next?next.startIndex:html.length));
+  const content=htmlText(segment);
+  const range=content.match(/(?:Cu[aá]ndo|Quan)\s*:?\s*(?:Del?\s+)?(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i)
+   ||content.match(/\b(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i);
+  if(!range){undated++;continue;}
+  const first=isoDate(range[1]),last=isoDate(range[2]||range[1]);
+  if(!first||!last){undated++;continue;}
+  if(first>to||last<from){expired++;continue;}
+  const where=content.match(/(?:D[oó]nde|On)\s*:\s*(.*?)(?=\s+(?:Cu[aá]ndo|Quan)\s*:|$)/i);
+  const place=tidy(where?.[1]||'Barcelona').slice(0,180);
+  const kinds=kindsFor(c.title,content,'');
+  parsed.push({title:c.title,start:first<from?from:first,end:last,city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,description:content.slice(0,320),source:'Barcelona · Agenda 500 (acceso gratuito)',url:c.url,status:'gratis',freeType:'confirmada'});
+ }
+ return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated};
 }
 async function readBarcelonaHtml(job,from,to){
- const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),12000);
- try{
-  const r=await fetch(job.url,{signal:ctl.signal,headers:{accept:'text/html'},cf:{cacheEverything:true,cacheTtl:900}});
-  if(!r.ok)throw Error(`HTTP ${r.status}`);
-  const html=await r.text();
-  const result=barcelonaHtmlEntries(html,from,to);
-  if(!result.received)throw Error('HTML recibido sin fichas reconocibles; revisar el lector');
-  return result;
- }finally{clearTimeout(timer)}
+ const r=await fetchTimed(job.url,'text/html',14000);
+ const html=await r.text();
+ const result=barcelonaHtmlEntries(html,from,to);
+ if(!result.received)throw Error('Agenda 500 respondió, pero el lector no reconoce sus tarjetas; revisar la estructura HTML');
+ return result;
 }
 async function readJob(job){
  const choices=job.urls||[job.url];const attempts=[];
@@ -370,9 +431,14 @@ export async function onRequestGet({request}){
    try{
     if(j.parser==='barcelona-html'){
       const result=await readBarcelonaHtml(j,from,to);
-      diagnostic.received=result.received;diagnostic.outOfRange=result.outOfRange;diagnostic.accepted=result.events.length;
+      diagnostic.received=result.received;diagnostic.outOfRange=result.outOfRange;diagnostic.missingDate=result.missingDate||0;diagnostic.accepted=result.events.length;
       for(const ev of result.events)diagnostic.classified[ev.status]++;
       return {name:j.name,ok:true,events:result.events,diagnostic,endpoint:j.url};
+    }
+    if(j.parser==='catalonia-json'||j.parser==='catalonia-csv'){
+      const source=await readCatalonia(j,from,to);
+      const events=cataloniaEvents(source.raw,from,to,j.name,diagnostic);
+      return {name:j.name,ok:true,events,diagnostic,endpoint:source.endpoint};
     }
     if(j.parser==='comunidad-madrid'){
       const regional=await readMadridRegional(j,from,to);
