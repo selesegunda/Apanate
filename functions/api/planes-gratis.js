@@ -420,29 +420,56 @@ function barcelonaHtmlEntries(html,from,to){
  return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated,missingPlace,debug};
 }
 async function readBarcelonaHtml(job,from,to){
- const original=new URL(job.url);
- // Primera opción: URL pública observada mostrando «Tu selección: Gratis» y
- // actividades enlazadas; nº 10 es un tamaño admitido en la página oficial.
+ // Agenda 500 puede limitar la primera respuesta a 10 fichas aunque ofrezca
+ // más resultados. No terminar después de la primera página reconocible.
  const official=new URL('https://agenda500.barcelona.cat/es/llistat');
  for(const [key,value] of Object.entries({ajax:'search',canal:'agenda500',cerca:'*:*',d:'mes',nr:'10',pg:'search',sort:'namesort,asc',ticket:'3',wtarget:'agenda500',xout:'1'}))official.searchParams.set(key,value);
- const alternatives=[official.href];
- const more=new URL(official);more.searchParams.set('nr','30');more.searchParams.set('sort','popularity,desc');alternatives.push(more.href);
- alternatives.push(original.href);
- const clean=new URL(official);clean.searchParams.delete('xout');alternatives.push(clean.href);
- // Otra ruta oficial del mismo listado, comprobada con filtro gratis.
- const ca=new URL(official);ca.pathname='/ca/llistat';alternatives.push(ca.href);
- const errors=[];let best=null;
- for(const candidate of [...new Set(alternatives)]){
-  try{
-   const r=await fetchTimed(candidate,'text/html',12000),html=await r.text();
-   const result=barcelonaHtmlEntries(html,from,to);
-   if(!best||result.received>best.received)best=result;
-   if(result.received)return result;
-   errors.push(result.debug);
-  }catch(e){errors.push(String(e?.message||e).slice(0,95));}
+ const candidate=(size,extra={})=>{
+  const u=new URL(official);u.searchParams.set('nr',String(size));
+  for(const [key,value] of Object.entries(extra))u.searchParams.set(key,String(value));
+  return u.href;
+ };
+ const found=new Map(),errors=[];
+ let received=0,outOfRange=0,missingDate=0,missingPlace=0;
+ const seenResponses=new Set();
+ const fetchBatch=async urls=>{
+  // No interpretar una respuesta errónea como falta de actividades.
+  const results=await Promise.all(urls.map(async url=>{
+   try{
+    const response=await fetchTimed(url,'text/html',12000);
+    const html=await response.text();
+    return {url,result:barcelonaHtmlEntries(html,from,to)};
+   }catch(error){return {url,error:String(error?.message||error).slice(0,90)};}
+  }));
+  for(const entry of results){
+   if(entry.error){errors.push(entry.error);continue;}
+   const r=entry.result;
+   // Evitar sumar como nuevas las mismas 10 fichas si el servidor ignora
+   // el tamaño de página o el parámetro de desplazamiento.
+   const fingerprint=r.events.map(e=>e.url).sort().join('|')+'#'+r.received;
+   if(seenResponses.has(fingerprint))continue;
+   seenResponses.add(fingerprint);
+   received=Math.max(received,r.received);outOfRange+=r.outOfRange;
+   missingDate=Math.max(missingDate,r.missingDate||0);missingPlace=Math.max(missingPlace,r.missingPlace||0);
+   for(const ev of r.events){
+    const key=ev.url+'|'+ev.start;
+    if(!found.has(key))found.set(key,ev);
+   }
+   if(!r.received)errors.push(r.debug);
+  }
+ };
+ // Ante todo consultar un tamaño mayor, preservando como respaldo la
+ // consulta de 10 que ya sabemos que funciona en Cloudflare.
+ await fetchBatch([candidate(60),candidate(30),candidate(10)]);
+ // Si el servidor insiste en enviar diez, probar desplazamientos habituales.
+ // No se presuponen válidos: solo incorporamos fichas individuales nuevas.
+ if(received>0&&found.size<=10){
+  await fetchBatch([candidate(10,{start:10}),candidate(10,{page:2})]);
  }
- if(best)throw Error('Agenda 500: '+errors.join(' | ').slice(0,210));
- throw Error('Agenda 500 no respondió: '+errors.join(' | ').slice(0,210));
+ if(!received)throw Error('Agenda 500: '+errors.join(' | ').slice(0,210));
+ return {events:[...found.values()],received:Math.max(found.size,received),
+  outOfRange,missingDate,missingPlace,
+  debug:`Fichas únicas válidas ${found.size}; máximo de fichas de una respuesta ${received}; sin fecha ${missingDate}; fuera de fecha ${outOfRange}; consultas ${seenResponses.size}`} ;
 }
 
 async function readJob(job){
