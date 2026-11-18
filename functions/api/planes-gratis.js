@@ -31,6 +31,19 @@ const SOURCE={
     {name:'Barcelona · Agenda 500 (acceso gratuito)',parser:'barcelona-html',
      url:'https://agenda500.barcelona.cat/es/llistat?ajax=search&canal=agenda500&cerca=*:*&d=mes&nr=60&pg=search&sort=popularity%2Cdesc&ticket=3&wtarget=agenda500&xout=1'}
   ],
+  // Primera fase de municipios de la provincia de Barcelona. Cada fuente conserva
+  // su municipio declarado: nunca se asignan localizaciones por defecto a terceros.
+  barcelonaMunicipios:[
+    {name:'L’Hospitalet · Agenda municipal',parser:'municipal-barcelona',municipio:'L’Hospitalet de Llobregat',csv:true,urls:[
+      'https://opendata.l-h.cat/api/views/qtv3-9x52/rows.csv?accessType=DOWNLOAD&bom=true&format=true&delimiter=%3B',
+      'https://opendata.l-h.cat/resource/eaz9-6ynn.json'
+    ]},
+    {name:'Badalona · Diputació de Barcelona',parser:'municipal-barcelona',municipio:'Badalona',urls:[
+      'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-rel_municipis-like/08015',
+      'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/300/camp-municipi_nom/Badalona'
+    ]},
+    {name:'Santa Coloma · Agenda municipal',parser:'municipal-barcelona',municipio:'Santa Coloma de Gramenet',csv:true,url:'https://dadesobertes.seu-e.cat/csv/santacolomadegramenet/ADOvstActivitatsAgenda.csv'}
+  ],
   cyl:[0,100,200,300].map(offset=>({name:'Castilla y León · Cultura',url:`${CYL}?limit=100&offset=${offset}`,parser:'cyl'})),
   andalucia:[{name:'Andalucía · Agenda cultural',url:'https://datos.juntadeandalucia.es/api/v0/schedule/all?format=json',parser:'andalucia'}],
   canarias:[{name:'Canarias · Agenda cultural',url:'https://datos.canarias.es/catalogos/general/dataset/11dc9d88-b456-4ae2-bcf9-07ad624fd025/resource/d179079c-a2ed-40dc-a748-7b64d093c342/download/agendaproxima.csv',parser:'canarias',csv:true}],
@@ -360,6 +373,59 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
  return events;
 }
 
+// Municipio siempre demostrado por la fuente específica (ayuntamiento) o por
+// el campo geográfico explícito (Diputació). No inferir un municipio de un texto
+// publicitario ni de una comarca. Las fuentes sin fecha/enlace no generan planes.
+function municipalRecords(raw){
+ if(Array.isArray(raw))return raw;
+ const direct=records(raw);if(direct.length)return direct;
+ for(const key of ['elements','items','resultats','actes','datasets','rows']){
+  if(Array.isArray(raw?.[key]))return raw[key];
+  if(Array.isArray(raw?.data?.[key]))return raw.data[key];
+  if(Array.isArray(raw?.result?.[key]))return raw.result[key];
+ }
+ return [];
+}
+function municipalBarcelonaEvents(raw,from,to,job,d){
+ const items=municipalRecords(raw);
+ d.received=items.length;
+ d.fields=Object.keys(items.find(x=>x&&typeof x==='object')||{}).slice(0,30).join(', ').slice(0,480);
+ const result=[];
+ for(const original of items){
+  const e=original?.properties||original?.fields||original;
+  if(!e||typeof e!=='object'){d.missingTitle++;continue;}
+  const val=patterns=>tidy(fieldValue(e,patterns));
+  const title=val([/^titol$/, /^titolact/, /^titolactiv/, /^titol.*act/, /^nomactiv/, /^activitat$/, /^activitatnom$/, /^denominaci/, /^nomacte/, /^title$/, /^nombre$/, /^nom$/, /^descripciobreu$/]);
+  const start=isoDate(fieldValue(e,[/^datainici$/, /^datainicial$/, /^datainicidela/, /^datainici/, /^dataacte$/, /^dataactivitat$/, /^diaactivitat$/, /^data$/, /^inici$/, /^fecha.*inicio/, /^startdate$/]));
+  const end=isoDate(fieldValue(e,[/^datafi$/, /^datafinal$/, /^datafinalitzacio$/, /^datafinal/, /^enddate$/]))||start;
+  if(!title){d.missingTitle++;continue;}
+  if(!start){d.missingDate++;continue;}
+  if(start>to||end<from){d.outOfRange++;continue;}
+  const declared=val([/^municipinom$/, /^nommunicipi$/, /^municipi$/, /^localitat$/, /^poblacio$/, /^ciutat$/, /^city$/]);
+  // En Badalona (Diputació) la población es obligatoria; las dos fuentes
+  // municipales pueden documentar explícitamente la localidad en su catálogo.
+  if(job.municipio==='Badalona'&&!declared){d.missingPlace++;continue;}
+  if(declared&&norm(declared)!==norm(job.municipio)&&!(job.municipio.startsWith('L’')&&/^(?:l['’]?)?hospitalet(?: de llobregat)?$/.test(norm(declared)))){d.wrongProvince++;continue;}
+  const place=val([/^adrecanom$/, /^nomlloc$/, /^nomequipament$/, /^equipament$/, /^espai$/, /^lloc$/, /^adreca$/, /^direccion$/, /^ubicacio$/])||job.municipio;
+  const desc=val([/^descripcio$/, /^descripcioact/, /^descripcio.*activ/, /^resum$/, /^observaci/, /^contingut$/, /^text$/]);
+  const rawUrl=fieldValue(e,[/^urlacte$/, /^acteurl$/, /^urlactiv/, /^urlinscrip/, /^urlenllac/, /^enllacweb$/, /^enllac$/, /^url$/, /^web$/, /^link$/, /^enlace$/, /^urlgeneral$/, /^url.*general$/]);
+  let link=secureLink(typeof rawUrl==='object'?(rawUrl?.url||rawUrl?.href||rawUrl?.value):rawUrl);
+  // No publicar URL genérica del portal ni deducir URL de un identificador.
+  if(!link){d.missingLink++;continue;}
+  const freeFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuita$/, /^esgratuit$/]);
+  const hasFlag=freeFlag!==''&&freeFlag!==undefined&&freeFlag!==null;
+  const cost=hasFlag?freeFlag:fieldValue(e,[/^preu$/, /^precio$/, /^cost$/, /^tarifa$/, /^entrades$/, /^preuentrada$/]);
+  const status=classify(cost,desc,title,hasFlag);
+  const categories=val([/^categoria$/, /^categories$/, /^tipus$/, /^tags$/, /^tematica$/, /^public$/]);
+  const kinds=kindsFor(title,desc,categories);
+  result.push({title,start:start<from?from:start,end:end===start?'':end,city:job.municipio,province:'Barcelona',place,
+   time:val([/^horari$/, /^horainici$/, /^hora$/, /^hores$/]),kind:kinds[0],kinds,description:desc,source:job.name,url:link,
+   status,freeType:status==='condicional'?'condicional':'confirmada'});
+  d.classified[status]++;d.accepted++;
+ }
+ return result;
+}
+
 // Agenda 500 · listado oficial filtrado por ticket=3 (Gratis).
 // La vista a veces devuelve el menú y las cabeceras sin fichas: nunca convertir
 // una página genérica en planes gratuitos ni fabricar enlaces /detall/.
@@ -486,7 +552,7 @@ async function readJob(job){
  for(const url of choices){
   const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12500);
   try{
-   const asCsv=job.csv||/\.csv(?:[?#]|$)/i.test(url);
+   const asCsv=/\.csv(?:[?#]|$)/i.test(url) || (job.csv && !/\.json(?:[?#]|$)/i.test(url));
    const response=await fetch(url,{signal:ctrl.signal,headers:{accept:asCsv?'text/csv,text/plain,*/*':'application/json,*/*'},cf:{cacheEverything:true,cacheTtl:600}});
    if(!response.ok)throw new Error(`HTTP ${response.status}`);
    // El CSV de Madrid puede servirse como Windows-1252 (acentos y ordinales).
@@ -508,7 +574,7 @@ async function readJob(job){
     }
    }
    if(!Array.isArray(raw)&&typeof raw!=='object')throw new Error('Formato de datos desconocido');
-   if(!records(raw).length)throw new Error('Respuesta sin registros reconocibles');
+   if(!(job.parser==='municipal-barcelona'?municipalRecords(raw):records(raw)).length)throw new Error('Respuesta sin registros reconocibles');
    return {raw,endpoint:url};
   }catch(err){attempts.push(`${new URL(url).pathname.split('/').pop()}: ${err?.name==='AbortError'?'tiempo de espera':String(err?.message||err).slice(0,100)}`)}
   finally{clearTimeout(timer)}
@@ -522,7 +588,7 @@ export async function onRequestGet({request}){
  const region=Object.keys(REGIONS).find(k=>REGIONS[k].split('|').some(n=>norm(n)===norm(province)));
  const jobs=[...(SOURCE[region]||[])];
  if(norm(province)==='madrid')jobs.push(...SOURCE.madrid);
- if(norm(province)==='barcelona')jobs.push(...SOURCE.barcelona);
+ if(norm(province)==='barcelona')jobs.push(...SOURCE.barcelona,...SOURCE.barcelonaMunicipios);
  if(norm(province)==='zaragoza')jobs.push(...SOURCE.zaragoza);
  if(norm(province)==='malaga')jobs.push(...SOURCE.malaga);
  if(norm(province)==='asturias')jobs.push(...SOURCE.gijon);
@@ -540,6 +606,11 @@ export async function onRequestGet({request}){
       const source=await readCatalonia(j,from,to);
       const events=cataloniaEvents(source.raw,from,to,j.name,diagnostic);
       return {name:j.name,ok:true,events,diagnostic,endpoint:source.endpoint};
+    }
+    if(j.parser==='municipal-barcelona'){
+      const downloaded=await readJob(j);
+      const events=municipalBarcelonaEvents(downloaded.raw,from,to,j,diagnostic);
+      return {name:j.name,ok:true,events,diagnostic,endpoint:downloaded.endpoint};
     }
     if(j.parser==='comunidad-madrid'){
       const regional=await readMadridRegional(j,from,to);
