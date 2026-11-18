@@ -360,81 +360,89 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
  return events;
 }
 
-// Agenda 500 muestra las fichas como tarjetas con H2/H3 y un enlace /detall/.
-// Las consultas HTML pueden variar por idioma o por el parámetro xout; se usan
-// varias lecturas conservadoras, sin fabricar enlaces ni fechas.
+// Agenda 500 · listado oficial filtrado por ticket=3 (Gratis).
+// La vista a veces devuelve el menú y las cabeceras sin fichas: nunca convertir
+// una página genérica en planes gratuitos ni fabricar enlaces /detall/.
 function barcelonaHtmlEntries(html,from,to){
- const cards=[],seen=new Set();let match;
- // Alternativa A: enlaces de fichas individuales, sin depender de atributos
- // CSS ni del orden en que aparecen los encabezados y enlaces.
- const anchor=/<a\b[^>]*\bhref\s*=\s*(?:(["'])(.*?)\1|([^\s>]+))[^>]*>([\s\S]*?)<\/a>/gi;
- while((match=anchor.exec(html))!==null){
-  const raw=decodeHtml(match[2]||match[3]||'');
-  if(!/\/detall\//i.test(raw))continue;
-  let url;try{url=new URL(raw,'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
-  if(seen.has(url.href))continue;
-  const label=htmlText(match[4]);
-  const around=html.slice(Math.max(0,match.index-450),Math.min(html.length,anchor.lastIndex+420));
-  const headings=[...around.matchAll(/<h[234]\b[^>]*>([\s\S]*?)<\/h[234]>/gi)].map(x=>htmlText(x[1])).filter(Boolean);
-  const title=(label.length>=5&&label.length<230?label:headings.find(x=>x.length>=5&&x.length<230)||'');
-  if(!title)continue;
-  seen.add(url.href);cards.push({title,url:url.href,startIndex:match.index,endIndex:anchor.lastIndex});
+ const root='https://agenda500.barcelona.cat';
+ const rawHtml=String(html||'').replace(/\\u002[fF]/g,'/').replace(/\\\//g,'/');
+ const headings=[...rawHtml.matchAll(/<h[234]\b[^>]*>([\s\S]*?)<\/h[234]>/gi)];
+ const anchor=/<a\b[^>]*\bhref\s*=\s*(?:(["'])([\s\S]*?)\1|([^\s>]+))[^>]*>([\s\S]*?)<\/a>/gi;
+ const links=[...rawHtml.matchAll(anchor)];
+ const details=[];
+ const allowedLink=raw=>{
+  try{
+   const text=decodeHtml(raw||'').replace(/&amp;/g,'&').trim();
+   const u=new URL(text,root);
+   if(!['agenda500.barcelona.cat','guia.barcelona.cat'].includes(u.hostname)||!/(?:^|\/)detall\//i.test(u.pathname))return null;
+   return u.href;
+  }catch{return null;}
+ };
+ for(const a of links){
+  const href=allowedLink(a[2]||a[3]);if(!href)continue;
+  details.push({index:a.index,end:a.index+a[0].length,href,title:htmlText(a[4])});
  }
- // Alternativa B: detectar el enlace dentro de la propia tarjeta cuando su
- // título solo aparece en el encabezado. No se inventa ninguna dirección.
- if(!cards.length){
-  const heading=/<h[234]\b[^>]*>([\s\S]*?)<\/h[234]>/gi;
-  while((match=heading.exec(html))!==null){
-   const title=htmlText(match[1]);if(title.length<5||title.length>230)continue;
-   const context=html.slice(Math.max(0,match.index-350),Math.min(html.length,heading.lastIndex+850));
-   const link=context.match(/href\s*=\s*["']([^"']*\/detall\/[^"']+)["']/i);
-   if(!link)continue;
-   let url;try{url=new URL(decodeHtml(link[1]),'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat'||seen.has(url.href))continue;}catch{continue;}
-   seen.add(url.href);cards.push({title,url:url.href,startIndex:match.index,endIndex:heading.lastIndex});
-  }
+ // La ficha real presenta el título dentro de un H3 enlazado. En algunos
+ // temas el enlace ocupa un nodo hermano del H3; comprobar ambos casos.
+ const cards=[],seen=new Set();
+ for(const h of headings){
+  const title=htmlText(h[1]);
+  if(title.length<5||title.length>230||/^(?:filtros|cu[aá]ndo|entrada|precio|distrito|ordenar por)$/i.test(title))continue;
+  const inside=details.find(a=>a.index>=h.index&&a.end<=h.index+h[0].length);
+  const near=inside||details.find(a=>Math.abs(a.index-h.index)<550&&a.index>=h.index-250);
+  if(!near||seen.has(near.href))continue;
+  seen.add(near.href);cards.push({title,url:near.href,startIndex:h.index,endIndex:h.index+h[0].length});
  }
- const parsed=[];let undated=0,expired=0;
+ // Seguridad: no aceptar enlaces sueltos del menú, del pie o de un carrusel
+ // que no acompañen a un título individual.
+ cards.sort((a,b)=>a.startIndex-b.startIndex);
+ const parsed=[];let undated=0,expired=0,missingPlace=0;
  for(let i=0;i<cards.length;i++){
   const c=cards[i],next=cards[i+1];
-  // El lugar y la fecha suelen estar DESPUÉS del título, pero no siempre.
-  // Limitar el segmento al comienzo de la siguiente ficha evita heredar
-  // fechas de otros eventos.
-  const beginning=Math.max(0,c.startIndex-180);
-  const end=Math.min(html.length,c.endIndex+2000,next?next.startIndex:html.length);
-  const content=htmlText(html.slice(beginning,Math.max(end,c.endIndex)));
-  const range=content.match(/(?:Cu[aá]ndo|Quan|When)\s*:?\s*(?:Del?\s+)?(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el|to)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i)
-   ||content.match(/\b(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el|to)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i);
-  if(!range){undated++;continue;}
-  const first=isoDate(range[1]),last=isoDate(range[2]||range[1]);
+  const block=htmlText(rawHtml.slice(c.endIndex,Math.min(rawHtml.length,next?next.startIndex:c.endIndex+2500,c.endIndex+2500)));
+  // Los campos de una tarjeta se muestran como «Dónde: … Cuándo: …».
+  const where=block.match(/(?:D[oó]nde|On|Where)\s*:?\s*(.*?)(?=\s+(?:Cu[aá]ndo|Quan|When)\s*:?|$)/i);
+  const place=tidy(where?.[1]||'').slice(0,180);
+  if(!place){missingPlace++;continue;}
+  const when=block.match(/(?:Cu[aá]ndo|Quan|When)\s*:?\s*(?:Del?\s+|De\s+|Des\s+de\s+)?(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el|to)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i);
+  if(!when){undated++;continue;} // «Evento permanente» no lleva fecha: se omite.
+  const first=isoDate(when[1]),last=isoDate(when[2]||when[1]);
   if(!first||!last){undated++;continue;}
   if(first>to||last<from){expired++;continue;}
-  const where=content.match(/(?:D[oó]nde|On|Where)\s*:\s*(.*?)(?=\s+(?:Cu[aá]ndo|Quan|When)\s*:|$)/i);
-  const place=tidy(where?.[1]||'Barcelona').slice(0,180);
-  const kinds=kindsFor(c.title,content,'');
-  parsed.push({title:c.title,start:first<from?from:first,end:last,city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,description:content.slice(0,320),source:'Barcelona · Agenda 500 (acceso gratuito)',url:c.url,status:'gratis',freeType:'confirmada'});
+  const kinds=kindsFor(c.title,block,'');
+  parsed.push({title:c.title,start:first<from?from:first,end:last,city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,description:block.slice(0,320),source:'Barcelona · Agenda 500 (acceso gratuito)',url:c.url,status:'gratis',freeType:'confirmada'});
  }
- return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated,debug:cards.length?'':`Sin enlaces /detall/; HTML ${html.length} caracteres; enlaces totales ${(html.match(/<a\b/gi)||[]).length}; encabezados ${(html.match(/<h[234]\b/gi)||[]).length}`};
+ const sampleLinks=links.map(a=>{
+  try{return new URL(decodeHtml(a[2]||a[3]||''),root).pathname.slice(0,65);}catch{return '';}
+ }).filter(Boolean).filter((v,i,all)=>all.indexOf(v)===i).slice(0,5);
+ const debug=cards.length?`Fichas ${cards.length}; sin fecha ${undated}; sin lugar ${missingPlace}`:
+  `Sin fichas /detall/: HTML ${html.length} caracteres; enlaces ${links.length}; H2-H4 ${headings.length}; rutas ${sampleLinks.join(', ')||'ninguna'}`;
+ return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated,missingPlace,debug};
 }
 async function readBarcelonaHtml(job,from,to){
- const url=new URL(job.url);const attempts=[url.href];
- // Algunos servidores devuelven un fragmento vacío con xout=1: solicitar
- // primero el listado gratuito completo conserva el mismo filtro ticket=3.
- url.searchParams.delete('xout');attempts.unshift(url.href);
- const clean=new URL('https://agenda500.barcelona.cat/es/llistat');
- clean.searchParams.set('ticket','3');clean.searchParams.set('d','mes');clean.searchParams.set('nr','60');
- attempts.push(clean.href);
- let best=null,errors=[];
- for(const candidate of [...new Set(attempts)]){
+ const original=new URL(job.url);
+ // Primera opción: URL pública observada mostrando «Tu selección: Gratis» y
+ // actividades enlazadas; nº 10 es un tamaño admitido en la página oficial.
+ const official=new URL('https://agenda500.barcelona.cat/es/llistat');
+ for(const [key,value] of Object.entries({ajax:'search',canal:'agenda500',cerca:'*:*',d:'mes',nr:'10',pg:'search',sort:'namesort,asc',ticket:'3',wtarget:'agenda500',xout:'1'}))official.searchParams.set(key,value);
+ const alternatives=[official.href];
+ const more=new URL(official);more.searchParams.set('nr','30');more.searchParams.set('sort','popularity,desc');alternatives.push(more.href);
+ alternatives.push(original.href);
+ const clean=new URL(official);clean.searchParams.delete('xout');alternatives.push(clean.href);
+ // Otra ruta oficial del mismo listado, comprobada con filtro gratis.
+ const ca=new URL(official);ca.pathname='/ca/llistat';alternatives.push(ca.href);
+ const errors=[];let best=null;
+ for(const candidate of [...new Set(alternatives)]){
   try{
    const r=await fetchTimed(candidate,'text/html',12000),html=await r.text();
    const result=barcelonaHtmlEntries(html,from,to);
    if(!best||result.received>best.received)best=result;
    if(result.received)return result;
    errors.push(result.debug);
-  }catch(e){errors.push(String(e?.message||e).slice(0,90));}
+  }catch(e){errors.push(String(e?.message||e).slice(0,95));}
  }
- if(best)throw Error('Agenda 500 sin fichas reconocibles: '+errors.join(' | ').slice(0,155));
- throw Error('Agenda 500 no respondió: '+errors.join(' | ').slice(0,175));
+ if(best)throw Error('Agenda 500: '+errors.join(' | ').slice(0,210));
+ throw Error('Agenda 500 no respondió: '+errors.join(' | ').slice(0,210));
 }
 
 async function readJob(job){
