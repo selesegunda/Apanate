@@ -25,8 +25,29 @@ const tidy=x=>String(x??'').replace(/<[^>]*>/g,' ').replace(/&nbsp;/ig,' ').repl
 const get=(o,fields)=>{if(!o||typeof o!=='object')return '';for(const f of fields){let v=o[f];if(v!==undefined&&v!==null&&v!=='')return v;}return ''};
 function secureLink(u){if(!u)return '';try{let s=String(u).trim();if(s.startsWith('http://') && /^http:\/\/(www\.madrid\.es|www\.zaragoza\.es|www\.gijon\.es|www\.cultura\.jcyl\.es)/.test(s))s='https://'+s.slice(7);let v=new URL(s);return v.protocol==='https:'?v.href:''}catch{return ''}}
 function isoDate(x){if(!x)return '';if(typeof x==='object')return isoDate(get(x,['start','value','date','fecha']));let s=String(x),m=s.match(/(20\d\d)-(\d\d)-(\d\d)/);if(m)return m[0];m=s.match(/^(\d\d)[\/\-](\d\d)[\/\-](20\d\d)/);return m?`${m[3]}-${m[2]}-${m[1]}`:''}
-function isFree(x){if(x===true||x===1||x===0)return true;let s=norm(x);return /^(si|s[ií]|true|1|gratis|gratuito|gratuita|free|entrada libre|0|0[.,]00\s*(?:€|euros)?)$/.test(s)}
-function descriptionFree(s){return /(?:entrada|acceso|actividad|participaci[oó]n|inscripci[oó]n|evento|visita|concierto|taller|espect[aá]culo)\s+(?:(?:totalmente|completamente)\s+)?(?:libre|gratuita?|sin coste)|gratuit[ao]\s+(?:para|hasta|al)|entrada\s+libre|acceso\s+libre|sin\s+coste/i.test(s) && !/(?:no\s+gratuit[oa]|de pago|no es gratis|tarifa de entrada)/i.test(s)}
+// Clasificación conservadora: una ausencia de precio nunca se interpreta como gratuidad.
+function priceSignal(value){
+ if(value===true)return 'free';if(value===false)return 'unknown';
+ if(typeof value==='number')return value===0?'free':value>0?'paid':'unknown';
+ const str=norm(value);if(!str)return 'unknown';
+ if(/^(si|true|gratis|gratuito|gratuita|free|entrada libre|acceso libre|sin coste|0|0[.,]00\s*(?:€|euros)?)$/.test(str))return 'free';
+ if(/^(no|false|de pago|pago|entrada de pago)$/.test(str))return 'paid';
+ const amount=str.match(/^(\d+(?:[.,]\d{1,2})?)\s*(?:€|euros?)$/);
+ if(amount)return Number(amount[1].replace(',','.'))===0?'free':'paid';
+ return 'unknown';
+}
+function classify(cost,description,title){
+ const full=norm(`${title} ${description}`), costStatus=priceSignal(cost);
+ const conditional=/(?:gratuit[ao]s?|gratis|entrada libre|acceso libre|sin coste)[^.;]{0,90}(?:para (?:menores|mayores|residentes|empadronados|jovenes|estudiantes|personas|ciudadan|familias|desempleados|miembros)|con (?:carnet|acreditacion|reserva)|solo (?:los|para|en)|excepto|hasta \d+ anos)|(?:residentes|empadronados|menores|mayores|jovenes|estudiantes|personas con discapacidad)[^.;]{0,80}(?:gratis|gratuit[ao]s?|entrada libre)/.test(full);
+ const textFree=/(?:entrada|acceso|actividad|participacion|inscripcion|evento|visita|concierto|taller|espectaculo|asistencia|jornada)s?\s+(?:(?:totalmente|completamente)\s+)?(?:libre|gratuit[ao]s?|sin coste)|\bentrada\s+libre\b|\bacceso\s+libre\b|\bsin\s+coste\b|\bgratuit[ao]s?\b|\bgratis\b/.test(full);
+ const paidText=/(?:\bde pago\b|\bentrada[s]?\s+(?:de pago|desde \d+)|\bprecio\s*[:=]\s*[1-9]\d*|\btarifa\s*[:=]\s*[1-9]\d*|\bno\s+(?:es\s+)?gratuit[ao])/.test(full);
+ // Cuando aparecen señales contradictorias, no anunciamos una entrada gratuita.
+ if((costStatus==='paid'&&(textFree||conditional))||(paidText&&(costStatus==='free'||textFree)))return 'pendiente';
+ if(conditional && (textFree||costStatus==='free'))return 'condicional';
+ if(costStatus==='free'||(textFree&&!paidText))return 'gratis';
+ if(costStatus==='paid'||paidText)return 'pago';
+ return 'pendiente';
+}
 const kind=s=>{s=norm(s);if(/feria|mercadillo|mercado artesanal/.test(s))return'ferias';if(/fiestas patronales|romeria|verbena|fiesta popular/.test(s))return'fiestas';if(/familia|infantil|cuentacuentos|ninos|niñas|ninos/.test(s))return'familia';return'cultura'};
 function records(raw){if(Array.isArray(raw))return raw;for(const k of ['@graph','results','result','records','features','events','items','data','listado'])if(Array.isArray(raw?.[k]))return raw[k];if(Array.isArray(raw?.result?.records))return raw.result.records;if(Array.isArray(raw?.response?.docs))return raw.response.docs;return []}
 function rowsFromCSV(txt){const first=(txt.replace(/^\uFEFF/,'').split(/\r?\n/)[0]||'');const sep=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';let arr=[],row=[],value='',quoted=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(c==='"'){if(quoted&&txt[i+1]==='"'){value+='"';i++}else quoted=!quoted}else if(c===sep&&!quoted){row.push(value);value=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&txt[i+1]==='\n')i++;row.push(value);if(row.some(v=>v.trim()))arr.push(row);row=[];value=''}else value+=c}row.push(value);if(row.some(v=>v.trim()))arr.push(row);const names=(arr.shift()||[]).map(x=>x.trim().replace(/^\uFEFF/,''));return arr.slice(0,5000).map(r=>Object.fromEntries(names.map((n,i)=>[n,r[i]||''])))}
@@ -45,28 +66,26 @@ const MAPPING={
 function parse(raw,from,to,source,province,parser){let out=[];for(const obj of records(raw)){
  const e=obj.fields||obj.properties||obj;
  const title=tidy(get(e,MAPPING.title));if(!title)continue;
- const desc=tidy(get(e,MAPPING.description));const price=get(e,MAPPING.cost);
- if(!isFree(price)&&!descriptionFree(desc))continue;
  const begin=isoDate(get(e,MAPPING.begin));const end=isoDate(get(e,MAPPING.end));if(!begin||begin>to||(end||begin)<from)continue;
  let location=e.location||e.ubicacion||{};if(Array.isArray(location))location=location[0]||{};
  const address=location.address||{};
  let city=tidy(get(e,MAPPING.city)||get(location,['name','locality','city','municipio'])||get(address,['addressLocality','city']));
  let prov=tidy(get(e,MAPPING.province)||get(address,['addressRegion','province']));
  const assumed={madrid:['Madrid','Madrid'],zaragoza:['Zaragoza','Zaragoza'],malaga:['Málaga','Málaga'],gijon:['Gijón','Asturias']};
- if(assumed[parser]){city=city||assumed[parser][0];prov=assumed[parser][1]}
- if(!prov && parser==='cyl'){
-     // Some record versions use a localized field label.
-     prov=tidy(get(e,['nombreprovincia','nombreProvincia','provincia_nombre']));
- }
+ if(assumed[parser]){city=city||assumed[parser][0];prov=prov||assumed[parser][1]}
+ if(!prov && parser==='cyl')prov=tidy(get(e,['nombreprovincia','nombreProvincia','provincia_nombre']));
  if(!city || !prov || norm(prov)!==norm(province))continue;
- let place=tidy(get(e,MAPPING.place)||get(location,['title','name'])||get(address,['streetAddress','street-address']));if(!place)place=city;
+ const desc=tidy(get(e,MAPPING.description));const price=get(e,MAPPING.cost);
  let url=secureLink(get(e,MAPPING.url));
  if(!url && parser==='zaragoza'){
    let id=String(get(e,['id'])).match(/^(?:acto-)?(\d+)$/);if(id)url=`https://www.zaragoza.es/sede/servicio/cultura/evento/${id[1]}`;
  }
+ // Contabilizar solamente fichas con enlace individual a una fuente identificable.
  if(!url)continue;
+ let place=tidy(get(e,MAPPING.place)||get(location,['title','name'])||get(address,['streetAddress','street-address']));if(!place)place=city;
+ const status=classify(price,desc,title);
  const hour=tidy(get(e,MAPPING.time)).slice(0,36);
- out.push({title,start:begin<from?from:begin,end:end||'',city,province:prov,place,time:hour,kind:kind(title+' '+desc),description:desc,source,url,freeType:'confirmada'});
+ out.push({title,start:begin<from?from:begin,end:end||'',city,province:prov,place,time:hour,kind:kind(title+' '+desc),description:desc,source,url,freeType:status==='condicional'?'condicional':'confirmada',status});
  }return out;}
 async function readJob(job){const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),9000);try{let r=await fetch(job.url,{signal:ctrl.signal,headers:{accept:job.csv?'text/csv,text/plain,*/*':'application/json,*/*'},cf:{cacheEverything:true,cacheTtl:900}});if(!r.ok)throw new Error('HTTP '+r.status);return job.csv?rowsFromCSV(await r.text()):await r.json()}finally{clearTimeout(timer)}}
 function json(data,status=200){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=180, s-maxage=600','x-content-type-options':'nosniff'}})}
@@ -79,10 +98,26 @@ export async function onRequestGet({request}){
  if(norm(province)==='zaragoza')jobs.push(...SOURCE.zaragoza);
  if(norm(province)==='malaga')jobs.push(...SOURCE.malaga);
  if(norm(province)==='asturias')jobs.push(...SOURCE.gijon);
- if(!jobs.length)return json({events:[],sources:[],failed:false,notice:'Aún no hay una API de actividades gratuitas conectada para esta provincia. Estamos ampliando ayuntamientos, diputaciones y asociaciones; no significa que no existan planes.'});
+ if(!jobs.length)return json({events:[],stats:null,sources:[],failed:false,notice:'Aún no hay una API de actividades gratuitas conectada para esta provincia. Estamos ampliando ayuntamientos, diputaciones y asociaciones; no significa que no existan planes.'});
  const settled=await Promise.all(jobs.map(async j=>{try{const records=await readJob(j);return {name:j.name,ok:true,events:parse(records,from,to,j.name,province,j.parser)}}catch(e){return {name:j.name,ok:false,events:[]}}}));
- const unique=new Map();for(const ev of settled.flatMap(x=>x.events)){let id=norm(ev.title)+'|'+ev.start+'|'+norm(ev.city);if(!unique.has(id))unique.set(id,ev)}
- const all=[...unique.values()].sort((a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
- const events=all.slice(0,120);const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length;
- return json({events,sources:working,failed:failures===settled.length,notice:failures?`${failures} fuente(s) sin respuesta. Solo se publican eventos con gratuidad explícita, fecha y enlace.`:events.length?'':'No hemos encontrado actividades que cumplan todos los requisitos en estas fuentes y fechas; no significa que no las haya.'});
+ const unique=new Map();const score={pendiente:0,pago:1,condicional:2,gratis:3};
+ for(const ev of settled.flatMap(x=>x.events)){
+  let id=norm(ev.title)+'|'+ev.start+'|'+norm(ev.city);
+  const prev=unique.get(id);
+  // Si fuentes distintas discrepan sobre el precio, volver a pendiente para evitar un falso positivo.
+  if(prev && prev.status!==ev.status){
+    if(prev.status==='pendiente'||ev.status==='pendiente'||prev.status==='pago'||ev.status==='pago'){
+      unique.set(id,{...prev,status:'pendiente'});continue;
+    }
+    unique.set(id,{...prev,status:'condicional',freeType:'condicional'});continue;
+  }
+  if(!prev||score[ev.status]>score[prev.status])unique.set(id,ev);
+ }
+ const all=[...unique.values()];
+ const stats={total:all.length,gratis:0,condicional:0,pendiente:0,pago:0};
+ for(const ev of all)stats[ev.status]++;
+ const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort((a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
+ const events=checked.slice(0,120).map(({status,...ev})=>ev);
+ const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length;
+ return json({events,stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,notice:failures?`${failures} fuente(s) sin respuesta. El recuento refleja solo los registros recibidos.`:events.length?'':'No hay actividades de gratuidad comprobada en las fuentes consultadas para estas fechas. No significa que no existan.'});
 }
