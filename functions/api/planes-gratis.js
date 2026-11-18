@@ -301,38 +301,65 @@ async function readCatalonia(job,from,to){
  if(!Array.isArray(raw))throw Error('Respuesta autonómica no contiene una lista');
  return {raw,endpoint,dateFiltered:!!q.get('$where')};
 }
+// Campos confirmados en el diagnóstico real de Cloudflare (18/11/2026).
+// Los nombres catalanes aparecen a veces sin la última letra acentuada:
+// denominaci[ó], descripci[ó], adre[ç]a, enlla[ç]os.
+// La lectura se limita a Barcelona capital en este piloto.
+function cataloniaMunicipality(e){
+ const raw=fieldValue(e,[/^municipi$/, /^nommunicipi$/, /^comarcaimunicipi$/, /^poblacio$/, /^localitat$/, /^ciutat$/]);
+ const asText=tidy(raw);
+ if(!asText)return '';
+ // «comarca_i_municipi» puede ser texto, lista o una jerarquía comarca/municipio.
+ // Nunca declarar Barcelona como municipio por coincidir solo con la provincia.
+ const pieces=asText.split(/\s*(?:\||\/|;|>|,| · | - )\s*/).map(x=>norm(x.trim())).filter(Boolean);
+ if(pieces.includes('barcelona'))return 'Barcelona';
+ // Evitamos aceptar comarcas o nombres que simplemente contengan «Barcelona».
+ return asText;
+}
+function cataloniaLink(e){
+ const value=fieldValue(e,[/^urlactivitat$/, /^enllaos$/, /^enllacos$/, /^enllacos?$/, /^enllac1url$/, /^linkbotoentrades$/, /^url.*activ/, /^enllac/, /^web.*activ/, /^url$/, /^link$/]);
+ if(Array.isArray(value)){
+  for(const item of value){const u=cataloniaLink({urlactivitat:typeof item==='string'?item:(item?.url||item?.href||item?.enllac)});if(u)return u;}
+  return '';
+ }
+ if(value&&typeof value==='object')return secureLink(value.url||value.href||value.enllac||value.value);
+ const text=String(value||'');
+ const matches=text.match(/https?:\/\/[^\s"'<>]+/g)||[];
+ for(const candidate of matches){const u=secureLink(candidate.replace(/[),.;]+$/,''));if(u)return u;}
+ return secureLink(text);
+}
 function cataloniaEvents(raw,from,to,source,diagnostic){
  diagnostic.received=raw.length;const events=[];
- // Nombres de campos de la fuente, SIN valores ni datos personales.
  diagnostic.fields=Object.keys(raw.find(x=>x&&typeof x==='object')||{}).slice(0,28).join(', ').slice(0,480);
  for(const record of raw){
   const e=record.fields||record;
-  const title=tidy(fieldValue(e,[/titol/,/titul/,/nom.*activ/,/nom.*esdev/,/denominacio/,/^activitat/,/^nom$/,/^title$/,/^event.*name/]));
-  const rawBegin=fieldValue(e,[/data.*inici/,/data.*comenc/,/data.*celebr/,/start.*date/,/fecha.*inicio/,/^inici/,/^dataacte/,/^fecha/]);
-  const rawEnd=fieldValue(e,[/data.*fi$/, /data.*final/,/end.*date/,/finalitzacio/]);
+  const title=tidy(fieldValue(e,[/^denominaci/,/^titol/,/^titul/,/^nom.*activ/,/^nom.*esdev/,/^activitat$/, /^nom$/, /^title$/, /^event.*name/]));
+  const rawBegin=fieldValue(e,[/^datainici$/, /^data.*inici/, /^data.*comenc/, /^data.*celebr/, /^start.*date/, /^fecha.*inicio/, /^inici$/, /^dataacte/, /^fecha/]);
+  const rawEnd=fieldValue(e,[/^datafi$/, /^datafinal/, /^data.*fi$/, /^data.*final/, /^end.*date/, /^finalitzacio/]);
   const start=isoDate(rawBegin),end=isoDate(rawEnd);
   if(!title){diagnostic.missingTitle++;continue;}
   if(!start){diagnostic.missingDate++;continue;}
   if(start>to||(end||start)<from){diagnostic.outOfRange++;continue;}
-  const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adreca/,/^localitzacio/]))||'Barcelona';
-  const municipality=tidy(fieldValue(e,[/municipi/,/poblacio/,/localitat/,/ciutat/]));
-  const province=tidy(fieldValue(e,[/provinc/]));
+  const municipality=cataloniaMunicipality(e);
   if(!municipality){diagnostic.missingPlace++;continue;}
-  // Piloto solo Barcelona capital, nunca atribuir Barcelona como municipio
-  // cuando una fuente regional describe expresamente otra población.
+  const province=tidy(fieldValue(e,[/^provincia$/, /^nomprovincia$/]));
   if(norm(municipality)!=='barcelona'||(province&&norm(province)!=='barcelona')){diagnostic.wrongProvince++;continue;}
-  const desc=tidy(fieldValue(e,[/^descripcio/,/^resum/,/^text/,/^entrad/,/^observacio/]));
-  const price=fieldValue(e,[/^preu/,/^gratuit/,/^cost/,/^tarifa/,/^entrada/]);
-  const freeFlag=Object.keys(e).some(k=>/^gratuit/.test(normalizedKey(k)));
-  const status=classify(price,desc,title,freeFlag);
-  const url=secureLink(fieldValue(e,[/url.*activ/,/url.*acte/,/enllac/,/web.*activ/,/^url/,/^link/,/^web/,/^enlace/]));
+  const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adrea/,/^adreca/,/^localitzacio/]))||'Barcelona';
+  const desc=tidy(fieldValue(e,[/^descripci/,/^resum/,/^text/,/^observacio/]));
+  const explicitFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuit/, /^gratuitat$/]);
+  const hasFlag=Object.keys(e).some(k=>/^(gratuita|gratuit|esgratuit|gratuitat)$/.test(normalizedKey(k)))&&explicitFlag!=='';
+  const price=hasFlag?explicitFlag:fieldValue(e,[/^preu$/, /^cost$/, /^tarifa$/, /^entrades$/]);
+  const status=classify(price,desc,title,hasFlag);
+  const url=cataloniaLink(e);
   if(!url){diagnostic.missingLink++;continue;}
-  const kinds=kindsFor(title,desc,tidy(fieldValue(e,[/^categoria/,/^tematica/,/^tipus/,/^ambit/])));
-  events.push({title,start:start<from?from:start,end:end||'',city:municipality,province:'Barcelona',place,time:tidy(fieldValue(e,[/^horainici/,/^hora/])),kind:kinds[0],kinds,description:desc,source,url,status,freeType:status==='condicional'?'condicional':'confirmada'});
+  const categories=tidy(fieldValue(e,[/^tagscategories$/, /^tagsmbits$/, /^tagsaltrescategories$/, /^categoria/, /^tematica/, /^tipus/, /^ambit/]));
+  const kinds=kindsFor(title,desc,categories);
+  events.push({title,start:start<from?from:start,end:end||'',city:'Barcelona',province:'Barcelona',place,time:tidy(fieldValue(e,[/^horari$/, /^horainici$/, /^hora/])),kind:kinds[0],kinds,description:desc,source,url,status,freeType:status==='condicional'?'condicional':'confirmada'});
   diagnostic.classified[status]++;diagnostic.accepted++;
  }
  return events;
 }
+
 function barcelonaHtmlEntries(html,from,to){
  const cards=[];const seen=new Set();let m;
  // Localizar cualquier enlace de ficha individual, independientemente del orden
