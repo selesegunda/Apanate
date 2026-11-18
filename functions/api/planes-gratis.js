@@ -8,8 +8,10 @@ const CYL='https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datas
 const SOURCE={
   madrid:[
     {name:'Madrid · Agenda municipal',parser:'madrid',urls:[
-      'https://datos.madrid.es/dataset/300107-0-agenda-actividades-eventos/resource/300107-5-agenda-actividades-eventos-json/download/300107-0-agenda-actividades-eventos.json',
-      'https://datos.madrid.es/id/id/dataset/300107-0-agenda-actividades-eventos/resource/300107-5-agenda-actividades-eventos-json/download/300107-5-agenda-actividades-eventos-json.json'
+      // Distribuciones oficiales del mismo conjunto de datos. CSV primero:
+      // la distribución JSON puede incluir caracteres de control mal escapados.
+      'https://datos.madrid.es/dataset/300107-0-agenda-actividades-eventos/resource/300107-2-agenda-actividades-eventos-csv/download/300107-0-agenda-actividades-eventos.csv',
+      'https://datos.madrid.es/dataset/300107-0-agenda-actividades-eventos/resource/300107-5-agenda-actividades-eventos-json/download/300107-0-agenda-actividades-eventos.json'
     ]},
     {name:'Madrid · Bibliotecas gratuitas',parser:'madrid-library',freeByDataset:true,urls:[
       'https://datos.madrid.es/dataset/206717-0-agenda-eventos-bibliotecas/resource/206717-1-agenda-eventos-bibliotecas-json/download/206717-0-agenda-eventos-bibliotecas.json',
@@ -112,15 +114,42 @@ function parse(raw,from,to,source,province,parser,diagnostic){
  }
  return out;
 }
+// Escapa únicamente controles no permitidos dentro de cadenas JSON. No repara
+// archivos truncados ni cadenas con comillas inválidas: esos casos fallan y
+// quedan documentados como error de fuente.
+function escapeJsonStringControls(text){
+ let quoted=false,escaped=false,result='',changed=false;
+ for(let i=0;i<text.length;i++){
+  const c=text[i];
+  if(escaped){result+=c;escaped=false;continue;}
+  if(c==='\\'&&quoted){result+=c;escaped=true;continue;}
+  if(c==='"'){quoted=!quoted;result+=c;continue;}
+  if(quoted&&c.charCodeAt(0)<32){result+='\\u'+c.charCodeAt(0).toString(16).padStart(4,'0');changed=true;}
+  else result+=c;
+ }
+ return changed?result:text;
+}
 async function readJob(job){
  const choices=job.urls||[job.url];const attempts=[];
  for(const url of choices){
   const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12500);
   try{
-   const response=await fetch(url,{signal:ctrl.signal,headers:{accept:job.csv?'text/csv,text/plain,*/*':'application/json,*/*'},cf:{cacheEverything:true,cacheTtl:600}});
+   const asCsv=job.csv||/\.csv(?:[?#]|$)/i.test(url);
+   const response=await fetch(url,{signal:ctrl.signal,headers:{accept:asCsv?'text/csv,text/plain,*/*':'application/json,*/*'},cf:{cacheEverything:true,cacheTtl:600}});
    if(!response.ok)throw new Error(`HTTP ${response.status}`);
-   const raw=job.csv?rowsFromCSV(await response.text()):await response.json();
+   const body=await response.text();
+   let raw;
+   if(asCsv){raw=rowsFromCSV(body);}else{
+    // Los caracteres de control literales en cadenas rompen JSON.parse; se
+    // escapan solo dentro de cadenas, sin alterar delimitadores ni estructura.
+    try{raw=JSON.parse(body)}catch(firstError){
+      const repaired=escapeJsonStringControls(body);
+      if(repaired===body)throw firstError;
+      raw=JSON.parse(repaired);
+    }
+   }
    if(!Array.isArray(raw)&&typeof raw!=='object')throw new Error('Formato de datos desconocido');
+   if(!records(raw).length)throw new Error('Respuesta sin registros reconocibles');
    return {raw,endpoint:url};
   }catch(err){attempts.push(`${new URL(url).pathname.split('/').pop()}: ${err?.name==='AbortError'?'tiempo de espera':String(err?.message||err).slice(0,100)}`)}
   finally{clearTimeout(timer)}
@@ -164,8 +193,9 @@ export async function onRequestGet({request}){
  for(const ev of all)stats[ev.status]++;
  const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort((a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
  const events=checked.slice(0,120).map(({status,...ev})=>ev);
+ const displayed=events.length,confirmed=checked.length;
  const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length;
- return json({events,stats:failures===settled.length?null:stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,
+ return json({events,displayed,confirmed,stats:failures===settled.length?null:stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,
   diagnostic:norm(province)==='madrid'?settled.map(({name,ok,diagnostic,error})=>({name,ok,...diagnostic,...(error?{error}: {})})):undefined,
   notice:failures===settled.length?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':failures?`${failures} fuente(s) sin respuesta. El recuento es parcial.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
 }
