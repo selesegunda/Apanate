@@ -120,6 +120,26 @@ body{background:linear-gradient(180deg,#fffaf2 0%,#f5efe4 260px,#f1f2ea 900px,#f
 .rank-source span{font-weight:800}
 .rank-source a{font-weight:800;text-decoration:none;border-bottom:1px solid #c77554;color:#16657b}
 .rank-source a:hover{color:#ac5e3e}
+
+/* Invitación a guardar lecturas, antes de la lista semanal. */
+.reading-banner{position:relative;isolation:isolate;overflow:hidden;margin:28px 0 42px;padding:clamp(26px,4.2vw,49px);border:2px solid #d7a77c;border-radius:28px;background:radial-gradient(circle at 89% 18%,rgba(255,222,153,.65),transparent 23%),linear-gradient(121deg,#fff3e3 0%,#f9e2da 50%,#e1f0e6 100%);box-shadow:0 10px 0 #e4d6ca,0 18px 34px rgba(88,75,61,.1);display:grid;grid-template-columns:minmax(0,1fr) 170px;align-items:center;gap:20px}
+.reading-banner .eyebrow{display:block;color:#a85843;letter-spacing:.16em;margin-bottom:13px}
+.reading-banner h2{font:normal clamp(30px,3.8vw,49px)/1.08 Georgia,serif;color:#155c73;letter-spacing:-.035em;margin:0 0 15px}
+.reading-banner h2 em{color:#bd7055;font-style:italic}
+.reading-banner p{color:#4c6665;max-width:68ch;font-size:clamp(14px,1.55vw,17px);line-height:1.6;margin:0 0 20px}
+.reading-banner-link{display:inline-flex;align-items:center;gap:10px;background:#176878;color:#fffdf7;border:1px solid #176878;border-radius:999px;text-decoration:none;font-size:14px;font-weight:800;padding:10px 18px;box-shadow:0 4px 0 rgba(18,84,92,.17)}
+.reading-banner-link:hover{background:#125665;transform:translateY(-2px)}
+.reading-banner-art{position:relative;width:155px;height:160px;justify-self:center;transform:rotate(-5deg)}
+.reading-banner-art:before{content:"";position:absolute;left:4px;right:2px;bottom:15px;height:16px;background:#d6a173;border-radius:8px;box-shadow:0 7px 0 #b8805d}
+.reading-banner-art .book-spine{position:absolute;bottom:32px;width:40px;border-radius:5px 7px 4px 4px;box-shadow:5px 7px 0 rgba(35,65,66,.1);border:2px solid rgba(255,255,255,.57)}
+.book-spine-one{left:15px;height:113px;background:#4f9c9e;transform:rotate(-9deg)}
+.book-spine-two{left:59px;height:132px;background:#cd755c;transform:rotate(3deg)}
+.book-spine-three{left:102px;height:105px;background:#e7b864;transform:rotate(12deg)}
+.reading-banner-art .book-spine:before{content:"";position:absolute;top:14px;bottom:17px;left:12px;width:2px;background:rgba(255,255,255,.68)}
+.reading-banner-art .book-spine:after{content:"✦";position:absolute;top:10px;right:5px;color:#fff3db;font-size:15px}
+.book-spark{position:absolute;color:#ad7456;font-size:25px}.book-spark-one{right:-11px;top:-2px}.book-spark-two{left:-8px;top:1px;color:#d49a5a}
+@media(max-width:700px){.reading-banner{grid-template-columns:1fr;padding:26px 24px 30px}.reading-banner-art{display:none}.reading-banner-link{margin-top:3px}}
+@media(prefers-reduced-motion:reduce){.reading-banner-link{transition:none}}
 </style>
 </head>
 <body>
@@ -141,9 +161,18 @@ body{background:linear-gradient(180deg,#fffaf2 0%,#f5efe4 260px,#f1f2ea 900px,#f
 </section>
 <section class="section" aria-labelledby="headlights"><div class="section-head"><div><span class="eyebrow">En primera fila</span><h2 id="headlights">Los que abren la lista.</h2></div><p>Dos libros, dos caminos distintos. El número uno de cada género.</p></div><div class="feature-grid" id="features"></div></section>
 <section class="strip"><h2>Lo mejor de un ranking es descubrir lo inesperado.</h2><p>Fíjate en los estrenos y en los libros que suben puestos. Es ahí donde cada semana cambia la conversación.</p></section>
+<section class="closing reading-banner" aria-labelledby="reading-banner-title">
+  <div class="reading-banner-copy">
+    <span class="eyebrow">♡ Tu estantería personal</span>
+    <h2 id="reading-banner-title">Una lista que cambia.<br><em>Una lectura que se queda.</em></h2>
+    <p>Marca con ♡ lo que te interese leer. Aunque un título salga de los más vendidos, seguirá en tu estantería de este navegador hasta que decidas quitarlo.</p>
+    <a class="reading-banner-link" href="#ranking-heading">Descubrir lecturas <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="reading-banner-art" aria-hidden="true"><span class="book-spine book-spine-one"></span><span class="book-spine book-spine-two"></span><span class="book-spine book-spine-three"></span><span class="book-spark book-spark-one">✦</span><span class="book-spark book-spark-two">✳</span></div>
+</section>
 <section class="section" aria-labelledby="ranking-heading"><div class="section-head"><div><span class="eyebrow">La lista de esta semana</span><h2 id="ranking-heading">En los primeros puestos.</h2></div><p id="category-text">Ranking completo de Ficción, del puesto 1 al 20.</p><p id="rank-refresh-label" class="rank-refresh-label" role="status" aria-live="polite"></p><p class="rank-source"><span>Fuente:</span> <a id="rank-source-link" href="https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html" target="_blank" rel="noopener noreferrer">El Cultural / Todos Tus Libros ↗</a></p></div><div class="tools"><button id="fiction" class="tab active" type="button" aria-pressed="true">Ficción · 20</button><button id="nonfiction" class="tab" type="button" aria-pressed="false">No ficción · 20</button><button id="saved" class="tab" type="button" aria-pressed="false">♡ Mi estantería <span id="saved-count">0</span></button><input class="search" type="search" id="search" placeholder="Busca un título, un autor…" aria-label="Buscar libros"><span class="counter" id="counter"></span></div><div class="grid" id="books"></div></section>
 
-<section class="closing"><div><h2>Una lista que cambia. Una lectura que se queda.</h2><p>Marca con ♡ lo que te interese leer. Aunque un título salga de los más vendidos, seguirá en tu estantería de este navegador hasta que decidas quitarlo.</p></div><div style="font:normal 60px Georgia,serif;color:var(--coral)" aria-hidden="true">✳</div></section>
+
 </main>
 <footer class="footer">¡Apáñate! Libros · <a data-rank-source href="https://www.elespanol.com/el-cultural/letras/los-libros-mas-vendidos/20261113/libros-vendidos-noviembre/1003744456974_0.html" target="_blank" rel="noopener noreferrer">Fuente: El Cultural / Todos Tus Libros</a><a href="../">Portada</a><a href="../cocina/">Cocina</a><p>El PVP aparece únicamente cuando está documentado para la edición en papel. Las cubiertas se muestran cuando están disponibles para la edición identificada.</p></footer>
 </div>
