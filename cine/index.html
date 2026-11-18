@@ -77,7 +77,7 @@ a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-vis
 <div class="shell" id="filmoteca"><div class="shelfband"><div><h2>Tu pequeña filmoteca.</h2><p>Guarda con ♡ las películas que te interesan. Permanecerán en este navegador aunque cambie la cartelera o el ranking. No necesitas crear una cuenta.</p></div><button id="open-shelf" type="button" aria-expanded="false">Ver mi filmoteca · <span id="saved-counter">0</span></button></div><div id="shelf-list" class="shelf" aria-label="Películas guardadas"></div></div>
 
 
-<section id="tele" class="section shell"><div class="secthead"><div><div class="eyebrow">Primer pase · Televisión en abierto</div><h2>Por empezar, <em>cine.</em></h2></div><p>Máximo 12 películas por empezar, con un máximo de 2 por canal de TDT en abierto. Se consultan al abrir o actualizar la página.</p></div><div class="ticket"><div><strong id="tv-date-heading">Consultando cartelera de hoy…</strong><small id="tv-intro">Selección de películas programadas en abierto en España</small></div><span class="date" id="tv-date-label">HOY</span></div><div id="archive-warning" class="archived" hidden></div><div class="tvgrid" id="tv-list"></div><div class="rankfooter" style="border-color:var(--edge);color:var(--dim)"><span>Actualización al entrar y recargar la página. La programación puede cambiar.</span><a class="side-link" href="https://www.formulatv.com/programacion/" target="_blank" rel="noopener noreferrer">Consultar programación actual ↗</a></div></section>
+<section id="tele" class="section shell"><div class="secthead"><div><div class="eyebrow">Primer pase · Televisión en abierto</div><h2>Por empezar, <em>cine.</em></h2></div><p>Hasta 12 películas por empezar en las próximas 48 horas, con un máximo de 2 por canal de TDT en abierto. Se consultan varias guías al abrir o actualizar la página.</p></div><div class="ticket"><div><strong id="tv-date-heading">Consultando cartelera de hoy…</strong><small id="tv-intro">Selección de películas por empezar en la TDT española</small></div><span class="date" id="tv-date-label">HOY</span></div><div id="archive-warning" class="archived" hidden></div><div class="tvgrid" id="tv-list"></div><div class="rankfooter" style="border-color:var(--edge);color:var(--dim)"><span>Actualización al entrar y recargar la página. La programación puede cambiar.</span><a class="side-link" href="https://www.formulatv.com/programacion/" target="_blank" rel="noopener noreferrer">Consultar programación actual ↗</a></div></section>
 <section id="gratis" class="section shell"><div class="freehead"><div class="eyebrow">Sesión continua · Sin pagar entrada</div><h2>El cine también <em>es de todos.</em></h2><p>Películas y catálogos que se pueden disfrutar legalmente desde España. Algunas opciones llevan anuncios, exigen carné de biblioteca o tienen límites de disponibilidad.</p></div><div id="free-list" class="freegrid"></div></section>
 <section id="ranking" class="ranking-bg"><div class="shell"><div class="secthead"><div><div class="eyebrow">En cartel · Streaming</div><h2>Las que están <em>en boca de todos.</em></h2></div><a class="side-link" href="https://www.justwatch.com/es/streaming-charts" target="_blank" rel="noopener noreferrer">Ver clasificación completa ↗</a></div><div class="chartintro"><strong>Popularidad en España · JustWatch · 17/11/2026</strong> · Datos de interés de usuarios (búsquedas, clics y listas), <b>no cifras de espectadores</b>. La web pública nos permitió verificar los 10 primeros puestos de un objetivo de 20; no inventamos los restantes. Esta edición es una fotografía de esa fecha, no una clasificación en directo.</div><div id="film-list" class="charts"></div><div class="rankfooter"><span><span class="numberbig">10/20</span> puestos verificados de la clasificación española</span><span>El Top 20 completo está disponible en <a href="https://www.justwatch.com/es/streaming-charts" target="_blank" rel="noopener noreferrer">JustWatch ↗</a></span></div></div></section>
 
@@ -89,8 +89,8 @@ const db=JSON.parse(document.getElementById('cinema-data').textContent),$=id=>do
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const tvItems=[];
 function todayMadrid(){return new Intl.DateTimeFormat('es-ES',{timeZone:'Europe/Madrid',weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date())}
-$('tv-date-heading').textContent='Cartelera de '+todayMadrid();
-$('tv-date-label').textContent='HOY · EN ABIERTO';
+$('tv-date-heading').textContent='Próximas películas · desde '+todayMadrid();
+$('tv-date-label').textContent='PRÓXIMAS 48 H';
 $('tv-intro').textContent='Buscando las próximas películas en la guía actual…';
 async function updateTV(){
   $('tv-list').innerHTML='<p class="tv-message">Consultando las próximas emisiones…</p>';
@@ -108,7 +108,7 @@ async function updateTV(){
       if(seleccion.length===12)break;
     }
     tvItems.splice(0,tvItems.length,...seleccion);
-    $('tv-intro').textContent=tvItems.length?`${tvItems.length} película${tvItems.length===1?'':'s'} por empezar hoy. Horarios peninsulares.`:'No hay películas pendientes confirmadas hoy en la guía consultada.';
+    $('tv-intro').textContent=tvItems.length?`${tvItems.length} película${tvItems.length===1?'':'s'} por empezar en las próximas 48 horas. Horarios peninsulares.`:'No hay películas pendientes confirmadas en las próximas 48 horas en las guías consultadas.';
     $('archive-warning').hidden=true;
     renderTV();
   }catch(error){
