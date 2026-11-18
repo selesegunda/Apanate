@@ -29,7 +29,17 @@ const SOURCE={
 };
 const REGIONS={cyl:'Ávila|Burgos|León|Palencia|Salamanca|Segovia|Soria|Valladolid|Zamora',andalucia:'Almería|Cádiz|Córdoba|Granada|Huelva|Jaén|Málaga|Sevilla',canarias:'Las Palmas|Santa Cruz de Tenerife',euskadi:'Álava|Bizkaia|Gipuzkoa'};
 const norm=x=>String(x??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/<[^>]*>/g,' ').trim().toLowerCase();
-const tidy=x=>String(x??'').replace(/<[^>]*>/g,' ').replace(/&nbsp;/ig,' ').replace(/&amp;/ig,'&').replace(/\s+/g,' ').trim().slice(0,750);
+const tidy=x=>{
+ if(x===null||x===undefined)return '';
+ if(Array.isArray(x))return tidy(x.map(tidy).filter(Boolean).join(', '));
+ if(typeof x==='object'){
+  for(const key of ['value','nombre','name','title','description','streetAddress','direccion','address','lugar','locality','addressLocality','city']){
+   if(x[key]!==undefined&&x[key]!==x){const v=tidy(x[key]);if(v)return v;}
+  }
+  return '';
+ }
+ return String(x).replace(/<[^>]*>/g,' ').replace(/&nbsp;/ig,' ').replace(/&amp;/ig,'&').replace(/\s+/g,' ').trim().slice(0,750);
+};
 const get=(o,fields)=>{if(!o||typeof o!=='object')return '';for(const f of fields){let v=o[f];if(v!==undefined&&v!==null&&v!=='')return v;}return ''};
 function secureLink(u){if(!u)return '';try{let s=String(u).trim();if(s.startsWith('http://') && /^http:\/\/(www\.madrid\.es|www\.zaragoza\.es|www\.gijon\.es|www\.cultura\.jcyl\.es)/.test(s))s='https://'+s.slice(7);let v=new URL(s);return v.protocol==='https:'?v.href:''}catch{return ''}}
 function isoDate(x){if(!x)return '';if(typeof x==='object')return isoDate(get(x,['start','value','date','fecha']));let s=String(x),m=s.match(/(20\d\d)-(\d\d)-(\d\d)/);if(m)return m[0];m=s.match(/^(\d\d)[\/\-](\d\d)[\/\-](20\d\d)/);return m?`${m[3]}-${m[2]}-${m[1]}`:''}
@@ -61,7 +71,19 @@ function classify(cost,description,title,asFlag=false){
  if(costStatus==='paid'||paidText)return 'pago';
  return 'pendiente';
 }
-const kind=s=>{s=norm(s);if(/feria|mercadillo|mercado artesanal/.test(s))return'ferias';if(/fiestas patronales|romeria|verbena|fiesta popular/.test(s))return'fiestas';if(/familia|infantil|cuentacuentos|ninos|niñas|ninos/.test(s))return'familia';return'cultura'};
+// Las categorías no son excluyentes: un cuentacuentos es cultura Y familia.
+function kindsFor(title,description,category){
+ const s=norm([title,description,category].join(' '));
+ const kinds=[];
+ if(/\b(feria|ferias|ferial|mercadillo|mercado artesanal|mercado medieval)\b/.test(s))kinds.push('ferias');
+ if(/\b(fiesta patronal|fiestas patronales|romeria|verbena|fiesta popular|fiestas populares|carnaval|cabalgata|verbenas)\b/.test(s))kinds.push('fiestas');
+ const family=/\b(familia|familiar|familias|infantil|infancia|cuentacuentos|ninos|ninas|peques|bebes|juvenil)\b/.test(s);
+ if(family)kinds.push('familia');
+ // Cultura es una categoría amplia, también para propuestas familiares culturales.
+ if(!kinds.includes('ferias')&&!kinds.includes('fiestas')||/teatro|musica|concierto|danza|libro|lectura|biblioteca|cuento|exposicion|taller|cine|cultura|poesia|literatura|visita guiada/.test(s))kinds.push('cultura');
+ return [...new Set(kinds.length?kinds:['cultura'])];
+}
+const kind=s=>kindsFor(s,'','')[0];
 function records(raw){if(Array.isArray(raw))return raw;for(const k of ['@graph','results','result','records','features','events','items','data','listado'])if(Array.isArray(raw?.[k]))return raw[k];if(Array.isArray(raw?.result?.records))return raw.result.records;if(Array.isArray(raw?.response?.docs))return raw.response.docs;return []}
 function rowsFromCSV(txt){const first=(txt.replace(/^\uFEFF/,'').split(/\r?\n/)[0]||'');const sep=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';let arr=[],row=[],value='',quoted=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(c==='"'){if(quoted&&txt[i+1]==='"'){value+='"';i++}else quoted=!quoted}else if(c===sep&&!quoted){row.push(value);value=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&txt[i+1]==='\n')i++;row.push(value);if(row.some(v=>v.trim()))arr.push(row);row=[];value=''}else value+=c}row.push(value);if(row.some(v=>v.trim()))arr.push(row);const names=(arr.shift()||[]).map(x=>x.trim().replace(/^\uFEFF/,''));return arr.slice(0,5000).map(r=>Object.fromEntries(names.map((n,i)=>[n,r[i]||''])))}
 const MAPPING={
@@ -107,9 +129,12 @@ function parse(raw,from,to,source,province,parser,diagnostic){
    if(id)url=`https://www.zaragoza.es/sede/servicio/cultura/evento/${id[1]}`;
   }
   if(!url){d.missingLink++;continue;}
-  const place=tidy(get(e,MAPPING.place)||get(location,['title','name'])||get(address,['streetAddress','street-address']))||city;
+  const rawPlace=get(e,MAPPING.place)||get(location,['title','name','address'])||get(address,['streetAddress','street-address']);
+  const place=tidy(rawPlace)||city;
   const hour=tidy(get(e,MAPPING.time)).slice(0,36);
-  out.push({title,start:begin<from?from:begin,end:end||'',city,province:prov,place,time:hour,kind:kind(title+' '+desc),description:desc,source,url,freeType:status==='condicional'?'condicional':'confirmada',status});
+  const category=tidy(get(e,['TIPO','TIPO-ACTIVIDAD','TIPO-ACTIVIDAD-NOMBRE','CATEGORIA','categoria','category','tipo','tipoActividad','TIPO_EVENTO']));
+  const kinds=kindsFor(title,desc,category);
+  out.push({title,start:begin<from?from:begin,end:end||'',city,province:prov,place,time:hour,kind:kinds[0],kinds,description:desc,source,url,freeType:status==='condicional'?'condicional':'confirmada',status});
   d.classified[status]++;d.accepted++;
  }
  return out;
@@ -137,7 +162,14 @@ async function readJob(job){
    const asCsv=job.csv||/\.csv(?:[?#]|$)/i.test(url);
    const response=await fetch(url,{signal:ctrl.signal,headers:{accept:asCsv?'text/csv,text/plain,*/*':'application/json,*/*'},cf:{cacheEverything:true,cacheTtl:600}});
    if(!response.ok)throw new Error(`HTTP ${response.status}`);
-   const body=await response.text();
+   // El CSV de Madrid puede servirse como Windows-1252 (acentos y ordinales).
+   // Decodificar bytes: nunca dejar que UTF-8 sustituya silenciosamente letras por �.
+   const buffer=await response.arrayBuffer();
+   let body;
+   if(asCsv){
+    try{body=new TextDecoder('utf-8',{fatal:true}).decode(buffer)}
+    catch(_){body=new TextDecoder('windows-1252').decode(buffer)}
+   }else body=new TextDecoder('utf-8').decode(buffer);
    let raw;
    if(asCsv){raw=rowsFromCSV(body);}else{
     // Los caracteres de control literales en cadenas rompen JSON.parse; se
@@ -181,24 +213,38 @@ export async function onRequestGet({request}){
  // Los duplicados se detectan antes de paginar. Un mismo título en dos
  // horarios o espacios distintos conserva sus sesiones por separado.
  const buckets=new Map();
+ // Comparamos títulos tolerando una letra de sustitución U+FFFD procedente
+ // de una copia antigua, pero manteniendo fecha, municipio, lugar y hora.
+ const simple=v=>norm(v).replace(/[“”«»'’`]/g,'').replace(/\s+/g,' ').trim();
+ const textEquivalent=(a,b)=>{
+   const x=simple(a),y=simple(b);
+   if(x===y)return true;
+   if(x.length!==y.length||!x.includes('�')&&!y.includes('�'))return false;
+   for(let i=0;i<x.length;i++)if(x[i]!==y[i]&&x[i]!=='�'&&y[i]!=='�')return false;
+   return true;
+ };
+ const quality=v=>(String(v||'').match(/�/g)||[]).length;
  for(const ev of settled.flatMap(x=>x.events)){
-  const group=norm(ev.title)+'|'+ev.start+'|'+norm(ev.city);
+  const group=ev.start+'|'+norm(ev.city);
   const bucket=buckets.get(group)||[];
   const hour=norm(ev.time),place=norm(ev.place)===norm(ev.city)?'':norm(ev.place);
   const previous=bucket.find(old=>{
+    if(!textEquivalent(ev.title,old.title))return false;
     const oldHour=norm(old.time),oldPlace=norm(old.place)===norm(old.city)?'':norm(old.place);
-    return (!hour||!oldHour||hour===oldHour) && (!place||!oldPlace||place===oldPlace);
+    return (!hour||!oldHour||hour===oldHour) && (!place||!oldPlace||textEquivalent(place,oldPlace));
   });
   if(previous){
     duplicates++;
     if(previous.status!==ev.status){
       conflicts++;
-      // Ante fuentes discordantes nunca anunciamos gratis sin revisar.
       previous.status='pendiente';previous.freeType='pendiente';
     }
+    if(quality(ev.title)<quality(previous.title))previous.title=ev.title;
     if(!previous.time&&ev.time)previous.time=ev.time;
-    if((!previous.place||norm(previous.place)===norm(previous.city))&&ev.place)previous.place=ev.place;
+    if((!previous.place||norm(previous.place)===norm(previous.city)||quality(ev.place)<quality(previous.place))&&ev.place)previous.place=ev.place;
     if(!previous.description&&ev.description)previous.description=ev.description;
+    previous.kinds=[...new Set([...(previous.kinds||[previous.kind]),...(ev.kinds||[ev.kind])])];
+    if(previous.kinds.includes('cultura'))previous.kind='cultura';
   }else bucket.push({...ev});
   buckets.set(group,bucket);
  }
@@ -223,7 +269,7 @@ export async function onRequestGet({request}){
  const sortEvents=(a,b)=>a.start.localeCompare(b.start)||((norm(b.city)===norm(city)?1:0)-(norm(a.city)===norm(city)?1:0))||norm(a.title).localeCompare(norm(b.title),'es')||norm(a.time).localeCompare(norm(b.time));
  const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort(isMadrid?sortEvents:(a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
  const type=p.get('type')||'todos';
- const selected=isMadrid&&['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>e.kind===type):checked;
+ const selected=isMadrid&&['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>(e.kinds||[e.kind]).includes(type)):checked;
  const pageSize=isMadrid?24:120;
  const offset=isMadrid?Math.min(20000,Math.max(0,Number.parseInt(p.get('offset')||'0',10)||0)):0;
  const events=selected.slice(offset,offset+pageSize).map(({status,...ev})=>ev);
