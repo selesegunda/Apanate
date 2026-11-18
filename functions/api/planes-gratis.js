@@ -375,15 +375,13 @@ function barcelonaHtmlEntries(html,from,to){
    const text=decodeHtml(raw||'').replace(/&amp;/g,'&').trim();
    const u=new URL(text,root);
    if(!['agenda500.barcelona.cat','guia.barcelona.cat'].includes(u.hostname)||!/(?:^|\/)detall\//i.test(u.pathname))return null;
-   return u.href;
+   u.hash='';return u.href;
   }catch{return null;}
  };
  for(const a of links){
   const href=allowedLink(a[2]||a[3]);if(!href)continue;
   details.push({index:a.index,end:a.index+a[0].length,href,title:htmlText(a[4])});
  }
- // La ficha real presenta el título dentro de un H3 enlazado. En algunos
- // temas el enlace ocupa un nodo hermano del H3; comprobar ambos casos.
  const cards=[],seen=new Set();
  for(const h of headings){
   const title=htmlText(h[1]);
@@ -393,35 +391,49 @@ function barcelonaHtmlEntries(html,from,to){
   if(!near||seen.has(near.href))continue;
   seen.add(near.href);cards.push({title,url:near.href,startIndex:h.index,endIndex:h.index+h[0].length});
  }
- // Seguridad: no aceptar enlaces sueltos del menú, del pie o de un carrusel
- // que no acompañen a un título individual.
  cards.sort((a,b)=>a.startIndex-b.startIndex);
- const parsed=[];let undated=0,expired=0,missingPlace=0;
+ const parsed=[],cardResults=[];
  for(let i=0;i<cards.length;i++){
   const c=cards[i],next=cards[i+1];
   const block=htmlText(rawHtml.slice(c.endIndex,Math.min(rawHtml.length,next?next.startIndex:c.endIndex+2500,c.endIndex+2500)));
-  // Los campos de una tarjeta se muestran como «Dónde: … Cuándo: …».
   const where=block.match(/(?:D[oó]nde|On|Where)\s*:?\s*(.*?)(?=\s+(?:Cu[aá]ndo|Quan|When)\s*:?|$)/i);
   const place=tidy(where?.[1]||'').slice(0,180);
-  if(!place){missingPlace++;continue;}
-  const when=block.match(/(?:Cu[aá]ndo|Quan|When)\s*:?\s*(?:Del?\s+|De\s+|Des\s+de\s+)?(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el|to)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i);
-  if(!when){undated++;continue;} // «Evento permanente» no lleva fecha: se omite.
-  const first=isoDate(when[1]),last=isoDate(when[2]||when[1]);
-  if(!first||!last){undated++;continue;}
-  if(first>to||last<from){expired++;continue;}
-  const kinds=kindsFor(c.title,block,'');
-  parsed.push({title:c.title,start:first<from?from:first,end:last,city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,description:block.slice(0,320),source:'Barcelona · Agenda 500 (acceso gratuito)',url:c.url,status:'gratis',freeType:'confirmada'});
+  // Las fichas permanentes no llevan sesión fechada: identificarlas aparte,
+  // nunca convertirlas en una actividad de hoy o sumar «fecha ilegible».
+  const permanent=/(?:evento|esdeveniment|event)\s+permanent(?:e)?/i.test(block);
+  const when=block.match(/(?:Cu[aá]ndo|Quan|When)\s*:?\s*(?:Del?\s+|De\s+|Des\s+de\s+)?(\d{1,2}[\/\-.]\d{1,2}[\/\-.]20\d{2})(?:\s+(?:a|al|fins al|hasta el|to|fins)\s+(\d{1,2}[\/\-.]\d{1,2}[\/\-.]20\d{2}))?/i);
+  let reason='',ev=null;
+  if(permanent)reason='permanent';
+  else if(!when)reason='missingDate';
+  else{
+   const first=isoDate(when[1].replace(/[.\-]/g,'/'));
+   const last=isoDate((when[2]||when[1]).replace(/[.\-]/g,'/'));
+   if(!first||!last||last<first)reason='missingDate';
+   else if(first>to||last<from)reason='outOfRange';
+   else if(!place)reason='missingPlace';
+   else{
+    const kinds=kindsFor(c.title,block,'');
+    // start se ajusta a la ventana para que se vea una actividad que
+    // comenzó antes; las fechas oficiales completas quedan conservadas.
+    ev={title:c.title,start:first<from?from:first,end:last,originalStart:first,originalEnd:last,
+      city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,
+      description:block.slice(0,320),source:'Barcelona · Agenda 500 (acceso gratuito)',
+      url:c.url,status:'gratis',freeType:'confirmada'};
+   }
+  }
+  cardResults.push({url:c.url,reason:reason||'valid',event:ev});
+  if(ev)parsed.push(ev);
  }
  const sampleLinks=links.map(a=>{
   try{return new URL(decodeHtml(a[2]||a[3]||''),root).pathname.slice(0,65);}catch{return '';}
  }).filter(Boolean).filter((v,i,all)=>all.indexOf(v)===i).slice(0,5);
- const debug=cards.length?`Fichas ${cards.length}; sin fecha ${undated}; sin lugar ${missingPlace}`:
+ const debug=cards.length?`Fichas ${cards.length}`:
   `Sin fichas /detall/: HTML ${html.length} caracteres; enlaces ${links.length}; H2-H4 ${headings.length}; rutas ${sampleLinks.join(', ')||'ninguna'}`;
- return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated,missingPlace,debug};
+ return {events:parsed,cardResults,received:cards.length,debug};
 }
 async function readBarcelonaHtml(job,from,to){
- // Agenda 500 puede limitar la primera respuesta a 10 fichas aunque ofrezca
- // más resultados. No terminar después de la primera página reconocible.
+ // Agenda 500 ofrece resultados de 30 días. Filtramos por el intervalo elegido
+ // sin inventar parámetros de búsqueda de fecha que no se han contrastado.
  const official=new URL('https://agenda500.barcelona.cat/es/llistat');
  for(const [key,value] of Object.entries({ajax:'search',canal:'agenda500',cerca:'*:*',d:'mes',nr:'10',pg:'search',sort:'namesort,asc',ticket:'3',wtarget:'agenda500',xout:'1'}))official.searchParams.set(key,value);
  const candidate=(size,extra={})=>{
@@ -429,11 +441,11 @@ async function readBarcelonaHtml(job,from,to){
   for(const [key,value] of Object.entries(extra))u.searchParams.set(key,String(value));
   return u.href;
  };
- const found=new Map(),errors=[];
- let received=0,outOfRange=0,missingDate=0,missingPlace=0;
- const seenResponses=new Set();
+ // Un registro diagnóstico por ficha individual, no por consulta HTTP.
+ const cardsByUrl=new Map(),errors=[],seenResponses=new Set();
+ const priority={valid:5,outOfRange:4,permanent:3,missingPlace:2,missingDate:1};
+ let maxResponseCards=0;
  const fetchBatch=async urls=>{
-  // No interpretar una respuesta errónea como falta de actividades.
   const results=await Promise.all(urls.map(async url=>{
    try{
     const response=await fetchTimed(url,'text/html',12000);
@@ -444,32 +456,29 @@ async function readBarcelonaHtml(job,from,to){
   for(const entry of results){
    if(entry.error){errors.push(entry.error);continue;}
    const r=entry.result;
-   // Evitar sumar como nuevas las mismas 10 fichas si el servidor ignora
-   // el tamaño de página o el parámetro de desplazamiento.
-   const fingerprint=r.events.map(e=>e.url).sort().join('|')+'#'+r.received;
+   const fingerprint=r.cardResults.map(c=>c.url).sort().join('|');
    if(seenResponses.has(fingerprint))continue;
    seenResponses.add(fingerprint);
-   received=Math.max(received,r.received);outOfRange+=r.outOfRange;
-   missingDate=Math.max(missingDate,r.missingDate||0);missingPlace=Math.max(missingPlace,r.missingPlace||0);
-   for(const ev of r.events){
-    const key=ev.url+'|'+ev.start;
-    if(!found.has(key))found.set(key,ev);
+   maxResponseCards=Math.max(maxResponseCards,r.received);
+   for(const card of r.cardResults){
+    const old=cardsByUrl.get(card.url);
+    if(!old||(priority[card.reason]||0)>(priority[old.reason]||0))cardsByUrl.set(card.url,card);
    }
    if(!r.received)errors.push(r.debug);
   }
  };
- // Ante todo consultar un tamaño mayor, preservando como respaldo la
- // consulta de 10 que ya sabemos que funciona en Cloudflare.
  await fetchBatch([candidate(60),candidate(30),candidate(10)]);
- // Si el servidor insiste en enviar diez, probar desplazamientos habituales.
- // No se presuponen válidos: solo incorporamos fichas individuales nuevas.
- if(received>0&&found.size<=10){
+ if(maxResponseCards>0&&cardsByUrl.size<=10){
   await fetchBatch([candidate(10,{start:10}),candidate(10,{page:2})]);
  }
- if(!received)throw Error('Agenda 500: '+errors.join(' | ').slice(0,210));
- return {events:[...found.values()],received:Math.max(found.size,received),
-  outOfRange,missingDate,missingPlace,
-  debug:`Fichas únicas válidas ${found.size}; máximo de fichas de una respuesta ${received}; sin fecha ${missingDate}; fuera de fecha ${outOfRange}; consultas ${seenResponses.size}`} ;
+ if(!maxResponseCards)throw Error('Agenda 500: '+errors.join(' | ').slice(0,210));
+ const all=[...cardsByUrl.values()];
+ const events=all.filter(c=>c.reason==='valid').map(c=>c.event);
+ const count=key=>all.filter(c=>c.reason===key).length;
+ const outOfRange=count('outOfRange'),missingDate=count('missingDate');
+ const missingPlace=count('missingPlace'),permanent=count('permanent');
+ return {events,received:all.length,outOfRange,missingDate,missingPlace,permanent,
+  debug:`Fichas únicas ${all.length}; válidas ${events.length}; permanentes ${permanent}; fecha no reconocida ${missingDate}; fuera de período ${outOfRange}; sin lugar ${missingPlace}; máximo por respuesta ${maxResponseCards}; consultas ${seenResponses.size}`};
 }
 
 async function readJob(job){
