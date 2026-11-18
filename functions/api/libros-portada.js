@@ -16,7 +16,7 @@ function titleMatches(a,b){
   const x=norm(a),y=norm(b);if(!x||!y)return false;
   if(x===y)return true;
   const short=x.length<y.length?x:y,long=x.length<y.length?y:x;
-  return short.length>=9 && (long.startsWith(short+' ')||long.startsWith(short+' '));
+  return short.length>=9 && (long.startsWith(short+' ') || long.includes(' '+short+' ') || (short.length>=14 && long.includes(short)));
 }
 async function getJSON(url){
   try{const r=await fetch(url,{signal:AbortSignal.timeout(9000),cf:{cacheTtl:86400,cacheEverything:true}});if(r.ok)return await r.json();}catch(_){ }
