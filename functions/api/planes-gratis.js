@@ -26,8 +26,9 @@ const SOURCE={
   // más Agenda 500 municipal (HTML). Se elimina Open Data BCN agenda-diaria:
   // su cobertura termina en 2025 y su DataStore devolvía 404.
   barcelona:[
-    {name:'Barcelona · Generalitat cultural JSON',parser:'catalonia-json',dataset:'rhpv-yr4f'},
-    {name:'Barcelona · Generalitat cultural CSV',parser:'catalonia-csv',dataset:'rhpv-yr4f'},
+    // Una sola descarga paginada. JSON es el formato principal y CSV es el respaldo,
+    // nunca dos copias simultáneas del mismo conjunto de datos.
+    {name:'Barcelona · Generalitat cultural (JSON/CSV)',parser:'catalonia-json',dataset:'rhpv-yr4f'},
     {name:'Barcelona · Agenda 500 (acceso gratuito)',parser:'barcelona-html',
      url:'https://agenda500.barcelona.cat/es/llistat?ajax=search&canal=agenda500&cerca=*:*&d=mes&nr=60&pg=search&sort=popularity%2Cdesc&ticket=3&wtarget=agenda500&xout=1'}
   ],
@@ -291,40 +292,111 @@ function socrataDateColumn(columns){
   ||columns.find(c=>/date|calendar_date/.test(c.dataTypeName||'')&&/inici|start|comen/.test(normalizedKey(c.fieldName||c.name)))
   ||columns.find(c=>/date|calendar_date/.test(c.dataTypeName||''));
 }
+// Prioriza los eventos que continúan vigentes: inicio <= fin del intervalo y
+// final >= inicio del intervalo. Una fecha final vacía exige inicio vigente.
+// El filtro funciona únicamente con columnas de fecha reconocidas por Socrata.
+function cataloniaDateFields(columns){
+ const dated=columns.filter(c=>/date|calendar_date/i.test(c.dataTypeName||''));
+ const start=dated.find(c=>/^datainici$/.test(normalizedKey(c.fieldName||c.name)))||socrataDateColumn(dated);
+ const end=dated.find(c=>/^datafi$/.test(normalizedKey(c.fieldName||c.name)))||dated.find(c=>/data.*(fi|final)|enddate/.test(normalizedKey(c.fieldName||c.name)));
+ return {start,end};
+}
+// Dos consultas independientes: cierres aún vigentes y nuevas aperturas.
+// Un mismo registro puede aparecer en ambas. Se compara ANTES de clasificarlo.
+function cataloniaRecordKey(record){
+ const e=record?.fields||record||{};
+ const id=tidy(fieldValue(e,[/^codi$/, /^acteid$/, /^eventid$/]));
+ const beginning=isoDate(fieldValue(e,[/^datainici$/, /^data.*inici/, /^start.*date/]));
+ const ending=isoDate(fieldValue(e,[/^datafi$/, /^data.*fi$/, /^end.*date/]));
+ const location=norm(tidy(fieldValue(e,[/^comarcaimunicipi$/, /^municipi$/, /^nommunicipi$/, /^localitat$/])));
+ const place=norm(tidy(fieldValue(e,[/^nomequip/, /^nomeespai/, /^nomlloc/, /^equipament/, /^espai/, /^lloc/, /^adreca/])))
+ const time=norm(tidy(fieldValue(e,[/^horari$/, /^horainici$/, /^hora/])))
+ const title=norm(tidy(fieldValue(e,[/^denominaci/, /^titol/, /^nom.*activ/, /^title$/])));
+ // El identificador oficial solo permite fusionar la MISMA sesión y lugar.
+ // Si falta ID, exigimos título y fecha además de localización/hora.
+ return id?`id:${norm(id)}|${beginning}|${ending}|${location}|${place}|${time}`:
+  title&&beginning?`event:${title}|${beginning}|${ending}|${location}|${place}|${time}`:'';
+}
 async function readCatalonia(job,from,to){
  const meta=await (await fetchTimed(`${CT_API}/api/views/${job.dataset}.json`)).json();
  const cols=(meta.columns||[]).filter(x=>x.fieldName&&!x.fieldName.startsWith(':'));
  if(!cols.length)throw Error('No fue posible consultar columnas del conjunto oficial');
- const dateCol=socrataDateColumn(cols),q=new URLSearchParams();
- // Filtro de fecha en servidor, evitando descargar toda la historia.
- if(dateCol){
-  const f=dateCol.fieldName.replace(/[^a-zA-Z0-9_]/g,'');
-  if(f===dateCol.fieldName)q.set('$where',`${f} >= '${from}T00:00:00' AND ${f} <= '${to}T23:59:59'`);
+ const {start,end}=cataloniaDateFields(cols);
+ if(!start||!end||!/^[a-zA-Z_][a-zA-Z_0-9]*$/.test(start.fieldName)||!/^[a-zA-Z_][a-zA-Z_0-9]*$/.test(end.fieldName))
+  throw Error('Las fechas de inicio y fin no están declaradas como columnas de fecha: se evita una descarga incompleta');
+ const startDate=`'${from}T00:00:00'`,finishDate=`'${to}T23:59:59'`;
+ const queries=[
+  {name:'cierreVigente',where:`${end.fieldName} >= ${startDate} AND (${start.fieldName} <= ${finishDate} OR ${start.fieldName} IS NULL)`},
+  {name:'aperturaEnPeriodo',where:`${start.fieldName} >= ${startDate} AND ${start.fieldName} <= ${finishDate}`}
+ ];
+ const PAGE=1000,MAX_PAGES=8;
+ let lastError=null;
+ // Si JSON falla, repetir AMBAS consultas en CSV. Nunca unir descargas parciales.
+ for(const ext of ['json','csv']){
+  const recordsByKey=new Map();const keyOrigins=new Map();
+  let endpoint='',pages=0,partial=false,overlap=0,repeatedWithinQuery=0;
+  const counts={cierreVigente:0,aperturaEnPeriodo:0};
+  try{
+   for(const query of queries){
+    for(let page=0;page<MAX_PAGES;page++){
+     const q=new URLSearchParams({'$where':query.where,'$order':`${start.fieldName} ASC, :id ASC`,'$limit':String(PAGE),'$offset':String(page*PAGE)});
+     endpoint=`${CT_API}/resource/${job.dataset}.${ext}?${q}`;
+     const response=await fetchTimed(endpoint,ext==='csv'?'text/csv':'application/json',18000);
+     const body=await response.text();
+     const chunk=ext==='csv'?rowsFromCSV(body):JSON.parse(body);
+     if(!Array.isArray(chunk))throw Error('La respuesta no es una lista');
+     counts[query.name]+=chunk.length;pages++;
+     for(const record of chunk){
+      const key=cataloniaRecordKey(record);
+      // Registros sin identidad segura no se descartan ni se fusionan a ciegas.
+      const stable=key||`unidentified:${query.name}:${page}:${recordsByKey.size}`;
+      if(recordsByKey.has(stable)){
+       if(keyOrigins.get(stable)!==query.name)overlap++;
+       else repeatedWithinQuery++;
+      }else {recordsByKey.set(stable,record);keyOrigins.set(stable,query.name);}
+     }
+     if(chunk.length<PAGE)break;
+     if(page===MAX_PAGES-1)partial=true;
+    }
+   }
+   return {raw:[...recordsByKey.values()],endpoint,pages,partial,format:ext,dateFiltered:true,
+    queryCounts:counts,queryDuplicates:overlap,queryRepeated:repeatedWithinQuery};
+  }catch(error){lastError=error; /* No unir registros incompletos de distintas consultas ni formatos. */}
  }
- if(!q.has('$where'))q.set('$order',':id DESC');
- q.set('$limit','1500');
- const isCsv=job.parser==='catalonia-csv';
- const endpoint=`${CT_API}/resource/${job.dataset}.${isCsv?'csv':'json'}?${q}`;
- const r=await fetchTimed(endpoint,isCsv?'text/csv':'application/json',16000);
- const body=await r.text();
- const raw=isCsv?rowsFromCSV(body):JSON.parse(body);
- if(!Array.isArray(raw))throw Error('Respuesta autonómica no contiene una lista');
- return {raw,endpoint,dateFiltered:!!q.get('$where')};
+ throw Error(`Generalitat JSON y CSV fallaron: ${String(lastError?.message||lastError).slice(0,180)}`);
 }
-// Campos confirmados en el diagnóstico real de Cloudflare (18/11/2026).
-// Los nombres catalanes aparecen a veces sin la última letra acentuada:
-// denominaci[ó], descripci[ó], adre[ç]a, enlla[ç]os.
-// La lectura se limita a Barcelona capital en este piloto.
-function cataloniaMunicipality(e){
- const raw=fieldValue(e,[/^municipi$/, /^nommunicipi$/, /^comarcaimunicipi$/, /^poblacio$/, /^localitat$/, /^ciutat$/]);
- const asText=tidy(raw);
- if(!asText)return '';
- // «comarca_i_municipi» puede ser texto, lista o una jerarquía comarca/municipio.
- // Nunca declarar Barcelona como municipio por coincidir solo con la provincia.
- const pieces=asText.split(/\s*(?:\||\/|;|>|,| · | - )\s*/).map(x=>norm(x.trim())).filter(Boolean);
- if(pieces.includes('barcelona'))return 'Barcelona';
- // Evitamos aceptar comarcas o nombres que simplemente contengan «Barcelona».
- return asText;
+// Las comarcas permiten atribuir municipio y provincia sin adivinar por texto libre.
+// Si la fuente no especifica provincia/comarca, solo se aceptan localidades
+// de pertenencia conocida, en vez de asignar por defecto toda Cataluña a Barcelona.
+const BCN_COMARQUES=new Set(['alt penedes','anoia','bages','baix llobregat','barcelones','bergueda','garraf','maresme','moianes','osona','valles occidental','valles oriental','llucanes']);
+const BCN_KNOWN_MUNICIPALITIES=new Set([
+ 'barcelona','badalona','lhospitalet de llobregat','hospitalet de llobregat','santa coloma de gramenet',
+ 'sant adria de besos','sant boi de llobregat','cornella de llobregat','el prat de llobregat',
+ 'esplugues de llobregat','sant joan despi','sant just desvern','sant feliu de llobregat',
+ 'sant vicenc dels horts','sant andreu de la barca','palleja','molins de rei',
+ 'castelldefels','gava','viladecans','begues','torrelles de llobregat',
+ 'sant climent de llobregat','santa coloma de cervello','sant esteve sesrovires',
+ 'cervello','corbera de llobregat','la palma de cervello','sant cugat del valles',
+ 'cerdanyola del valles','ripollet','montcada i reixac','barbera del valles',
+ 'badia del valles','tiana','montgat','sabadell','terrassa','mataro','granollers',
+ 'manresa','vic','igualada','vilafranca del penedes','vilanova i la geltru',
+ 'sitges','sant pere de ribes','premia de mar','el masnou','arenys de mar',
+ 'calella','pineda de mar','santa susanna','malgrat de mar','cardedeu',
+ 'mollet del valles','parets del valles','la roca del valles','sant celoni',
+ 'berga','sant sadurni d anoia'
+]);
+function cataloniaLocation(e){
+ const raw=tidy(fieldValue(e,[/^municipi$/, /^nommunicipi$/, /^comarcaimunicipi$/, /^poblacio$/, /^localitat$/, /^ciutat$/]));
+ const explicitProvince=norm(tidy(fieldValue(e,[/^provincia$/, /^nomprovincia$/])));
+ if(!raw||explicitProvince&&explicitProvince!=='barcelona')return '';
+ const parts=raw.split(/\s*(?:\||\/|;|>|,| · | - )\s*/).map(x=>x.trim()).filter(Boolean);
+ const comarca=parts.find(x=>BCN_COMARQUES.has(norm(x)));
+ // La localidad debe ser distinta de la comarca y no ser únicamente un nombre provincial.
+ const municipalities=parts.filter(x=>!BCN_COMARQUES.has(norm(x))&&norm(x)!=='provincia de barcelona');
+ if(!municipalities.length)return '';
+ const city=municipalities[municipalities.length-1];
+ if(comarca||explicitProvince==='barcelona'||BCN_KNOWN_MUNICIPALITIES.has(norm(city).replace(/[’']/g,'')))return city;
+ return '';
 }
 function cataloniaLink(e){
  const value=fieldValue(e,[/^urlactivitat$/, /^enllaos$/, /^enllacos$/, /^enllacos?$/, /^enllac1url$/, /^linkbotoentrades$/, /^url.*activ/, /^enllac/, /^web.*activ/, /^url$/, /^link$/]);
@@ -350,11 +422,10 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
   if(!title){diagnostic.missingTitle++;continue;}
   if(!start){diagnostic.missingDate++;continue;}
   if(start>to||(end||start)<from){diagnostic.outOfRange++;continue;}
-  const municipality=cataloniaMunicipality(e);
+  const municipality=cataloniaLocation(e);
   if(!municipality){diagnostic.missingPlace++;continue;}
-  const province=tidy(fieldValue(e,[/^provincia$/, /^nomprovincia$/]));
-  if(norm(municipality)!=='barcelona'||(province&&norm(province)!=='barcelona')){diagnostic.wrongProvince++;continue;}
-  const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adrea/,/^adreca/,/^localitzacio/]))||'Barcelona';
+  if(!municipality){diagnostic.wrongProvince++;continue;}
+  const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adrea/,/^adreca/,/^localitzacio/]))||municipality;
   const desc=tidy(fieldValue(e,[/^descripci/,/^resum/,/^text/,/^observacio/]));
   const explicitFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuit/, /^gratuitat$/]);
   const hasFlag=Object.keys(e).some(k=>/^(gratuita|gratuit|esgratuit|gratuitat)$/.test(normalizedKey(k)))&&explicitFlag!=='';
@@ -364,7 +435,7 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
   if(!url){diagnostic.missingLink++;continue;}
   const categories=tidy(fieldValue(e,[/^tagscategories$/, /^tagsmbits$/, /^tagsaltrescategories$/, /^categoria/, /^tematica/, /^tipus/, /^ambit/]));
   const kinds=kindsFor(title,desc,categories);
-  events.push({title,start:start<from?from:start,end:end||'',city:'Barcelona',province:'Barcelona',place,time:tidy(fieldValue(e,[/^horari$/, /^horainici$/, /^hora/])),kind:kinds[0],kinds,description:desc,source,url,status,freeType:status==='condicional'?'condicional':'confirmada'});
+  events.push({title,start:start<from?from:start,end:end||'',city:municipality,province:'Barcelona',place,time:tidy(fieldValue(e,[/^horari$/, /^horainici$/, /^hora/])),kind:kinds[0],kinds,description:desc,source,url,status,freeType:status==='condicional'?'condicional':'confirmada'});
   diagnostic.classified[status]++;diagnostic.accepted++;
  }
  return events;
@@ -709,6 +780,8 @@ export async function onRequestGet({request}){
     if(j.parser==='catalonia-json'||j.parser==='catalonia-csv'){
       const source=await readCatalonia(j,from,to);
       const events=cataloniaEvents(source.raw,from,to,j.name,diagnostic);
+      diagnostic.pages=source.pages;diagnostic.paginationPartial=source.partial;diagnostic.sourceFormat=source.format;
+      diagnostic.queryCounts=source.queryCounts;diagnostic.queryDuplicates=source.queryDuplicates;diagnostic.queryRepeated=source.queryRepeated;
       return {name:j.name,ok:true,events,diagnostic,endpoint:source.endpoint};
     }
     if(j.parser==='municipal-barcelona'){
