@@ -303,18 +303,20 @@ async function readCatalonia(job,from,to){
 }
 function cataloniaEvents(raw,from,to,source,diagnostic){
  diagnostic.received=raw.length;const events=[];
+ // Nombres de campos de la fuente, SIN valores ni datos personales.
+ diagnostic.fields=Object.keys(raw.find(x=>x&&typeof x==='object')||{}).slice(0,28).join(', ').slice(0,480);
  for(const record of raw){
   const e=record.fields||record;
-  const title=tidy(fieldValue(e,[/^titol/,/^titul/,/^nomactiv/,/^nomesdev/,/^activitat/,/^denominacio/,/^nom$/,/^title$/]));
-  const rawBegin=fieldValue(e,[/^datainici/,/^datacomenc/,/^datadeinici/,/^startdate/,/^inici/,/^datacelebracio/,/^dataacte/,/^fecha/]);
-  const rawEnd=fieldValue(e,[/^datafi/,/^datafinal/,/^enddate/,/^finalitzacio/]);
+  const title=tidy(fieldValue(e,[/titol/,/titul/,/nom.*activ/,/nom.*esdev/,/denominacio/,/^activitat/,/^nom$/,/^title$/,/^event.*name/]));
+  const rawBegin=fieldValue(e,[/data.*inici/,/data.*comenc/,/data.*celebr/,/start.*date/,/fecha.*inicio/,/^inici/,/^dataacte/,/^fecha/]);
+  const rawEnd=fieldValue(e,[/data.*fi$/, /data.*final/,/end.*date/,/finalitzacio/]);
   const start=isoDate(rawBegin),end=isoDate(rawEnd);
   if(!title){diagnostic.missingTitle++;continue;}
   if(!start){diagnostic.missingDate++;continue;}
   if(start>to||(end||start)<from){diagnostic.outOfRange++;continue;}
   const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adreca/,/^localitzacio/]))||'Barcelona';
-  const municipality=tidy(fieldValue(e,[/^nommunicip/,/^municipi/,/^poblacio/,/^localitat/,/^nompoblacio/,/^ciutat/]));
-  const province=tidy(fieldValue(e,[/^nomprovinc/,/^provincia/]));
+  const municipality=tidy(fieldValue(e,[/municipi/,/poblacio/,/localitat/,/ciutat/]));
+  const province=tidy(fieldValue(e,[/provinc/]));
   if(!municipality){diagnostic.missingPlace++;continue;}
   // Piloto solo Barcelona capital, nunca atribuir Barcelona como municipio
   // cuando una fuente regional describe expresamente otra población.
@@ -323,7 +325,7 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
   const price=fieldValue(e,[/^preu/,/^gratuit/,/^cost/,/^tarifa/,/^entrada/]);
   const freeFlag=Object.keys(e).some(k=>/^gratuit/.test(normalizedKey(k)));
   const status=classify(price,desc,title,freeFlag);
-  const url=secureLink(fieldValue(e,[/^urlactiv/,/^urlacte/,/^enllac/,/^webactiv/,/^url/,/^link/,/^web/,/^enlace/]));
+  const url=secureLink(fieldValue(e,[/url.*activ/,/url.*acte/,/enllac/,/web.*activ/,/^url/,/^link/,/^web/,/^enlace/]));
   if(!url){diagnostic.missingLink++;continue;}
   const kinds=kindsFor(title,desc,tidy(fieldValue(e,[/^categoria/,/^tematica/,/^tipus/,/^ambit/])));
   events.push({title,start:start<from?from:start,end:end||'',city:municipality,province:'Barcelona',place,time:tidy(fieldValue(e,[/^horainici/,/^hora/])),kind:kinds[0],kinds,description:desc,source,url,status,freeType:status==='condicional'?'condicional':'confirmada'});
@@ -332,36 +334,30 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
  return events;
 }
 function barcelonaHtmlEntries(html,from,to){
- // Agenda 500 presenta las fichas como encabezados h3 con enlaces /detall/.
- // El lector anterior buscaba <a> y luego una fecha a continuación, pero
- // confundía los límites de las tarjetas y perdía todas las fichas.
- const parsed=[];const cards=[];
- const h3=/<h3\b[^>]*>([\s\S]*?)<\/h3>/gi;let m;
- while((m=h3.exec(html))!==null){
-  const inside=m[1];const anchor=inside.match(/<a\b[^>]*href\s*=\s*(["'])([^"']*\/detall\/[^"']+)\1[^>]*>([\s\S]*?)<\/a>/i)
-   ||inside.match(/<a\b[^>]*href\s*=\s*(["'])([^"']*\/detall\/[^"']+)\1/i);
-  if(!anchor)continue;
-  const rawTitle=anchor[3]||inside;const title=htmlText(rawTitle);
-  if(title.length<4||title.length>250)continue;
-  let url;try{url=new URL(decodeHtml(anchor[2]),'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
-  cards.push({title,url:url.href,startIndex:m.index,endIndex:h3.lastIndex});
+ const cards=[];const seen=new Set();let m;
+ // Localizar cualquier enlace de ficha individual, independientemente del orden
+ // de sus atributos o de si el encabezado envuelve al enlace.
+ const anchor=/<a\b[^>]*\bhref\s*=\s*(["'])([^"']+)\1[^>]*>([\s\S]*?)<\/a>/gi;
+ while((m=anchor.exec(html))!==null){
+   const raw=decodeHtml(m[2]);if(!/\/detall\//i.test(raw))continue;
+   let url;try{url=new URL(raw,'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
+   const clean=htmlText(m[3]);
+   const surrounding=html.slice(Math.max(0,m.index-250),Math.min(html.length,anchor.lastIndex+320));
+   const heading=surrounding.match(/<h[234]\b[^>]*>([\s\S]*?)<\/h[234]>/i);
+   const title=clean.length>=5?clean:heading?htmlText(heading[1]):'';
+   if(title.length<5||title.length>230||seen.has(url.href))continue;
+   seen.add(url.href);cards.push({title,url:url.href,startIndex:m.index,endIndex:anchor.lastIndex});
  }
- // Algunas versiones ponen h3 dentro del enlace. Fallback por URL de detalle.
- if(!cards.length){
-  const a=/<a\b[^>]*href\s*=\s*(["'])([^"']*\/detall\/[^"']+)\1[^>]*>([\s\S]*?)<\/a>/gi;
-  while((m=a.exec(html))!==null){
-   let url;try{url=new URL(decodeHtml(m[2]),'https://agenda500.barcelona.cat');if(url.hostname!=='agenda500.barcelona.cat')continue;}catch{continue;}
-   const title=htmlText(m[3]);if(title.length<4||title.length>250)continue;
-   cards.push({title,url:url.href,startIndex:m.index,endIndex:a.lastIndex});
-  }
- }
- let undated=0,expired=0;
+ const parsed=[];let undated=0,expired=0;
  for(let i=0;i<cards.length;i++){
   const c=cards[i],next=cards[i+1];
-  const segment=html.slice(c.endIndex,Math.min(c.endIndex+4200,next?next.startIndex:html.length));
+  // Algunas tarjetas anidan links para lugar dentro del bloque: la fecha puede
+  // aparecer antes o después del encabezado. Tomamos un bloque acotado.
+  const beginning=Math.max(0,c.startIndex-300);
+  const segment=html.slice(beginning,Math.min(html.length,c.endIndex+2200,next?next.startIndex:html.length));
   const content=htmlText(segment);
   const range=content.match(/(?:Cu[aá]ndo|Quan)\s*:?\s*(?:Del?\s+)?(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i)
-   ||content.match(/\b(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i);
+    ||content.match(/\b(\d{1,2}\/\d{1,2}\/20\d{2})(?:\s+(?:a|al|fins al|hasta el)\s+(\d{1,2}\/\d{1,2}\/20\d{2}))?/i);
   if(!range){undated++;continue;}
   const first=isoDate(range[1]),last=isoDate(range[2]||range[1]);
   if(!first||!last){undated++;continue;}
@@ -371,7 +367,7 @@ function barcelonaHtmlEntries(html,from,to){
   const kinds=kindsFor(c.title,content,'');
   parsed.push({title:c.title,start:first<from?from:first,end:last,city:'Barcelona',province:'Barcelona',place,time:'',kind:kinds[0],kinds,description:content.slice(0,320),source:'Barcelona · Agenda 500 (acceso gratuito)',url:c.url,status:'gratis',freeType:'confirmada'});
  }
- return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated};
+ return {events:parsed,received:cards.length,outOfRange:expired,missingDate:undated,debug:cards.length?'':'Sin enlaces individuales /detall/ en el HTML recibido'};
 }
 async function readBarcelonaHtml(job,from,to){
  const r=await fetchTimed(job.url,'text/html',14000);
@@ -431,7 +427,7 @@ export async function onRequestGet({request}){
    try{
     if(j.parser==='barcelona-html'){
       const result=await readBarcelonaHtml(j,from,to);
-      diagnostic.received=result.received;diagnostic.outOfRange=result.outOfRange;diagnostic.missingDate=result.missingDate||0;diagnostic.accepted=result.events.length;
+      diagnostic.fields=result.debug||`Fichas con enlace detectadas: ${result.received}`;diagnostic.received=result.received;diagnostic.outOfRange=result.outOfRange;diagnostic.missingDate=result.missingDate||0;diagnostic.accepted=result.events.length;
       for(const ev of result.events)diagnostic.classified[ev.status]++;
       return {name:j.name,ok:true,events:result.events,diagnostic,endpoint:j.url};
     }
