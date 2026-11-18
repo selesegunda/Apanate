@@ -175,27 +175,63 @@ export async function onRequestGet({request}){
     return {name:j.name,ok:true,events,diagnostic,endpoint:downloaded.endpoint};
    }catch(error){return {name:j.name,ok:false,events:[],diagnostic,error:String(error?.message||error).slice(0,240)};}
  }));
- const unique=new Map();const score={pendiente:0,pago:1,condicional:2,gratis:3};
+ const isMadrid=norm(province)==='madrid';
+ let all,duplicates=0,conflicts=0;
+ if(isMadrid){
+ // Los duplicados se detectan antes de paginar. Un mismo título en dos
+ // horarios o espacios distintos conserva sus sesiones por separado.
+ const buckets=new Map();
  for(const ev of settled.flatMap(x=>x.events)){
-  let id=norm(ev.title)+'|'+ev.start+'|'+norm(ev.city);
-  const prev=unique.get(id);
-  // Si fuentes distintas discrepan sobre el precio, volver a pendiente para evitar un falso positivo.
-  if(prev && prev.status!==ev.status){
-    if(prev.status==='pendiente'||ev.status==='pendiente'||prev.status==='pago'||ev.status==='pago'){
-      unique.set(id,{...prev,status:'pendiente'});continue;
+  const group=norm(ev.title)+'|'+ev.start+'|'+norm(ev.city);
+  const bucket=buckets.get(group)||[];
+  const hour=norm(ev.time),place=norm(ev.place)===norm(ev.city)?'':norm(ev.place);
+  const previous=bucket.find(old=>{
+    const oldHour=norm(old.time),oldPlace=norm(old.place)===norm(old.city)?'':norm(old.place);
+    return (!hour||!oldHour||hour===oldHour) && (!place||!oldPlace||place===oldPlace);
+  });
+  if(previous){
+    duplicates++;
+    if(previous.status!==ev.status){
+      conflicts++;
+      // Ante fuentes discordantes nunca anunciamos gratis sin revisar.
+      previous.status='pendiente';previous.freeType='pendiente';
     }
-    unique.set(id,{...prev,status:'condicional',freeType:'condicional'});continue;
-  }
-  if(!prev||score[ev.status]>score[prev.status])unique.set(id,ev);
+    if(!previous.time&&ev.time)previous.time=ev.time;
+    if((!previous.place||norm(previous.place)===norm(previous.city))&&ev.place)previous.place=ev.place;
+    if(!previous.description&&ev.description)previous.description=ev.description;
+  }else bucket.push({...ev});
+  buckets.set(group,bucket);
  }
- const all=[...unique.values()];
+ all=[...buckets.values()].flat();
+ }else{
+  // Mantener el comportamiento ya publicado para las demás provincias.
+  const unique=new Map(),score={pendiente:0,pago:1,condicional:2,gratis:3};
+  for(const ev of settled.flatMap(x=>x.events)){
+   const id=norm(ev.title)+'|'+ev.start+'|'+norm(ev.city),prev=unique.get(id);
+   if(prev&&prev.status!==ev.status){
+    if(prev.status==='pendiente'||ev.status==='pendiente'||prev.status==='pago'||ev.status==='pago')unique.set(id,{...prev,status:'pendiente'});
+    else unique.set(id,{...prev,status:'condicional',freeType:'condicional'});
+    continue;
+   }
+   if(!prev||score[ev.status]>score[prev.status])unique.set(id,ev);
+  }
+  all=[...unique.values()];
+ }
  const stats={total:all.length,gratis:0,condicional:0,pendiente:0,pago:0};
  for(const ev of all)stats[ev.status]++;
- const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort((a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
- const events=checked.slice(0,120).map(({status,...ev})=>ev);
+ // Orden cronológico primero, con la localidad elegida como desempate.
+ const sortEvents=(a,b)=>a.start.localeCompare(b.start)||((norm(b.city)===norm(city)?1:0)-(norm(a.city)===norm(city)?1:0))||norm(a.title).localeCompare(norm(b.title),'es')||norm(a.time).localeCompare(norm(b.time));
+ const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort(isMadrid?sortEvents:(a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
+ const type=p.get('type')||'todos';
+ const selected=isMadrid&&['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>e.kind===type):checked;
+ const pageSize=isMadrid?24:120;
+ const offset=isMadrid?Math.min(20000,Math.max(0,Number.parseInt(p.get('offset')||'0',10)||0)):0;
+ const events=selected.slice(offset,offset+pageSize).map(({status,...ev})=>ev);
  const displayed=events.length,confirmed=checked.length;
  const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length;
  return json({events,displayed,confirmed,stats:failures===settled.length?null:stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,
-  diagnostic:norm(province)==='madrid'?settled.map(({name,ok,diagnostic,error})=>({name,ok,...diagnostic,...(error?{error}: {})})):undefined,
+  pagination:isMadrid?{offset,limit:pageSize,total:selected.length,hasMore:offset+displayed<selected.length}:undefined,
+  deduplication:{duplicates,conflicts},
+  diagnostic:isMadrid?settled.map(({name,ok,diagnostic,error})=>({name,ok,...diagnostic,...(error?{error}: {})})):undefined,
   notice:failures===settled.length?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':failures?`${failures} fuente(s) sin respuesta. El recuento es parcial.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
 }
