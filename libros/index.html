@@ -129,16 +129,12 @@ const reviewSearch=(site,b)=>`https://www.google.com/search?q=${encodeURICompone
 const movement=b=>{let n=Number(b.semana_anterior);if(!n) return {label:'Nueva entrada',c:'new'};if(n>b.puesto) return {label:`↑ ${n-b.puesto} puestos`,c:'up'};if(n<b.puesto) return {label:`↓ ${b.puesto-n} puestos`,c:'down'};return {label:'= Se mantiene',c:'same'};};
 function fallback(){return `<div class="no-cover" role="img" aria-label="Portada en actualización"><svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="2"><path d="M25 10c-5-4-11-5-18-3v32c7-2 13-1 18 3 5-4 11-5 18-3V7c-7-2-13-1-18 3Z"/><path d="M25 10v32"/></svg><span class="n">Portada en<br>actualización</span></div>`;}
 function coverMarkup(b,w=110,h=165){
-  const dynamicUrl='/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor)+'&isbn='+encodeURIComponent(b.isbn||'')+'&isbn='+encodeURIComponent(b.isbn||'');
-  const sources=[b.portada_local,b.portada_externa].filter(Boolean);
-  const primary=sources[0]||dynamicUrl;
-  const dynamic=sources.length===0;
-  // Si la cubierta local o externa falla, probar la siguiente y finalmente
-  // el buscador de Open Library + Google Books. El aviso original queda debajo.
-  const extra=` data-cover-chain="${esc(JSON.stringify([...sources.slice(1),dynamicUrl]))}"`;
-  const cacheAttr=dynamic?` data-cover-cache="${esc(dynamicUrl)}"`:'';
+  const dynamicUrl='/api/libros-portada?'+new URLSearchParams({titulo:b.titulo||'',autor:b.autor||'',isbn:b.isbn||''}).toString();
+  // Conservar las imágenes verificadas de la web y buscar nuevas solo si fallan.
+  const sources=[b.portada_local,b.portada_externa,dynamicUrl].filter(Boolean);
+  const extra=` data-cover-chain="${esc(JSON.stringify(sources.slice(1)))}"`;
   const onerror=`const chain=JSON.parse(this.dataset.coverChain||'[]');if(chain.length){const next=chain.shift();this.dataset.coverChain=JSON.stringify(chain);this.src=next;}else{this.style.display='none';}`;
-  return `<div class="bookimg" style="width:${w}px;height:${h}px"><img loading="lazy" decoding="async" src="${dynamic?'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=':esc(primary)}" alt="Cubierta de ${esc(b.titulo)}"${extra}${cacheAttr} style="${dynamic?'display:none;':''}" onerror="${esc(onerror)}" />${fallback()}</div>`;
+  return `<div class="bookimg" style="width:${w}px;height:${h}px"><img loading="lazy" decoding="async" src="${esc(sources[0])}" alt="Cubierta de ${esc(b.titulo)}"${extra} data-cover-cache="${esc(dynamicUrl)}" onerror="${esc(onerror)}" />${fallback()}</div>`;
 }
 function cover(b){return coverMarkup(b,110,165);}
 function coverFeatures(b){return coverMarkup(b,135,200);}
@@ -232,36 +228,47 @@ async function cleanupCovers(){
   }catch(_){}
 }
 async function hydrateCovers(){
-  if(!('caches' in window)){
-    document.querySelectorAll('img[data-cover-cache]').forEach(img=>{img.style.display='block';img.src=img.dataset.coverCache});
-    return;
-  }
+  // No ocultar jamás las portadas locales o externas mientras se consulta la caché.
+  // Las cubiertas encontradas se guardan por ISBN/título para visitas posteriores.
+  const imgs=[...document.querySelectorAll('img[data-cover-cache]')];
+  if(!('caches' in window))return;
   try{
     const cache=await caches.open(coversCacheName),store=usage(),now=Date.now();
-    for(const img of document.querySelectorAll('img[data-cover-cache]')){
+    for(const img of imgs){
       const url=img.dataset.coverCache;
       store[url]=now;
       if(img.dataset.coverRequested===url)continue;
       img.dataset.coverRequested=url;
-      // Multiple fichas de un libro reutilizan la misma petición del caché.
-      (async()=>{
-        try{
-          let response=await cache.match(url);
-          if(!response){
-            const fresh=await fetch(url);
-            if(!fresh.ok||!(fresh.headers.get('Content-Type')||'').startsWith('image/'))return;
-            await cache.put(url,fresh.clone());
-            response=fresh;
+      const cached=await cache.match(url);
+      if(cached && cached.ok && (cached.headers.get('Content-Type')||'').startsWith('image/')){
+        const blob=await cached.blob();
+        if(img.isConnected){
+          // Utilizar la portada cacheada solo si la imagen anterior no está disponible.
+          if(!img.complete||img.naturalWidth===0){
+            img.src=URL.createObjectURL(blob);
+            img.addEventListener('load',()=>{if(img.src.startsWith('blob:'))URL.revokeObjectURL(img.src);},{once:true});
           }
-          const blob=await response.blob();if(!img.isConnected)return;
-          img.src=URL.createObjectURL(blob);img.style.display='block';
-          img.addEventListener('load',()=>URL.revokeObjectURL(img.src),{once:true});
-        }catch(_){}
-      })();
+        }
+      }
     }
     localStorage.setItem(coverUsageKey,JSON.stringify(store));
   }catch(_){}
 }
+// Guardar en la caché las imágenes devueltas por nuestra API cuando se carguen.
+// El navegador puede limpiar automáticamente esta memoria cuando necesite espacio.
+document.addEventListener('load',async event=>{
+  const img=event.target;
+  if(!(img instanceof HTMLImageElement)||!img.dataset.coverCache||!('caches' in window))return;
+  // No duplicar imágenes locales: conservar solo los datos servidos por la API.
+  if(!img.currentSrc.includes('/api/libros-portada?'))return;
+  try{
+    const cache=await caches.open(coversCacheName);
+    const url=img.dataset.coverCache;
+    if(await cache.match(url))return;
+    const response=await fetch(url,{cache:'force-cache'});
+    if(response.ok&&(response.headers.get('Content-Type')||'').startsWith('image/'))await cache.put(url,response.clone());
+  }catch(_){}
+},true);
 try{
   const previous=JSON.parse(localStorage.getItem(rankingCacheKey)||'null');
   if(previous&&previous.fecha>latestDate)copyToCatalog(previous.libros,previous.fecha,previous.url);
