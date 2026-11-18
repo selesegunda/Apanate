@@ -7,6 +7,10 @@
 const CYL='https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records';
 const SOURCE={
   madrid:[
+    // Agenda autonómica: abarca municipios fuera de Madrid capital. La fuente
+    // es una página de eventos oficial, no un API de datos abiertos; el lector
+    // valida título, fecha, enlace individual y gratuidad antes de publicar.
+    {name:'Comunidad de Madrid · Actividades',parser:'comunidad-madrid',htmlPages:3,url:'https://www.comunidad.madrid/actividades'},
     {name:'Madrid · Agenda municipal',parser:'madrid',urls:[
       // Distribuciones oficiales del mismo conjunto de datos. CSV primero:
       // la distribución JSON puede incluir caracteres de control mal escapados.
@@ -161,6 +165,90 @@ function escapeJsonStringControls(text){
  }
  return changed?result:text;
 }
+
+// Lector conservador de la agenda autonómica de comunidad.madrid.
+// Solo se publican fichas individuales con fecha, lugar y evidencia explícita
+// de gratuidad. Una ausencia de la palabra «Gratis» NO implica precio cero.
+const MADRID_MUNICIPIOS=['Alcalá de Henares','Alcobendas','Alcorcón','Aranjuez','Arganda del Rey','Boadilla del Monte','Collado Villalba','Colmenar Viejo','Coslada','Fuenlabrada','Getafe','Leganés','Majadahonda','Móstoles','Parla','Pinto','Pozuelo de Alarcón','Rivas-Vaciamadrid','Las Rozas','San Fernando de Henares','San Lorenzo de El Escorial','San Sebastián de los Reyes','Torrejón de Ardoz','Tres Cantos','Valdemoro','Villaviciosa de Odón','Los Molinos','Daganzo de Arriba','Navalcarnero','Madrid'];
+function decodeHtml(x){return String(x||'').replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(+n)).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCodePoint(parseInt(n,16))).replace(/&(?:amp|quot|apos|lt|gt|nbsp|aacute|eacute|iacute|oacute|uacute|ntilde);/gi,m=>({'&amp;':'&','&quot;':'"','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&aacute;':'á','&eacute;':'é','&iacute;':'í','&oacute;':'ó','&uacute;':'ú','&ntilde;':'ñ'}[m.toLowerCase()]||m));}
+function htmlText(x){return tidy(decodeHtml(String(x||'').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ')));}
+const MONTHS={ene:1,enero:1,feb:2,febrero:2,mar:3,marzo:3,abr:4,abril:4,may:5,mayo:5,jun:6,junio:6,jul:7,julio:7,ago:8,agosto:8,sep:9,sept:9,septiembre:9,oct:10,octubre:10,nov:11,noviembre:11,dic:12,diciembre:12};
+function spanishDate(text,yearHint){
+ const clean=norm(text).replace(/\s+/g,' ');
+ const m=clean.match(/\b(\d{1,2})\s*(?:-|al\s+\d{1,2}\s+)?\s*(?:de\s+)?(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre|ene|feb|mar|abr|may|jun|jul|ago|sep|sept|oct|nov|dic)\b(?:\s+(?:de\s+)?(20\d{2}))?/);
+ if(!m)return '';
+ const mm=MONTHS[m[2]],year=+(m[3]||yearHint);
+ if(!mm||!year)return '';
+ const date=`${year}-${String(mm).padStart(2,'0')}-${m[1].padStart(2,'0')}`;
+ return !Number.isNaN(Date.parse(date))?date:'';
+}
+function regionalMadridEntries(html,from,to){
+ // Se estudian las tarjetas con URL individual a /actividades/, no enlaces a
+ // portadas, búsquedas, imágenes o páginas generales.
+ const anchor=/<a\b([^>]*\bhref\s*=\s*(["'])(.*?)\2[^>]*)>([\s\S]*?)<\/a>/gi;
+ const matches=[];let a;
+ while((a=anchor.exec(html))){
+  let url;try{url=new URL(decodeHtml(a[3]),'https://www.comunidad.madrid')}catch{continue}
+  if(url.hostname!=='www.comunidad.madrid'||!/^\/actividades\/(?:20\d{2}\/)?[\w-]+\/?$/.test(url.pathname))continue;
+  const title=htmlText(a[4]);
+  if(title.length<8||title.length>180||/^(ver m[aá]s|m[aá]s informaci[oó]n|consulta|inscrib)/i.test(title))continue;
+  matches.push({title,url:url.href,from:a.index,to:anchor.lastIndex});
+ }
+ const result=[];const seen=new Set();
+ const yearHint=+(from.slice(0,4));
+ for(let i=0;i<matches.length;i++){
+  const hit=matches[i],prev=matches[i-1];
+  // La ficha del evento contiene la fecha, el lugar y la gratuidad próximos
+  // al enlace del título. Evitar mezclarla con la siguiente tarjeta.
+  const previousStart=prev?prev.to:Math.max(0,hit.from-1200);
+  const preceding=htmlText(html.slice(Math.max(previousStart,hit.from-600),hit.from));
+  const next=matches[i+1];
+  const tail=htmlText(html.slice(hit.to,Math.min(next?next.from:hit.to+1400,hit.to+1600)));
+  const summary=(preceding+' '+tail).slice(0,1800);
+  const date=spanishDate(tail,yearHint)||spanishDate(preceding,yearHint);
+  if(!date||date<from||date>to)continue;
+  const short=tail.slice(0,550);
+  const status=/\b(gratis|gratuit[ao]s?|entrada libre|acceso libre)\b/i.test(short)?'gratis':'pendiente';
+  const conditional=/(?:gratis|gratuit[ao])[^.]{0,70}(?:para|solo|residentes|menores|mayores)/i.test(short);
+  const actualStatus=status==='gratis'&&conditional?'condicional':status;
+  const matchCity=MADRID_MUNICIPIOS.find(x=>new RegExp('(?:^|[^a-záéíóúñ])'+norm(x).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?:$|[^a-záéíóúñ])','i').test(norm(short)));
+  const city=matchCity||'Comunidad de Madrid';
+  // La localidad desconocida se declara autonómica, nunca se inventa «Madrid».
+  const timeMatch=short.match(/\b(\d{1,2}:\d{2})\b/);
+  let venue=short.replace(/^(?:\s|[-–|])+/,'').slice(0,220);
+  const dateIndex=venue.search(/\b\d{1,2}\s+(?:de\s+)?(?:noviembre|octubre|diciembre|septiembre|enero|febrero|marzo|abril|mayo|junio|julio|agosto|nov|oct|dic|sep)\b/i);
+  if(dateIndex>=0)venue=venue.slice(dateIndex).replace(/^.{0,110}?(?:\d{4}|\d{2}:\d{2})/,'').trim();
+  venue=venue.replace(/\b(?:Gratis|Actividad gratuita|Requiere inscripción|Inscripciones cerradas)\b[\s\S]*$/i,'').replace(/^[-–|·,\s]+|[-–|·,\s]+$/g,'').slice(0,120);
+  if(!venue||venue.length<4)venue='Lugar indicado en la ficha oficial';
+  const key=norm(hit.title)+'|'+date+'|'+norm(venue);
+  if(seen.has(key))continue;seen.add(key);
+  const category=preceding.slice(-120);
+  const kinds=kindsFor(hit.title,summary,category);
+  result.push({title:hit.title,start:date,end:'',city,province:'Madrid',place:venue,time:timeMatch?.[1]||'',kind:kinds[0],kinds,description:summary.slice(0,320),source:'Comunidad de Madrid · Agenda de actividades',url:hit.url,freeType:actualStatus==='condicional'?'condicional':'confirmada',status:actualStatus});
+ }
+ return result;
+}
+async function readMadridRegional(job,from,to){
+ const pages=Array.from({length:job.htmlPages||1},(_,i)=>i);
+ const results=await Promise.all(pages.map(async page=>{
+  const url=job.url+'?page='+page;
+  const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),11000);
+  try{
+   const res=await fetch(url,{signal:ctl.signal,headers:{accept:'text/html'},cf:{cacheEverything:true,cacheTtl:900}});
+   if(!res.ok)throw Error('HTTP '+res.status);
+   const content=await res.text();
+   const parsed=regionalMadridEntries(content,'2020-01-01','2099-12-31');
+   // Una página vacía no es un error si otras páginas aportan eventos.
+   return {parsed,ok:true};
+  }catch(e){return {parsed:[],ok:false,error:String(e.message||e)}}finally{clearTimeout(timer)}
+ }));
+ if(results.every(x=>!x.ok))throw Error('No respondió el buscador autonómico: '+results.map(x=>x.error).filter(Boolean).join('; '));
+ const rawEvents=results.flatMap(x=>x.parsed);
+ if(!rawEvents.length)throw Error('La fuente respondió, pero el lector no pudo extraer fichas fechadas. Revisión necesaria.');
+ const events=rawEvents.filter(e=>e.start>=from&&e.start<=to);
+ return {events,received:rawEvents.length,outOfRange:rawEvents.length-events.length,pageErrors:results.filter(x=>!x.ok).length};
+}
+
 async function readJob(job){
  const choices=job.urls||[job.url];const attempts=[];
  for(const url of choices){
@@ -209,6 +297,14 @@ export async function onRequestGet({request}){
  const settled=await Promise.all(jobs.map(async j=>{
    const diagnostic={received:0,missingTitle:0,missingDate:0,outOfRange:0,missingPlace:0,wrongProvince:0,missingLink:0,accepted:0,classified:{gratis:0,condicional:0,pendiente:0,pago:0}};
    try{
+    if(j.parser==='comunidad-madrid'){
+      const regional=await readMadridRegional(j,from,to);
+      diagnostic.received=regional.received;
+      diagnostic.outOfRange=regional.outOfRange;
+      diagnostic.accepted=regional.events.length;
+      for(const ev of regional.events)diagnostic.classified[ev.status]++;
+      return {name:j.name,ok:true,events:regional.events,diagnostic,endpoint:j.url,pageErrors:regional.pageErrors};
+    }
     const downloaded=await readJob(j);
     const events=parse(downloaded.raw,from,to,j.name,province,j.parser,diagnostic);
     return {name:j.name,ok:true,events,diagnostic,endpoint:downloaded.endpoint};
@@ -281,10 +377,10 @@ export async function onRequestGet({request}){
  const offset=isMadrid?Math.min(20000,Math.max(0,Number.parseInt(p.get('offset')||'0',10)||0)):0;
  const events=selected.slice(offset,offset+pageSize).map(({status,...ev})=>ev);
  const displayed=events.length,confirmed=checked.length;
- const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length;
- return json({events,displayed,confirmed,requestedType:type,stats:failures===settled.length?null:stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,
+ const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length+settled.reduce((n,x)=>n+(x.pageErrors||0),0);
+ return json({events,displayed,confirmed,requestedType:type,stats:working.length===0?null:stats,sources:working,sourceCount:jobs.length,failed:working.length===0,partial:failures>0,
   pagination:isMadrid?{offset,limit:pageSize,total:selected.length,hasMore:offset+displayed<selected.length}:undefined,
   deduplication:{duplicates,conflicts},
-  diagnostic:isMadrid?settled.map(({name,ok,diagnostic,error})=>({name,ok,...diagnostic,...(error?{error}: {})})):undefined,
-  notice:failures===settled.length?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':failures?`${failures} fuente(s) sin respuesta. El recuento es parcial.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
+  diagnostic:isMadrid?settled.map(({name,ok,diagnostic,error,pageErrors})=>({name,ok,...diagnostic,...(pageErrors?{error:`${pageErrors} página(s) de la agenda autonómica no respondieron`}:{}),...(error?{error}: {})})):undefined,
+  notice:working.length===0?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':failures?`${failures} fuente(s) sin respuesta. El recuento es parcial.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
 }
