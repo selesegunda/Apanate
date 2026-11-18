@@ -71,13 +71,14 @@ body{background:linear-gradient(180deg,#fffaf2 0%,#f5efe4 260px,#f1f2ea 900px,#f
 .actions .library-action:hover{background:#d2ebda}
 .actions .buy,.actions .details{display:inline-flex;align-items:center;justify-content:center;min-height:38px}
 .actions .fav{margin-left:auto}
+.rank-refresh-label{font-size:12px;color:var(--muted);margin:4px 0 0}
 </style>
 </head>
 <body>
 <div class="wrapper">
 <header class="mast"><a class="brand" href="../" aria-label="¡Apáñate! inicio"><span class="coral">¡</span>Ap<span class="coral">á</span>ñate<span class="coral">!</span></a><a class="return" href="../">← Volver a la portada</a></header>
 <main>
-<section class="hero"><div><span class="eyebrow">¡Apáñate! Libros · 13 noviembre 2026</span><h1>Un libro.<br><em>Otro mundo.</em></h1><p class="lead">Los <strong>20 más vendidos de Ficción</strong> y los <strong>20 de No ficción</strong>, sin ruido ni recomendaciones interesadas. Descubre qué se está leyendo, encuentra tu próxima historia y guárdala para después.</p><div class="hero-foot"><span class="dot"></span><span>Dos rankings reales</span><span class="dot"></span><span>Actualización por semana publicada</span></div></div><div class="hero-visual" aria-hidden="true"><div class="seal">40<br>lecturas<br>por explorar</div><div class="openbook"><div class="page left"></div><div class="page right"></div><span class="quote">«</span><div class="spine"></div></div><div class="ribbon"></div></div></section>
+<section class="hero"><div><span class="eyebrow">¡Apáñate! Libros</span><h1>Un libro.<br><em>Otro mundo.</em></h1><p class="lead">Los <strong>20 más vendidos de Ficción</strong> y los <strong>20 de No ficción</strong>, sin ruido ni recomendaciones interesadas. Descubre qué se está leyendo, encuentra tu próxima historia y guárdala para después.</p><div class="hero-foot"><span class="dot"></span><span>Dos rankings reales</span><span class="dot"></span><span>Actualización por semana publicada</span></div></div><div class="hero-visual" aria-hidden="true"><div class="seal">40<br>lecturas<br>por explorar</div><div class="openbook"><div class="page left"></div><div class="page right"></div><span class="quote">«</span><div class="spine"></div></div><div class="ribbon"></div></div></section>
 <section class="library-box" aria-labelledby="bibliotecas-heading">
   <span class="eyebrow">También en bibliotecas</span>
   <h2 id="bibliotecas-heading">Hay historias que te esperan en la biblioteca.</h2>
@@ -91,7 +92,7 @@ body{background:linear-gradient(180deg,#fffaf2 0%,#f5efe4 260px,#f1f2ea 900px,#f
 </section>
 <section class="section" aria-labelledby="headlights"><div class="section-head"><div><span class="eyebrow">En primera fila</span><h2 id="headlights">Los que abren la lista.</h2></div><p>Dos libros, dos caminos distintos. El número uno de cada género.</p></div><div class="feature-grid" id="features"></div></section>
 <section class="strip"><h2>Lo mejor de un ranking es descubrir lo inesperado.</h2><p>Fíjate en los estrenos y en los libros que suben puestos. Es ahí donde cada semana cambia la conversación.</p></section>
-<section class="section" aria-labelledby="ranking-heading"><div class="section-head"><div><span class="eyebrow">La lista de esta semana</span><h2 id="ranking-heading">En los primeros puestos.</h2></div><p id="category-text">Ranking completo de Ficción, del puesto 1 al 20.</p></div><div class="tools"><button id="fiction" class="tab active" type="button" aria-pressed="true">Ficción · 20</button><button id="nonfiction" class="tab" type="button" aria-pressed="false">No ficción · 20</button><button id="saved" class="tab" type="button" aria-pressed="false">♡ Mi estantería <span id="saved-count">0</span></button><input class="search" type="search" id="search" placeholder="Busca un título, un autor…" aria-label="Buscar libros"><span class="counter" id="counter"></span></div><div class="grid" id="books"></div></section>
+<section class="section" aria-labelledby="ranking-heading"><div class="section-head"><div><span class="eyebrow">La lista de esta semana</span><h2 id="ranking-heading">En los primeros puestos.</h2></div><p id="category-text">Ranking completo de Ficción, del puesto 1 al 20.</p><p id="rank-refresh-label" class="rank-refresh-label" role="status" aria-live="polite"></p></div><div class="tools"><button id="fiction" class="tab active" type="button" aria-pressed="true">Ficción · 20</button><button id="nonfiction" class="tab" type="button" aria-pressed="false">No ficción · 20</button><button id="saved" class="tab" type="button" aria-pressed="false">♡ Mi estantería <span id="saved-count">0</span></button><input class="search" type="search" id="search" placeholder="Busca un título, un autor…" aria-label="Buscar libros"><span class="counter" id="counter"></span></div><div class="grid" id="books"></div></section>
 
 <section class="closing"><div><h2>Una lista que cambia. Una lectura que se queda.</h2><p>Marca con ♡ lo que te interese leer. Aunque un título salga de los más vendidos, seguirá en tu estantería de este navegador hasta que decidas quitarlo.</p></div><div style="font:normal 60px Georgia,serif;color:var(--coral)" aria-hidden="true">✳</div></section>
 </main>
@@ -101,7 +102,7 @@ body{background:linear-gradient(180deg,#fffaf2 0%,#f5efe4 260px,#f1f2ea 900px,#f
 <script>
 (()=>{
 'use strict';
-const catalog=JSON.parse(document.getElementById('catalog').textContent);
+let catalog=JSON.parse(document.getElementById('catalog').textContent);
 const key='apanate-libros-estanteria-v1';
 let saved=[];try{saved=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(saved))saved=[];}catch(e){saved=[];}
 const snapshotsKey='apanate-libros-estanteria-fichas-v1';
@@ -127,10 +128,10 @@ const buy=b=>({todostuslibros:`https://www.todostuslibros.com/busquedas?keyword=
 const reviewSearch=(site,b)=>`https://www.google.com/search?q=${encodeURIComponent(`site:${site} "${b.titulo}" "${b.autor}"`)}`;
 const movement=b=>{let n=Number(b.semana_anterior);if(!n) return {label:'Nueva entrada',c:'new'};if(n>b.puesto) return {label:`↑ ${n-b.puesto} puestos`,c:'up'};if(n<b.puesto) return {label:`↓ ${b.puesto-n} puestos`,c:'down'};return {label:'= Se mantiene',c:'same'};};
 function fallback(){return `<div class="no-cover" role="img" aria-label="Portada en actualización"><svg viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="2"><path d="M25 10c-5-4-11-5-18-3v32c7-2 13-1 18 3 5-4 11-5 18-3V7c-7-2-13-1-18 3Z"/><path d="M25 10v32"/></svg><span class="n">Portada en<br>actualización</span></div>`;}
-function coverMarkup(b,w=110,h=165){const primary=b.portada_local||b.portada_externa||'';const secondary=(b.portada_local&&b.portada_externa)?b.portada_externa:'';if(!primary)return `<div class="bookimg" style="width:${w}px;height:${h}px">${fallback()}</div>`;const swap=secondary?`if(!this.dataset.fallbackUsed){this.dataset.fallbackUsed='1';this.src=this.dataset.fallback;return;}`:'';const extra=secondary?` data-fallback="${esc(secondary)}"`:'';return `<div class="bookimg" style="width:${w}px;height:${h}px"><img loading="lazy" decoding="async" src="${esc(primary)}" alt="Cubierta de ${esc(b.titulo)}"${extra} onerror="${swap}this.style.display='none'" />${fallback()}</div>`;}
+function coverMarkup(b,w=110,h=165){const dynamic=!b.portada_local&&!b.portada_externa;const dynamicUrl='/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor);const primary=b.portada_local||b.portada_externa||(dynamic?dynamicUrl:'');const secondary=(b.portada_local&&b.portada_externa)?b.portada_externa:'';if(!primary)return `<div class="bookimg" style="width:${w}px;height:${h}px">${fallback()}</div>`;const swap=secondary?`if(!this.dataset.fallbackUsed){this.dataset.fallbackUsed='1';this.src=this.dataset.fallback;return;}`:'';const extra=secondary?` data-fallback="${esc(secondary)}"`:'';const cacheAttr=dynamic?` data-cover-cache="${esc(dynamicUrl)}"`:'';return `<div class="bookimg" style="width:${w}px;height:${h}px"><img loading="lazy" decoding="async" src="${dynamic?'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=':esc(primary)}" alt="Cubierta de ${esc(b.titulo)}"${extra}${cacheAttr} style="${dynamic?'display:none;':''}" onerror="${swap}this.style.display='none'" />${fallback()}</div>`;}
 function cover(b){return coverMarkup(b,110,165);}
 function coverFeatures(b){return coverMarkup(b,135,200);}
-function features(){let a=catalog.find(b=>b.grupo==='ficcion'&&b.puesto===1),b=catalog.find(b=>b.grupo==='no-ficcion'&&b.puesto===1);$('features').innerHTML=[a,b].map((v,i)=>`<article class="feature"><div class="art">${coverFeatures(v)}</div><div><span class="rankpill">N.º 1 · ${i===0?'Ficción':'No ficción'}</span><h3>${esc(v.titulo)}</h3><p class="author">${esc(v.autor)}</p><p class="hint">${i===0?'La historia que encabeza las ventas de ficción.':'La obra que encabeza las ventas de no ficción.'}</p><a href="#ranking-heading" data-jump="${v.grupo}">Explorar la lista</a></div></article>`).join('');}
+function features(){let a=catalog.find(b=>b.grupo==='ficcion'&&b.puesto===1),b=catalog.find(b=>b.grupo==='no-ficcion'&&b.puesto===1);$('features').innerHTML=[a,b].map((v,i)=>`<article class="feature"><div class="art">${coverFeatures(v)}</div><div><span class="rankpill">N.º 1 · ${i===0?'Ficción':'No ficción'}</span><h3>${esc(v.titulo)}</h3><p class="author">${esc(v.autor)}</p><p class="hint">${i===0?'La historia que encabeza las ventas de ficción.':'La obra que encabeza las ventas de no ficción.'}</p><a href="#ranking-heading" data-jump="${v.grupo}">Explorar la lista</a></div></article>`).join('');hydrateCovers();}
 function card(b){let mv=movement(b),v=buy(b),active=saved.includes(isbn(b));return `<article class="item"><div>${cover(b)}</div><div class="item-body"><div class="item-head"><span class="rank">N.º ${b.puesto}</span><span class="movement ${mv.c==='down'?'down':''}">${mv.label}</span></div><h3>${esc(b.titulo)}</h3><p class="author">${esc(b.autor)}</p><p class="edition">${esc(b.editorial)}${b.isbn?` · ISBN ${esc(b.isbn)}`:''}</p><p class="price ${b.precio_comprobado && b.pvp_editorial?'':'unverified'}">${b.precio_comprobado&&b.pvp_editorial?`${euro(b.pvp_editorial)} · PVP editorial`:'Precio: consultar en librería'}</p><div class="actions"><a class="library-action" href="https://catalogos.cultura.gob.es/CCBIP/ccbipopac/" target="_blank" rel="noopener noreferrer" aria-label="Buscar ${esc(b.titulo)} en bibliotecas públicas">📚 Biblioteca ↗</a><a class="buy" href="${v.todostuslibros}" target="_blank" rel="noopener noreferrer">Librería ↗</a><button class="details" type="button" data-details="${esc(isbn(b))}" aria-expanded="false">Otras opciones</button><button class="fav" type="button" data-save="${esc(isbn(b))}" aria-pressed="${active}" aria-label="${active?'Quitar de':'Añadir a'} mi estantería">${active?'♥':'♡'}</button></div></div><div class="more" id="details-${esc(isbn(b))}" hidden><div class="review">Opiniones de España: <a href="${reviewSearch('quelibroleo.com',b)}" target="_blank" rel="noopener noreferrer">buscar en Quelibroleo</a> · <a href="${reviewSearch('lecturalia.com',b)}" target="_blank" rel="noopener noreferrer">buscar en Lecturalia</a>.</div><p>En el ranking durante ${b.semanas_en_lista||'?'} semanas · Puesto anterior: ${b.semana_anterior?`n.º ${b.semana_anterior}`:'nueva entrada'}. ${b.pvp_editorial&&b.pvp_fecha?`Precio comprobado el ${b.pvp_fecha.split('-').reverse().join('/')}.`:''}</p><div class="shop-links"><a href="${v.casa}" target="_blank" rel="noopener noreferrer">Casa del Libro</a><a href="${v.amazon}" target="_blank" rel="noopener noreferrer">Amazon</a><a href="${v.corte}" target="_blank" rel="noopener noreferrer">El Corte Inglés</a><a href="${v.todostuslibros}" target="_blank" rel="noopener noreferrer">Todos Tus Libros</a></div></div></article>`;}
 function render(){
 // Keep a local copy of saved books even if future weekly rankings drop them.
@@ -142,6 +143,7 @@ list.sort((a,b)=>group==='saved'?((a.grupo===b.grupo)?a.puesto-b.puesto:a.grupo.
 $('counter').textContent=`${list.length} ${list.length===1?'libro':'libros'}`;$('saved-count').textContent=saved.length;
 $('category-text').textContent=group==='saved'?'Tus lecturas guardadas en este navegador.':`Ranking completo de ${group==='ficcion'?'Ficción':'No ficción'}, del puesto 1 al 20.`;
 $('books').innerHTML=list.length?list.map(card).join(''):`<div class="empty">${group==='saved'?'Aún no tienes libros guardados. Pulsa ♡ en cualquiera que quieras leer.':'No encontramos títulos con esa búsqueda.'}</div>`;
+hydrateCovers();
 for(const id of ['fiction','nonfiction','saved']){let btn=$(id),active=(id==='fiction'&&group==='ficcion')||(id==='nonfiction'&&group==='no-ficcion')||(id==='saved'&&group==='saved');btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
 }
 function setGroup(g){group=g;render();}
@@ -151,6 +153,112 @@ $('saved').addEventListener('click',()=>setGroup('saved'));
 $('search').addEventListener('input',e=>{query=e.target.value;render();});
 $('features').addEventListener('click',e=>{let a=e.target.closest('[data-jump]');if(a)setGroup(a.dataset.jump);});
 $('books').addEventListener('click',e=>{let s=e.target.closest('[data-save]');if(s){let k=s.dataset.save;if(saved.includes(k)){saved=saved.filter(x=>x!==k);delete savedBooks[k];}else{saved=[...saved,k];const book=catalog.find(b=>isbn(b)===k)||savedBooks[k];if(book)savedBooks[k]=book;}persistShelf();render();return;}let d=e.target.closest('[data-details]');if(d){let el=document.getElementById('details-'+d.dataset.details),open=d.getAttribute('aria-expanded')==='true';d.setAttribute('aria-expanded',String(!open));el.hidden=open;d.textContent=open?'Otras opciones':'Ocultar opciones';}});
+
+// Comprobar siempre al entrar; si no hay edición nueva, conservar la última real.
+const rankingCacheKey='apanate-libros-ranking-verificado-v1';
+const coversCacheName='apanate-libros-portadas-v1';
+const coverUsageKey='apanate-libros-portadas-uso-v1';
+const cleanupKey='apanate-libros-portadas-limpieza-v1';
+let latestDate=catalog[0]?.fecha_ranking||'2026-11-13';
+function copyToCatalog(fresh,fecha,source){
+  if(!Array.isArray(fresh)||fresh.length!==40)return false;
+  const count=g=>fresh.filter(b=>b.grupo===g&&Number(b.puesto)>=1&&Number(b.puesto)<=20).length;
+  if(count('ficcion')!==20||count('no-ficcion')!==20)return false;
+  const old=new Map(catalog.map(b=>[norm(b.titulo)+'|'+norm(b.autor),b]));
+  catalog=fresh.map(b=>{
+    const previous=old.get(norm(b.titulo)+'|'+norm(b.autor));
+    // Solo reutilizamos metadatos comprobados de la misma obra.
+    return {...(previous||{}),...b,
+      fecha_ranking:fecha,fuente_ranking:source||previous?.fuente_ranking||'',
+      portada_local:previous?.portada_local||'',portada_externa:previous?.portada_externa||'',
+      precio_comprobado:previous?.precio_comprobado||false,
+      pvp_editorial:previous?.pvp_editorial,
+      pvp_fecha:previous?.pvp_fecha,
+      isbn:previous?.isbn||'',
+      comprar:previous?.comprar||''
+    };
+  });
+  latestDate=fecha;
+  features();render();
+  return true;
+}
+function updateDateUI(fecha,source){
+  const el=$('rank-refresh-label');if(el)el.textContent='Última lista publicada: '+fecha.split('-').reverse().join('/')+' · '+(source||'El Cultural');
+  const footer=document.querySelector('.footer a[href*="elespanol.com/el-cultural/letras/los-libros-mas-vendidos"]');
+  if(footer&&source){footer.href=source;footer.textContent='Fuente: El Cultural / Todos Tus Libros, '+fecha.split('-').reverse().join('/');}
+}
+async function checkRanking(){
+  try{
+    const r=await fetch('/api/libros-ranking?_='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw new Error('La fuente no está disponible');
+    const result=await r.json();
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(result.fecha)||!Array.isArray(result.libros))throw new Error('Respuesta incompleta');
+    if(result.fecha<latestDate)return;
+    if(result.fecha===latestDate){updateDateUI(latestDate,result.url);return;}
+    if(copyToCatalog(result.libros,result.fecha,result.url)){
+      try{localStorage.setItem(rankingCacheKey,JSON.stringify({fecha:result.fecha,url:result.url,libros:catalog}));}catch(_){}
+      updateDateUI(result.fecha,result.url);
+    }
+  }catch(_){
+    const e=$('rank-refresh-label');if(e)e.textContent='Última lista verificada: '+latestDate.split('-').reverse().join('/')+' · comprobación temporalmente no disponible';
+  }
+}
+// Se guardan imágenes nuevas en el navegador, no se duplican en GitHub.
+// Se retienen 30 días tras desaparecer del ranking; la limpieza se revisa una vez al mes.
+function usage(){try{return JSON.parse(localStorage.getItem(coverUsageKey)||'{}')}catch(_){return {}}}
+function coverSet(){return new Set(catalog.map(b=>'/api/libros-portada?titulo='+encodeURIComponent(b.titulo)+'&autor='+encodeURIComponent(b.autor)))}
+async function cleanupCovers(){
+  if(!('caches' in window))return;
+  const now=Date.now(), last=Number(localStorage.getItem(cleanupKey)||0);
+  if(now-last<30*86400000)return;
+  try{
+    const cache=await caches.open(coversCacheName), store=usage(), live=coverSet();
+    for(const [url,lastSeen] of Object.entries(store)){
+      if(!live.has(url)&&now-Number(lastSeen)>30*86400000){await cache.delete(url);delete store[url];}
+    }
+    localStorage.setItem(coverUsageKey,JSON.stringify(store));
+    localStorage.setItem(cleanupKey,String(now));
+  }catch(_){}
+}
+async function hydrateCovers(){
+  if(!('caches' in window)){
+    document.querySelectorAll('img[data-cover-cache]').forEach(img=>{img.style.display='block';img.src=img.dataset.coverCache});
+    return;
+  }
+  try{
+    const cache=await caches.open(coversCacheName),store=usage(),now=Date.now();
+    for(const img of document.querySelectorAll('img[data-cover-cache]')){
+      const url=img.dataset.coverCache;
+      store[url]=now;
+      if(img.dataset.coverRequested===url)continue;
+      img.dataset.coverRequested=url;
+      // Multiple fichas de un libro reutilizan la misma petición del caché.
+      (async()=>{
+        try{
+          let response=await cache.match(url);
+          if(!response){
+            const fresh=await fetch(url);
+            if(!fresh.ok||!(fresh.headers.get('Content-Type')||'').startsWith('image/'))return;
+            await cache.put(url,fresh.clone());
+            response=fresh;
+          }
+          const blob=await response.blob();if(!img.isConnected)return;
+          img.src=URL.createObjectURL(blob);img.style.display='block';
+          img.addEventListener('load',()=>URL.revokeObjectURL(img.src),{once:true});
+        }catch(_){}
+      })();
+    }
+    localStorage.setItem(coverUsageKey,JSON.stringify(store));
+  }catch(_){}
+}
+try{
+  const previous=JSON.parse(localStorage.getItem(rankingCacheKey)||'null');
+  if(previous&&previous.fecha>latestDate)copyToCatalog(previous.libros,previous.fecha,previous.url);
+}catch(_){}
+const lastSource=catalog[0]?.fuente_ranking||'';
+updateDateUI(latestDate,lastSource);
+checkRanking();cleanupCovers();
+
 features();render();
 })();
 </script>
