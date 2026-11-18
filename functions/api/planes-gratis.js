@@ -83,6 +83,13 @@ function kindsFor(title,description,category){
  if(!kinds.includes('ferias')&&!kinds.includes('fiestas')||/teatro|musica|concierto|danza|libro|lectura|biblioteca|cuento|exposicion|taller|cine|cultura|poesia|literatura|visita guiada/.test(s))kinds.push('cultura');
  return [...new Set(kinds.length?kinds:['cultura'])];
 }
+function eventKinds(e){
+ const vals=[...(Array.isArray(e.kinds)?e.kinds:[]),e.kind];
+ return [...new Set(vals.filter(Boolean).map(x=>{
+  const v=norm(x);
+  return v==='en familia'||v==='familiar'||v==='infantil'?'familia':v;
+ }))];
+}
 const kind=s=>kindsFor(s,'','')[0];
 function records(raw){if(Array.isArray(raw))return raw;for(const k of ['@graph','results','result','records','features','events','items','data','listado'])if(Array.isArray(raw?.[k]))return raw[k];if(Array.isArray(raw?.result?.records))return raw.result.records;if(Array.isArray(raw?.response?.docs))return raw.response.docs;return []}
 function rowsFromCSV(txt){const first=(txt.replace(/^\uFEFF/,'').split(/\r?\n/)[0]||'');const sep=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';let arr=[],row=[],value='',quoted=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(c==='"'){if(quoted&&txt[i+1]==='"'){value+='"';i++}else quoted=!quoted}else if(c===sep&&!quoted){row.push(value);value=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&txt[i+1]==='\n')i++;row.push(value);if(row.some(v=>v.trim()))arr.push(row);row=[];value=''}else value+=c}row.push(value);if(row.some(v=>v.trim()))arr.push(row);const names=(arr.shift()||[]).map(x=>x.trim().replace(/^\uFEFF/,''));return arr.slice(0,5000).map(r=>Object.fromEntries(names.map((n,i)=>[n,r[i]||''])))}
@@ -243,7 +250,7 @@ export async function onRequestGet({request}){
     if(!previous.time&&ev.time)previous.time=ev.time;
     if((!previous.place||norm(previous.place)===norm(previous.city)||quality(ev.place)<quality(previous.place))&&ev.place)previous.place=ev.place;
     if(!previous.description&&ev.description)previous.description=ev.description;
-    previous.kinds=[...new Set([...(previous.kinds||[previous.kind]),...(ev.kinds||[ev.kind])])];
+    previous.kinds=[...new Set([...eventKinds(previous),...eventKinds(ev)])];
     if(previous.kinds.includes('cultura'))previous.kind='cultura';
   }else bucket.push({...ev});
   buckets.set(group,bucket);
@@ -269,13 +276,13 @@ export async function onRequestGet({request}){
  const sortEvents=(a,b)=>a.start.localeCompare(b.start)||((norm(b.city)===norm(city)?1:0)-(norm(a.city)===norm(city)?1:0))||norm(a.title).localeCompare(norm(b.title),'es')||norm(a.time).localeCompare(norm(b.time));
  const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort(isMadrid?sortEvents:(a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
  const type=p.get('type')||'todos';
- const selected=isMadrid&&['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>(e.kinds||[e.kind]).includes(type)):checked;
+ const selected=isMadrid&&['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>eventKinds(e).includes(type)):checked;
  const pageSize=isMadrid?24:120;
  const offset=isMadrid?Math.min(20000,Math.max(0,Number.parseInt(p.get('offset')||'0',10)||0)):0;
  const events=selected.slice(offset,offset+pageSize).map(({status,...ev})=>ev);
  const displayed=events.length,confirmed=checked.length;
  const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length;
- return json({events,displayed,confirmed,stats:failures===settled.length?null:stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,
+ return json({events,displayed,confirmed,requestedType:type,stats:failures===settled.length?null:stats,sources:working,sourceCount:jobs.length,failed:failures===settled.length,partial:failures>0,
   pagination:isMadrid?{offset,limit:pageSize,total:selected.length,hasMore:offset+displayed<selected.length}:undefined,
   deduplication:{duplicates,conflicts},
   diagnostic:isMadrid?settled.map(({name,ok,diagnostic,error})=>({name,ok,...diagnostic,...(error?{error}: {})})):undefined,
