@@ -614,29 +614,32 @@ async function readJob(job){
 // Consultar primero fechas vigentes. Si falla la consulta filtrada, usar
 // alternativas conservando la comprobación estricta del municipio y período.
 // Las páginas vacías terminan la paginación sin marcar fallo.
+// Conservar SIEMPRE la primera respuesta con registros, aunque todos se descarten:
+// un 0 en actividades aceptadas no equivale a un 0 recibido de la fuente.
+// La consulta antigua se mantiene como alternativa para evitar regresiones.
 async function readDibaMunicipal(job,from,to){
  const base='https://do.diba.cat/api/dataset/actesturisme_ca';
  const attempts=[];
- const filters=[
-  `camp-rel_municipis-like/${job.dibaCode}/camp-data_fi-greaterequal/${from}/ord-data_fi/asc`,
-  `camp-rel_municipis-like/${job.dibaCode}/ord-data_fi/desc`,
-  `camp-rel_municipis-like/${job.dibaCode}`
+ const queries=[
+  {name:'fecha vigente',path:`camp-rel_municipis-like/${job.dibaCode}/camp-data_fi-greaterequal/${from}/ord-data_fi/asc`,paged:true},
+  {name:'municipio sin filtro (original)',path:`camp-rel_municipis-like/${job.dibaCode}`,paged:false},
+  {name:'municipio alternativo (original)',path:`camp-municipi_nom/${encodeURIComponent(job.municipio)}`,paged:false},
+  {name:'municipio ordenado',path:`camp-rel_municipis-like/${job.dibaCode}/ord-data_fi/desc`,paged:true}
  ];
  const perPage=150,maxPages=4;
- for(const [index,filter] of filters.entries()){
-  const merged=[];let failure='',pages=0,complete=false;
-  for(let page=0;page<maxPages;page++){
+ let best=null,successfulQueries=0,failedQueries=0;
+ for(let index=0;index<queries.length;index++){
+  const query=queries[index],merged=[];let failure='',pages=0,complete=false;
+  for(let page=0;page<(query.paged?maxPages:1);page++){
    const start=page*perPage+1,end=start+perPage-1;
-   const url=`${base}/${filter}/format/json/pag-ini/${start}/pag-fi/${end}`;
+   const url=`${base}/format/json/pag-ini/${start}/pag-fi/${end}/${query.path}`;
    try{
     const chunk=await readJob({parser:'municipal-barcelona',url,allowEmpty:true});
     const rows=municipalRecords(chunk.raw);
     merged.push(...rows);pages++;
     if(rows.length<perPage){complete=true;break;}
-   }catch(error){failure=String(error?.message||error).slice(0,150);break;}
+   }catch(error){failure=String(error?.message||error).slice(0,120);break;}
   }
-  // A filtered response may be syntactically valid but consist solely of
-  // old events, wrong municipalities or rows without dates. Try fallback.
   const usable=merged.some(row=>{
    const e=row?.properties||row?.fields||row;
    if(!e||!dibaMunicipalityMatches(e,job))return false;
@@ -644,11 +647,24 @@ async function readDibaMunicipal(job,from,to){
    const last=isoDate(fieldValue(e,[/^datafi$/]))||first;
    return !!first&&first<=to&&last>=from;
   });
-  if(merged.length&&usable)
-   return {raw:merged,endpoint:`${base}/${filter}`,pages,partial:!complete||!!failure,warning:failure,queryFallback:index>0};
-  attempts.push(`${filter}: ${failure||(!merged.length?'sin registros':'sin actividades vigentes del municipio')}`);
+  if(pages)successfulQueries++;
+  if(failure)failedQueries++;
+  attempts.push(`${query.name}: ${merged.length} recibido(s)${failure?'; '+failure:''}`);
+  // Guardar evidencia de la fuente aunque los filtros locales descarten todo.
+  if(merged.length&&(!best||merged.length>best.raw.length)){
+   best={raw:merged,endpoint:`${base}/${query.path}`,pages,partial:!complete||!!failure,
+    warning:failure,queryFallback:index>0};
+  }
+  if(usable){
+   return {raw:merged,endpoint:`${base}/${query.path}`,pages,partial:!complete||!!failure,
+    warning:failure,queryFallback:index>0,sourceAttempts:attempts,failedQueries};
+  }
  }
- throw new Error(attempts.join('; ').slice(0,300));
+ if(best)return {...best,sourceAttempts:attempts,failedQueries,noValidDibaEvents:true};
+ // Una consulta que responde vacía no es un error de red. Diagnosticarla como tal.
+ if(successfulQueries)
+  return {raw:[],endpoint:base,pages:0,partial:failedQueries>0,warning:failedQueries?'Algunas consultas fallaron; ver sourceAttempts':'Todas las consultas respondieron sin registros',sourceAttempts:attempts,failedQueries};
+ throw new Error(attempts.join(' | ').slice(0,500));
 }
 async function readMunicipalBarcelona(job,from,to){
  if(job.municipalCsvUrl){
@@ -699,6 +715,9 @@ export async function onRequestGet({request}){
       const downloaded=j.dibaCode?await readMunicipalBarcelona(j,from,to):await readJob(j);
       const events=municipalBarcelonaEvents(downloaded.raw,from,to,{...j,hospitaletCsv:!!downloaded.municipalCsv},diagnostic);
       if(downloaded.pages)diagnostic.pages=downloaded.pages;
+      if(downloaded.sourceAttempts)diagnostic.sourceAttempts=downloaded.sourceAttempts;
+      if(downloaded.failedQueries)diagnostic.failedQueries=downloaded.failedQueries;
+      if(downloaded.noValidDibaEvents)diagnostic.noValidDibaEvents=true;
       if(downloaded.queryFallback)diagnostic.queryFallback=true;
       if(downloaded.partial)diagnostic.paginationPartial=true;
       if(downloaded.warning)diagnostic.sourceWarning=downloaded.warning;
