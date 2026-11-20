@@ -29,6 +29,7 @@ const SOURCE={
     // Una sola descarga paginada. JSON es el formato principal y CSV es el respaldo,
     // nunca dos copias simultáneas del mismo conjunto de datos.
     {name:'Barcelona · Generalitat cultural (JSON/CSV)',parser:'catalonia-json',dataset:'rhpv-yr4f'},
+    {name:'Diputació de Barcelona · Agenda turística',parser:'diba-tourism',url:'https://do.diba.cat/api/dataset/actesturisme_ca/format/json/pag-ini/1/pag-fi/150'},
     {name:'Barcelona · Agenda 500 (acceso gratuito)',parser:'barcelona-html',
      url:'https://agenda500.barcelona.cat/es/llistat?ajax=search&canal=agenda500&cerca=*:*&d=mes&nr=60&pg=search&sort=popularity%2Cdesc&ticket=3&wtarget=agenda500&xout=1'}
   ],
@@ -89,7 +90,7 @@ function classify(cost,description,title,asFlag=false){
  const full=norm(`${title} ${description}`), costStatus=priceSignal(cost,asFlag);
  const conditional=/(?:gratuit[ao]s?|gratis|entrada libre|acceso libre|sin coste)[^.;]{0,90}(?:para (?:menores|mayores|residentes|empadronados|jovenes|estudiantes|personas|ciudadan|familias|desempleados|miembros)|con (?:carnet|acreditacion|reserva)|solo (?:los|para|en)|excepto|hasta \d+ anos)|(?:residentes|empadronados|menores|mayores|jovenes|estudiantes|personas con discapacidad)[^.;]{0,80}(?:gratis|gratuit[ao]s?|entrada libre)/.test(full);
  const textFree=/(?:entrada|acceso|actividad|participacion|inscripcion|evento|visita|concierto|taller|espectaculo|asistencia|jornada)s?\s+(?:(?:totalmente|completamente)\s+)?(?:libre|gratuit[ao]s?|sin coste)|\bentrada\s+libre\b|\bacceso\s+libre\b|\bsin\s+coste\b|\bgratuit[ao]s?\b|\bgratuits?\b|\bgratis\b|\bentrada\s+lliure\b|\bactivitat\s+gratuita?\b/.test(full);
- const paidText=/(?:\bde pago\b|\bentrada[s]?\s+(?:de pago|desde \d+)|\bprecio\s*[:=]\s*[1-9]\d*|\btarifa\s*[:=]\s*[1-9]\d*|\bno\s+(?:es\s+)?gratuit[ao])/.test(full);
+ const paidText=/(?:\bde pago\b|\bentrada[s]?\s+(?:de pago|desde \d+)|\bprecio\s*[:=]\s*[1-9]\d*|\btarifa\s*[:=]\s*[1-9]\d*|\bno\s+(?:es\s+)?gratuit[ao]|\bactivitat\s+(?:de\s+)?pagament|\bactividad\s+de\s+pago)/.test(full);
  // Cuando aparecen señales contradictorias, no anunciamos una entrada gratuita.
  if((costStatus==='paid'&&(textFree||conditional))||(paidText&&(costStatus==='free'||textFree)))return 'pendiente';
  if(conditional && (textFree||costStatus==='free'))return 'condicional';
@@ -117,18 +118,18 @@ function eventKinds(e){
  }))];
 }
 const kind=s=>kindsFor(s,'','')[0];
-function records(raw){if(Array.isArray(raw))return raw;if(Array.isArray(raw?.result?.records))return raw.result.records;for(const k of ['@graph','results','result','records','features','events','items','data','listado'])if(Array.isArray(raw?.[k]))return raw[k];if(Array.isArray(raw?.result?.records))return raw.result.records;if(Array.isArray(raw?.response?.docs))return raw.response.docs;return []}
+function records(raw){if(Array.isArray(raw))return raw;if(Array.isArray(raw?.result?.records))return raw.result.records;for(const k of ['@graph','results','result','records','features','events','items','data','listado','elements','entries'])if(Array.isArray(raw?.[k]))return raw[k];if(Array.isArray(raw?.result?.records))return raw.result.records;if(Array.isArray(raw?.response?.docs))return raw.response.docs;return []}
 function rowsFromCSV(txt){const first=(txt.replace(/^\uFEFF/,'').split(/\r?\n/)[0]||'');const sep=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';let arr=[],row=[],value='',quoted=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(c==='"'){if(quoted&&txt[i+1]==='"'){value+='"';i++}else quoted=!quoted}else if(c===sep&&!quoted){row.push(value);value=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&txt[i+1]==='\n')i++;row.push(value);if(row.some(v=>v.trim()))arr.push(row);row=[];value=''}else value+=c}row.push(value);if(row.some(v=>v.trim()))arr.push(row);const names=(arr.shift()||[]).map(x=>x.trim().replace(/^\uFEFF/,''));return arr.slice(0,30000).map(r=>Object.fromEntries(names.map((n,i)=>[n,r[i]||''])))}
 const MAPPING={
- title:['NOM_ACTIVITAT','NOM','ACTIVITAT','TITOL','TITULO','TITULO-ACTIVIDAD','titulo','title','nombre','name','denominacion','nombre_evento','titulo_es','nombreActividad'],
+ title:['NOM_ACTIVITAT','NOM','titol','ACTIVITAT','TITOL','TITULO','TITULO-ACTIVIDAD','titulo','title','nombre','name','titol','denominacion','nombre_evento','titulo_es','nombreActividad'],
  begin:['DATA_INICI','DATA','DATA_INI','DATA_INICI_ACTIVITAT','DATA_ACTE','DATA_INICI_ACTE','start_date','data_inici','FECHA','fecha_inicio','Fecha de inicio','dtstart','DTSTART','fechaInicio','FECHA-INICIO','fechainicio','startDate','date','fecha','inicio','start','fechas'],
  end:['DATA_FI','DATA_FINAL','data_fi','FECHA-FIN','fecha_fin','Fecha de fin','endDate','end','fechaFin'],
- cost:['GRATUIT','GRATUITAT','ES_GRATUIT','PREU','preu','preu_entrada','GRATUITO','gratuito','GRATUITA','free','gratis','gratuita','es_gratuito','freeAdmission','precio','PRECIO','Precio','tarifa'],
+ cost:['GRATUIT','GRATUITAT','ES_GRATUIT','PREU','preu','preu_entrada','GRATUITO','gratuito','GRATUITA','free','gratis','gratuita','es_gratuito','freeAdmission','preu','precio','PRECIO','Precio','tarifa'],
  description:['DESCRIPCIO','descripcio','TEXT','TEXT_ACTIVITAT','DESCRIPCION','descripcion','description','texto','observaciones','condiciones','detalle','contenido','resumen','entradilla'],
- city:['MUNICIPI','NOM_MUNICIPI','POBLACIO','municipi','nombre_localidad','Nombre Localidad','localidad','LOCALIDAD','municipio','poblacion','nombre_municipio','city','ciudad','municipality','poblacion_nombre'],
+ city:['MUNICIPI','NOM_MUNICIPI','municipi_nom','POBLACIO','municipi','nombre_localidad','Nombre Localidad','localidad','LOCALIDAD','municipio','poblacion','nombre_municipio','municipi_nom','city','ciudad','municipality','poblacion_nombre'],
  province:['PROVINCIA_NOM','NOM_PROVINCIA','nombre_provincia','Nombre Provincia','provincia','PROVINCIA','province','comarca_provincia'],
- place:['EQUIPAMENT','NOM_EQUIPAMENT','ESPAI','LLOC','ADRECA','NOM_LLOC','lugar_celebracion','Lugar de celebración','NOMBRE-INSTALACION','nombre_instalacion','lugar','lugar_de_celebracion','address','direccion','ubicacion','nombre_lugar'],
- url:['URL','URL_ACTIVITAT','ENLLAC','ENLLAC_ACTIVITAT','WEB','ENLACE','CONTENT-URL','URL-ACTIVIDAD','content-url','url_actividad','enlace_al_contenido','Enlace al contenido','enlace_evento','url','link','enlace','web','id_url','url_evento','@id'],
+ place:['EQUIPAMENT','NOM_EQUIPAMENT','ESPAI','adreca_nom','LLOC','ADRECA','NOM_LLOC','lugar_celebracion','Lugar de celebración','NOMBRE-INSTALACION','nombre_instalacion','lugar','lugar_de_celebracion','address','direccion','ubicacion','nombre_lugar'],
+ url:['URL','URL_ACTIVITAT','acte_url','ENLLAC','ENLLAC_ACTIVITAT','WEB','ENLACE','CONTENT-URL','URL-ACTIVIDAD','content-url','url_actividad','enlace_al_contenido','Enlace al contenido','enlace_evento','url','link','acte_url','enlace','web','id_url','url_evento','@id'],
  time:['HORA_INICI','hora_inici','HORA','hora_inicio','Hora inicio','hora','time']
 };
 // Diagnóstico por etapa. Los registros se cuentan ANTES de eliminarse del catálogo público.
@@ -146,10 +147,11 @@ function parse(raw,from,to,source,province,parser,diagnostic){
   const address=location.address||{};
   let city=tidy(get(e,MAPPING.city)||get(location,['name','locality','city','municipio'])||get(address,['addressLocality','city']));
   let prov=tidy(get(e,MAPPING.province)||get(address,['addressRegion','province']));
+  if(parser==='diba-tourism')prov='Barcelona';
   const assumed={madrid:['Madrid','Madrid'],'madrid-library':['Madrid','Madrid'],barcelona:['Barcelona','Barcelona'],zaragoza:['Zaragoza','Zaragoza'],malaga:['Málaga','Málaga'],gijon:['Gijón','Asturias']};
   if(assumed[parser]){city=city||assumed[parser][0];prov=prov||assumed[parser][1];}
   if(!prov&&parser==='cyl')prov=tidy(get(e,['nombreprovincia','nombreProvincia','provincia_nombre']));
-  if(!city||!prov){d.missingPlace++;continue;}
+  if(!prov){d.missingPlace++;continue;} if(!city)d.missingPlace++;
   if(norm(prov)!==norm(province)){d.wrongProvince++;continue;}
   const desc=tidy(get(e,MAPPING.description));
   const hasFlag=['GRATUIT','GRATUITAT','ES_GRATUIT','GRATUITO','gratuito','GRATUITA','gratis','gratuita','es_gratuito','freeAdmission','free'].find(k=>Object.prototype.hasOwnProperty.call(e,k)&&e[k]!==''&&e[k]!==null);
@@ -426,7 +428,6 @@ function cataloniaEvents(raw,from,to,source,diagnostic){
   if(start>to||(end||start)<from){diagnostic.outOfRange++;continue;}
   const municipality=cataloniaLocation(e);
   if(!municipality){diagnostic.missingPlace++;continue;}
-  if(!municipality){diagnostic.wrongProvince++;continue;}
   const place=tidy(fieldValue(e,[/^nomequip/,/^nomeespai/,/^nomlocalitz/,/^nomlloc/,/^nomrecinte/,/^equipament/,/^espai/,/^lloc/,/^adrea/,/^adreca/,/^localitzacio/]))||municipality;
   const desc=tidy(fieldValue(e,[/^descripci/,/^resum/,/^text/,/^observacio/]));
   const explicitFlag=fieldValue(e,[/^gratuita$/, /^gratuit$/, /^esgratuit/, /^gratuitat$/]);
@@ -734,7 +735,7 @@ function andaluciaEvents(raw,from,to,source,requestedProvince,d){
   const province=andaluciaProvince(provinceRaw);
   if(!province){d.unknownProvince++;d.missingPlace++;continue;}
   if(norm(province)!==norm(requestedProvince)){d.wrongProvince++;continue;}
-  if(!city){d.missingPlace++;continue;}
+  if(!city)d.missingPlace++;
   const linkValue=val('more_info_url','moreInfoUrl','url','enlace','enlace_evento','urlEvento','url_actividad','enlace_al_contenido','web','link','contentUrl','urlDetalle','url_detalle');
   const url=secureLink(linkValue);
   if(!url){d.missingLink++;continue;}
@@ -963,17 +964,17 @@ export async function onRequestGet({request}){
  for(const ev of all)stats[ev.status]++;
  // Orden cronológico primero, con la localidad elegida como desempate.
  const sortEvents=(a,b)=>a.start.localeCompare(b.start)||((norm(b.city)===norm(city)?1:0)-(norm(a.city)===norm(city)?1:0))||norm(a.title).localeCompare(norm(b.title),'es')||norm(a.time).localeCompare(norm(b.time));
- const checked=all.filter(x=>x.status==='gratis'||x.status==='condicional').sort(isPilot?sortEvents:(a,b)=>a.start.localeCompare(b.start)||(norm(a.city)===norm(city)?-1:norm(b.city)===norm(city)?1:0));
+ const checked=all.sort(sortEvents);
  const type=p.get('type')||'todos';
- const selected=isPilot&&['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>eventKinds(e).includes(type)):checked;
- const pageSize=isPilot?24:120;
- const offset=isPilot?Math.min(20000,Math.max(0,Number.parseInt(p.get('offset')||'0',10)||0)):0;
- const events=selected.slice(offset,offset+pageSize).map(({status,...ev})=>ev);
+ const selected=['cultura','ferias','fiestas','familia'].includes(type)?checked.filter(e=>eventKinds(e).includes(type)):checked;
+ const pageSize=24;
+ const offset=Math.min(20000,Math.max(0,Number.parseInt(p.get('offset')||'0',10)||0));
+ const events=selected.slice(offset,offset+pageSize);
  const displayed=events.length,confirmed=checked.length;
  const working=[...new Set(settled.filter(x=>x.ok).map(x=>x.name))];const failures=settled.filter(x=>!x.ok).length+settled.reduce((n,x)=>n+(x.pageErrors||0),0);
  return json({events,displayed,confirmed,requestedType:type,stats:working.length===0?null:stats,sources:working,sourceCount:jobs.length,failed:working.length===0,partial:failures>0||paginationFailures>0,
-  pagination:isPilot?{offset,limit:pageSize,total:selected.length,hasMore:offset+displayed<selected.length}:undefined,
+  pagination:{offset,limit:pageSize,total:selected.length,hasMore:offset+displayed<selected.length},
   deduplication:{duplicates,conflicts},
   diagnostic:isPilot?settled.map(({name,ok,diagnostic,error,pageErrors})=>({name,ok,...diagnostic,...(pageErrors?{error:`${pageErrors} página(s) de la agenda autonómica no respondieron`}:{}),...(error?{error}: {})})):undefined,
-  notice:working.length===0?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':(failures||paginationFailures)?`Consulta parcial: ${failures} fuente(s) sin respuesta y ${paginationFailures} fuente(s) con paginación incompleta.`:events.length?'':'No hay actividades gratuitas identificadas en las fuentes consultadas para este periodo. No significa que no existan.'});
+  notice:working.length===0?'No ha respondido ninguna fuente. No hay datos suficientes para contar actividades.':(failures||paginationFailures)?`Consulta parcial: ${failures} fuente(s) sin respuesta y ${paginationFailures} fuente(s) con paginación incompleta.`:events.length?'':'No hay actividades identificadas en las fuentes consultadas para este periodo.'});
 }
