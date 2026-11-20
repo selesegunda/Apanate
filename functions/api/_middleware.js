@@ -10,7 +10,7 @@ const LOCAL_COVERS = Object.freeze({
   '9788408328858': '/libros/portadas/la-anoranza.jpg',
   '9788408328834': '/libros/portadas/la-hora-antes-del-alba.gif',
   '9791388236013': '/libros/portadas/no-puedes-quedarte-aqui-eternamente.jpg',
-  '9788419981400': '/libros/portadas/vidas-con-nombre.jpg',
+  '9788419981400': '/libros/portadas/Vidas con nombre. Historias reales de Gaza y Cisjordania.jpg',
   '9788433949615': '/libros/portadas/dame-veneno-que-quiero-vivir.jpg'
 });
 function cleanIsbn(value) {
