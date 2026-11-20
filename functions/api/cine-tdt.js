@@ -98,20 +98,38 @@ function readGuide(xml, now) {
   return results;
 }
 
+// Dar prioridad a la fecha de emisión más próxima (calendario peninsular):
+// primero hasta 2 por canal en ese día; después, si faltan películas,
+// permitir la tercera de cada canal ANTES de pasar al día siguiente.
+function madridDay(iso) {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit'
+  }).format(new Date(iso));
+}
 function selectBalanced(items) {
-  const seen = new Set(), count = new Map(), out = [];
+  const seen = new Set(), count = new Map(), out = [], days = new Map();
   const ordered = [...items].sort((a, b) => a.inicio.localeCompare(b.inicio));
   for (const p of ordered) {
     const key = `${p.canal}|${p.inicio}|${p.titulo.toLowerCase().trim()}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    const n = count.get(p.canal) || 0;
-    if (n >= 2) continue;
-    count.set(p.canal, n + 1);
-    out.push(p);
-    if (out.length >= MAX_MOVIES) break;
+    const day = madridDay(p.inicio);
+    if (!days.has(day)) days.set(day, []);
+    days.get(day).push(p);
   }
-  return out;
+  for (const day of [...days.keys()].sort()) {
+    const group = days.get(day);
+    for (const maxPerChannel of [2, 3]) {
+      for (const p of group) {
+        if (out.length >= MAX_MOVIES) return out.sort((a, b) => a.inicio.localeCompare(b.inicio));
+        const n = count.get(p.canal) || 0;
+        if (n >= maxPerChannel || n >= 3 || out.includes(p)) continue;
+        count.set(p.canal, n + 1);
+        out.push(p);
+      }
+    }
+  }
+  return out.sort((a, b) => a.inicio.localeCompare(b.inicio));
 }
 
 async function loadGuide(url) {
