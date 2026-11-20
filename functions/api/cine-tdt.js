@@ -1,7 +1,7 @@
 /**
- * ¡Apáñate! · Próximas películas en la TDT española.
+ * ¡Apáñate! · Próximas películas en la TDT nacional española.
  * Combina guías públicas en lugar de quedarse con la primera que responde.
- * Nunca rellena con emisiones pasadas, ni garantiza 12 películas.
+ * Nunca rellena con emisiones pasadas, ni garantiza 24 películas.
  */
 const EPG_URLS = [
   'https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz',
@@ -9,24 +9,24 @@ const EPG_URLS = [
   'https://raw.githubusercontent.com/raulfdeztdo/epg/main/guide.xml'
 ];
 
-// Solo canales de TDT en abierto. Variantes de IDs: La.1.es, La1.TV, La 1 HD…
+// Lista permitida de canales nacionales TDT en abierto; los autonómicos/locales quedan excluidos.
+// Referencia: https://television.digital.gob.es/television-digital/tdt/canales-tdt
 const CHANNELS = {
   la1: 'La 1', la2: 'La 2', antena3: 'Antena 3', telecinco: 'Telecinco',
   cuatro: 'Cuatro', lasexta: 'laSexta', fdf: 'FDF', bemad: 'Be Mad',
   neox: 'Neox', nova: 'Nova', atreseries: 'Atreseries', trece: 'TRECE',
-  '13tv': 'TRECE', paramountnetwork: 'Paramount Network',
+  trecetv: 'TRECE', '13tv': 'TRECE',
   dkiss: 'DKISS', dmax: 'DMAX', mega: 'Mega', energy: 'Energy',
-  divinity: 'Divinity', ten: 'TEN', canalsur: 'Canal Sur',
-  canalsur2: 'Canal Sur 2', tv3: 'TV3', '33': '33', apunt: 'À Punt',
-  aragontv: 'Aragón TV', etb1: 'ETB 1', etb2: 'ETB 2', tvg: 'TVG',
-  telemadrid: 'Telemadrid', laotra: 'La Otra', '7tv': '7TV',
-  cmm: 'CMM', canalextremadura: 'Canal Extremadura',
-  tpa: 'TPA', ib3: 'IB3', la7: 'La 7', cyltv: 'CyLTV',
-  rtvc: 'RTVC', rtvccanarias: 'Televisión Canaria',
-  '8tv': '8TV', bomcine: 'BOM Cine', bom: 'BOM Cine',
-  cineverditv: 'Cine Verdi TV', castillalamancha: 'CMM',
-  televisioncanaria: 'Televisión Canaria', canarias7: 'Canarias 7'
+  divinity: 'Divinity', ten: 'TEN',
+  squirrel: 'Squirrel', squirreltv: 'Squirrel',
+  squirreldos: 'Squirrel Dos', squirrel2: 'Squirrel Dos',
+  veo7: 'Veo 7', veo7tv: 'Veo 7',
+  boing: 'Boing', clan: 'Clan', teledeporte: 'Teledeporte',
+  canal24horas: 'Canal 24 Horas', '24h': 'Canal 24 Horas',
+  realmadridtv: 'Real Madrid TV',
+  laseptima: 'La Séptima'
 };
+const MAX_MOVIES = 24;
 
 function normalizeChannel(input = '') {
   let n = String(input).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
@@ -100,8 +100,8 @@ function readGuide(xml, now) {
 
 function selectBalanced(items) {
   const seen = new Set(), count = new Map(), out = [];
-  items.sort((a, b) => a.inicio.localeCompare(b.inicio));
-  for (const p of items) {
+  const ordered = [...items].sort((a, b) => a.inicio.localeCompare(b.inicio));
+  for (const p of ordered) {
     const key = `${p.canal}|${p.inicio}|${p.titulo.toLowerCase().trim()}`;
     if (seen.has(key)) continue;
     seen.add(key);
@@ -109,7 +109,7 @@ function selectBalanced(items) {
     if (n >= 2) continue;
     count.set(p.canal, n + 1);
     out.push(p);
-    if (out.length >= 12) break;
+    if (out.length >= MAX_MOVIES) break;
   }
   return out;
 }
@@ -146,9 +146,8 @@ export async function onRequestGet() {
       const fresh = readGuide(xml, now);
       usedSources.push({ url, encontradas: fresh.length });
       all.push(...fresh);
-      // First two sources complement each other: nationwide + autonomic TDT.
-      // Third is a fallback if the first two don't provide enough variety.
-      if (usedSources.length >= 2 && new Set(selectBalanced(all).map(x => x.canal)).size >= 6) break;
+      // Consultar las guías sucesivas mientras no haya 24 películas válidas.
+      if (selectBalanced(all).length >= MAX_MOVIES) break;
     } catch (_) { /* Next independently maintained guide */ }
   }
   const peliculas = selectBalanced(all);
