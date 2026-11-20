@@ -8,8 +8,10 @@
   <title>Mi rinconcito verde · ¡Apáñate!</title>
   <link rel="stylesheet" href="/plantas/style.css">
   <link rel="stylesheet" href="/plantas/catalogo.css">
+  <link rel="stylesheet" href="/plantas/mejoras.css">
   <script src="/plantas/app.js" defer></script>
   <script src="/plantas/catalogo.js" defer></script>
+  <script src="/plantas/mejoras.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#buscador">Saltar al buscador</a>
@@ -34,12 +36,15 @@
      <div class="field"><label for="luz">¿Cuánta luz tendrá?</label><select id="luz"><option value="indirecta">Luz abundante, sin sol directo</option><option value="sol">Sol directo</option><option value="sombra">Poca luz / sombra</option></select></div>
      <div class="field"><label for="experiencia">¿Qué tal se te dan las plantas?</label><select id="experiencia"><option value="novato">Quiero algo fácil</option><option value="medio">Tengo algo de mano</option><option value="experto">Me gustan los retos</option></select></div>
      <div class="field"><label for="riego">¿Y el riego?</label><select id="riego"><option value="bajo">Que aguante mis olvidos</option><option value="medio">Puedo regar con frecuencia normal</option><option value="alto">No me importa estar pendiente</option></select></div>
+     <div class="field"><label for="tipo-rincon">¿Qué espacio tienes? (opcional)</label><select id="tipo-rincon"><option value="ninguno">Sin especificar</option><option value="balcon">Balcón</option><option value="terraza">Terraza</option><option value="patio">Patio</option><option value="jardin">Jardín</option><option value="salon">Salón</option><option value="dormitorio">Dormitorio</option></select><small class="micro">Nos ayuda a darte consejos para el espacio. Las recomendaciones siguen dependiendo de la luz, el agua y el clima.</small></div>
      <div class="field field-pet"><label class="check"><input id="mascotas" type="checkbox"> 🐾 Hay perros o gatos que podrían mordisquearlas</label></div>
      <button class="submit" type="submit">🌿 Descubrir mis plantas <span aria-hidden="true">↗</span></button>
    </form>
    <p class="micro">El clima es orientativo: en una misma provincia puede haber costa, valle y montaña. Si tienes dudas, manda tu jardín según las heladas y la exposición real de tu casa.</p>
  </section>
  <section class="wrap results" id="resultados" aria-live="polite" hidden></section>
+ <p class="wrap micro" id="rincon-contexto" role="status"></p>
+ <section class="wrap garden-panel" id="mi-jardin" aria-labelledby="mi-jardin-title"><span class="eyebrow">♥ TUS FAVORITAS, SIN CUENTA</span><h2 id="mi-jardin-title">Mi pequeño jardín</h2><p>Guarda plantas para volver a consultarlas. Se guardan únicamente en este navegador, no entre dispositivos. Si borras los datos del navegador, se perderán.</p><div id="mi-jardin-list" class="garden-list"></div><p id="mi-jardin-status" class="micro" role="status"></p></section>
  <section class="wrap catalogo-panel" id="catalogo" aria-labelledby="catalogo-title">
    <span class="eyebrow">🌱 MÁS ESPECIES · DATOS BOTÁNICOS GRATUITOS</span>
    <h2 id="catalogo-title">Explora más plantas</h2>
