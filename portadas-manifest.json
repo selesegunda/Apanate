@@ -1,0 +1,51 @@
+[
+  {
+    "isbn": "9791387740566",
+    "titulo": "El hombre que solo escribia en los aviones",
+    "autor": "Pedro Almodovar",
+    "archivo": "libros/portadas/9791387740566.jpg",
+    "origen": "aportado por el usuario"
+  },
+  {
+    "isbn": "9788417553036",
+    "titulo": "El verano en que mi madre tuvo los ojos verdes",
+    "autor": "Tatiana Tibuleac",
+    "archivo": "libros/portadas/9788417553036.jpg",
+    "origen": "aportado por el usuario"
+  },
+  {
+    "isbn": "9788408328858",
+    "titulo": "La añoranza",
+    "autor": "Sergio Hernandez",
+    "archivo": "libros/portadas/9788408328858.jpg",
+    "origen": "aportado por el usuario"
+  },
+  {
+    "isbn": "9788408328834",
+    "titulo": "La hora antes del alba",
+    "autor": "Isabel Allende",
+    "archivo": "libros/portadas/9788408328834.jpg",
+    "origen": "aportado por el usuario"
+  },
+  {
+    "isbn": "9791388236013",
+    "titulo": "No puedes quedarte aqui eternamente",
+    "autor": "Edurne Portela",
+    "archivo": "libros/portadas/9791388236013.jpg",
+    "origen": "aportado por el usuario"
+  },
+  {
+    "isbn": "9788419981400",
+    "titulo": "Vidas con nombre",
+    "autor": "Almudena Ariza; Fermin Solis",
+    "archivo": "libros/portadas/9788419981400.jpg",
+    "origen": "aportado por el usuario"
+  },
+  {
+    "isbn": "9788433949615",
+    "titulo": "Dame veneno que quiero vivir",
+    "autor": "Leticia Sala",
+    "archivo": "libros/portadas/9788433949615.jpg",
+    "origen": "aportado por el usuario"
+  }
+]
