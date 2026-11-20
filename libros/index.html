@@ -220,7 +220,40 @@ function isbnForVerifiedBook(b){
   const item=verifiedIsbns.find(x=>norm(x.titulo)===norm(b.titulo||'')&&norm(x.autor)===norm(b.autor||''));
   return item?.isbn||'';
 }
-for(const book of catalog){if(!book.isbn){const checked=isbnForVerifiedBook(book);if(checked){book.isbn=checked;book.isbn_verificado=true;}}}
+// Las siete cubiertas añadidas al depósito, con las mismas rutas que el manifiesto.
+// Se reconocen por ISBN o por la pareja exacta título + autor (normalizada).
+// No se asigna una portada a otro libro solo por un título parecido.
+const nuevasPortadas=[
+  {isbn:'9788408328834',titulo:'La hora antes del alba',autor:'Isabel Allende',ruta:'portadas/la-hora-antes-del-alba.gif'},
+  {isbn:'9788408328858',titulo:'La añoranza',autor:'Sergio Hernández',ruta:'portadas/la-anoranza.jpg'},
+  {isbn:'9791387740566',titulo:'El hombre que solo escribía en los aviones',autor:'Pedro Almodóvar',ruta:'portadas/el-hombre-que-solo-escribia-en-los-aviones.jpg'},
+  {isbn:'9788417553036',titulo:'El verano en que mi madre tuvo los ojos verdes',autor:'Tatiana Țîbuleac',ruta:'portadas/el-verano-en-que-mi-madre-tuvo-los-ojos-verdes.jpg'},
+  {isbn:'9788419981400',titulo:'Vidas con nombre',autor:'Almudena Ariza y Fermín Solís',ruta:'portadas/vidas-con-nombre.jpg'},
+  {isbn:'9791388236013',titulo:'No puedes quedarte aquí eternamente',autor:'Edurne Portela',ruta:'portadas/no-puedes-quedarte-aqui-eternamente.jpg'},
+  {isbn:'9788433949615',titulo:'Dame veneno que quiero vivir',autor:'Leticia Sala',ruta:'portadas/dame-veneno-que-quiero-vivir.jpg'}
+];
+const nuevasPorIsbn=new Map(nuevasPortadas.map(x=>[x.isbn,x]));
+const nuevasPorTituloAutor=new Map(nuevasPortadas.map(x=>[norm(x.titulo)+'|'+norm(x.autor),x]));
+function asociarPortadaLocal(libro){
+  const porIsbn=nuevasPorIsbn.get(String(libro.isbn||'').replace(/[^0-9X]/gi,''));
+  const porNombre=nuevasPorTituloAutor.get(norm(libro.titulo)+'|'+norm(libro.autor));
+  // El ISBN exacto identifica la edición; sin ISBN se exige título y autor.
+  // Si los dos métodos apuntan a obras distintas, no forzamos ninguna imagen.
+  const ficha=porIsbn&&porNombre&&porIsbn!==porNombre?null:(porIsbn||porNombre);
+  if(!ficha)return libro;
+  libro.isbn=ficha.isbn;
+  libro.isbn_verificado=true;
+  libro.portada_local=ficha.ruta;
+  libro.portada_fuente='Depósito local de ¡Apañate!';
+  libro.portada_estado='local_verificada';
+  libro.imagen_procedencia='Depósito local';
+  libro.imagen_estado='verificada';
+  return libro;
+}
+for(const book of catalog){
+  if(!book.isbn){const checked=isbnForVerifiedBook(book);if(checked){book.isbn=checked;book.isbn_verificado=true;}}
+  asociarPortadaLocal(book);
+}
 function coverMarkup(b,w=110,h=165){
   const dynamicUrl='/api/libros-portada?'+new URLSearchParams({titulo:b.titulo||'',autor:b.autor||'',isbn:b.isbn||''}).toString();
   // Conservar las imágenes verificadas de la web y buscar nuevas solo si fallan.
@@ -269,7 +302,7 @@ function copyToCatalog(fresh,fecha,source){
   catalog=fresh.map(b=>{
     const previous=old.get(norm(b.titulo)+'|'+norm(b.autor));
     // Solo reutilizamos metadatos comprobados de la misma obra.
-    return {...(previous||{}),...b,
+    return asociarPortadaLocal({... (previous||{}),...b,
       fecha_ranking:fecha,fuente_ranking:source||previous?.fuente_ranking||'',
       portada_local:previous?.portada_local||'',portada_externa:previous?.portada_externa||'',
       precio_comprobado:previous?.precio_comprobado||false,
@@ -277,7 +310,7 @@ function copyToCatalog(fresh,fecha,source){
       pvp_fecha:previous?.pvp_fecha,
       isbn:previous?.isbn||b.isbn||isbnForVerifiedBook(b)||'',
       comprar:previous?.comprar||''
-    };
+    });
   });
   latestDate=fecha;
   features();render();
