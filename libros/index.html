@@ -228,12 +228,12 @@ const nuevasPortadas=[
   {isbn:'9788408328858',titulo:'La añoranza',autor:'Sergio Hernández',ruta:'portadas/la-anoranza.jpg'},
   {isbn:'9791387740566',titulo:'El hombre que solo escribía en los aviones',autor:'Pedro Almodóvar',ruta:'portadas/el-hombre-que-solo-escribia-en-los-aviones.jpg'},
   {isbn:'9788417553036',titulo:'El verano en que mi madre tuvo los ojos verdes',autor:'Tatiana Țîbuleac',ruta:'portadas/el-verano-en-que-mi-madre-tuvo-los-ojos-verdes.jpg'},
-  {isbn:'9788419981400',titulo:'Vidas con nombre',autor:'Almudena Ariza y Fermín Solís',ruta:'portadas/vidas-con-nombre.jpg'},
+  {isbn:'9788419981400',titulo:'Vidas con nombre',titulos:['Vidas con nombre','Vidas con nombre. Historias reales de Gaza y Cisjordania'],autor:'Almudena Ariza y Fermín Solís',autores:['Almudena Ariza y Fermín Solís','Almudena Ariza / Fermín Solís','Almudena Ariza','Fermín Solís'],ruta:'portadas/Vidas con nombre. Historias reales de Gaza y Cisjordania.jpg'},
   {isbn:'9791388236013',titulo:'No puedes quedarte aquí eternamente',autor:'Edurne Portela',ruta:'portadas/no-puedes-quedarte-aqui-eternamente.jpg'},
   {isbn:'9788433949615',titulo:'Dame veneno que quiero vivir',autor:'Leticia Sala',ruta:'portadas/dame-veneno-que-quiero-vivir.jpg'}
 ];
 const nuevasPorIsbn=new Map(nuevasPortadas.map(x=>[x.isbn,x]));
-const nuevasPorTituloAutor=new Map(nuevasPortadas.map(x=>[norm(x.titulo)+'|'+norm(x.autor),x]));
+const nuevasPorTituloAutor=new Map(nuevasPortadas.flatMap(x=>(x.titulos||[x.titulo]).flatMap(t=>(x.autores||[x.autor]).map(a=>[norm(t)+'|'+norm(a),x]))));
 function asociarPortadaLocal(libro){
   const porIsbn=nuevasPorIsbn.get(String(libro.isbn||'').replace(/[^0-9X]/gi,''));
   const porNombre=nuevasPorTituloAutor.get(norm(libro.titulo)+'|'+norm(libro.autor));
