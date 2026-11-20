@@ -1,0 +1,44 @@
+[
+  {
+    "isbn": "9791387740566",
+    "titulo": "El hombre que solo escribía en los aviones",
+    "autor": "Pedro Almodóvar",
+    "portada": "/libros/portadas/el-hombre-que-solo-escribia-en-los-aviones.jpg"
+  },
+  {
+    "isbn": "9788417553036",
+    "titulo": "El verano en que mi madre tuvo los ojos verdes",
+    "autor": "Tatiana Țîbuleac",
+    "portada": "/libros/portadas/el-verano-en-que-mi-madre-tuvo-los-ojos-verdes.jpg"
+  },
+  {
+    "isbn": "9788408328858",
+    "titulo": "La añoranza",
+    "autor": "Sergio Hernández",
+    "portada": "/libros/portadas/la-anoranza.jpg"
+  },
+  {
+    "isbn": "9788408328834",
+    "titulo": "La hora antes del alba",
+    "autor": "Isabel Allende",
+    "portada": "/libros/portadas/la-hora-antes-del-alba.gif"
+  },
+  {
+    "isbn": "9791388236013",
+    "titulo": "No puedes quedarte aquí eternamente",
+    "autor": "Edurne Portela",
+    "portada": "/libros/portadas/no-puedes-quedarte-aqui-eternamente.jpg"
+  },
+  {
+    "isbn": "9788419981400",
+    "titulo": "Vidas con nombre",
+    "autor": "Almudena Ariza y Fermín Solís",
+    "portada": "/libros/portadas/vidas-con-nombre.jpg"
+  },
+  {
+    "isbn": "9788433949615",
+    "titulo": "Dame veneno que quiero vivir",
+    "autor": "Leticia Sala",
+    "portada": "/libros/portadas/dame-veneno-que-quiero-vivir.jpg"
+  }
+]
