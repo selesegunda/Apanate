@@ -2834,5 +2834,247 @@
     "sourceUrl": "",
     "quantities": "153 g harina 00; 153 g harina común; 8 g sal; 2 g levadura seca; 4 g aceite; agua (revisar cantidad en fuente).",
     "historical": false
+  },
+  {
+    "name": "Ajoblanco",
+    "category": "Sopas frías",
+    "ingredients": [
+      "almendras",
+      "pan",
+      "ajo",
+      "aceite de oliva",
+      "vinagre",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Remoja el pan en un poco de agua y escúrrelo.",
+      "Tritura las almendras con el ajo, el pan, un poco de agua y una pizca de sal hasta obtener una pasta fina.",
+      "Incorpora el aceite poco a poco mientras sigues triturando.",
+      "Aclara con agua fría, ajusta el vinagre y enfría antes de servir."
+    ],
+    "time": 35,
+    "tip": "Sirve muy frío; ajusta el agua al espesor que prefieras.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/ajoblanco/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/ajoblanco/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "100 g de almendras crudas peladas; 75 g de pan; 1 diente de ajo pequeño; 75 ml de aceite de oliva; 10 ml de vinagre de Jerez; 450–600 ml de agua fría; sal. Opcional: uvas o almendras laminadas."
+  },
+  {
+    "name": "Gambas al ajillo",
+    "category": "Pescado",
+    "ingredients": [
+      "gambas",
+      "ajo",
+      "aceite de oliva",
+      "guindilla",
+      "sal"
+    ],
+    "optional": [
+      "perejil"
+    ],
+    "steps": [
+      "Pela las gambas y sécalas bien.",
+      "Calienta aceite a fuego moderado con el ajo laminado y la guindilla.",
+      "Cuando el ajo empiece a dorarse, incorpora las gambas y saltéalas hasta que cambien de color.",
+      "Retira del fuego y sirve de inmediato con el aceite aromático."
+    ],
+    "time": 12,
+    "tip": "Evita prolongar la cocción de las gambas para que queden jugosas; deben cocinarse por completo.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 (tapa) raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/gambas-al-ajillo/",
+    "servings": "4 (tapa)",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/gambas-al-ajillo/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "400 g de gambas peladas; 3 dientes de ajo; 1 guindilla pequeña; 75 ml de aceite de oliva; sal. Opcional: perejil."
+  },
+  {
+    "name": "Tortilla de patatas",
+    "category": "Huevos",
+    "ingredients": [
+      "patata",
+      "huevo",
+      "aceite de oliva",
+      "sal"
+    ],
+    "optional": [
+      "cebolla"
+    ],
+    "steps": [
+      "Pela las patatas, córtalas finas y cocínalas en aceite a fuego medio hasta que queden tiernas; escurre.",
+      "Bate los huevos con sal y mezcla con las patatas templadas.",
+      "Vierte la mezcla en una sartén con poco aceite y cuaja a fuego medio-bajo.",
+      "Da la vuelta con un plato y termina de cocinar por el otro lado."
+    ],
+    "time": 40,
+    "tip": "Deja reposar la patata mezclada con el huevo unos minutos antes de cuajar. Cuaja bien el huevo, especialmente para personas vulnerables.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/tortilla-de-patata/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/tortilla-de-patata/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "600 g de patatas; 5 huevos; aceite de oliva para cocinar y una pizca de sal. Opcional: 1 cebolla pequeña."
+  },
+  {
+    "name": "Pisto manchego",
+    "category": "Verduras",
+    "ingredients": [
+      "pimiento verde",
+      "calabacin",
+      "cebolla",
+      "tomate triturado",
+      "ajo",
+      "aceite de oliva",
+      "sal"
+    ],
+    "optional": [
+      "berenjena"
+    ],
+    "steps": [
+      "Lava los pimientos y el calabacín; pela la cebolla y córtalo todo en cubos pequeños. Pica el ajo.",
+      "Pocha cebolla y pimiento en aceite a fuego medio hasta que empiecen a ablandarse.",
+      "Incorpora el ajo y el calabacín, y cocina hasta que las verduras queden tiernas.",
+      "Agrega el tomate triturado o la salsa de tomate y deja que el conjunto cueza suavemente hasta que espese.",
+      "Rectifica de sal y sirve."
+    ],
+    "time": 50,
+    "tip": "Corta las verduras en tamaños parecidos para que se hagan de manera uniforme.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/pisto-manchego/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/pisto-manchego/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "350 g de pimiento verde; 350 g de calabacín; 300 g de cebolla; 280 g de tomate triturado o salsa de tomate; 1 diente de ajo; 3 cucharadas de aceite de oliva; sal."
+  },
+  {
+    "name": "Porrusalda",
+    "category": "Sopas",
+    "ingredients": [
+      "puerro",
+      "patata",
+      "calabaza",
+      "aceite de oliva",
+      "agua",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Retira la parte más dura del puerro y lava bien las hojas para eliminar la tierra; corta en rodajas.",
+      "Pela y chasca las patatas, y corta la calabaza en dados.",
+      "Pon los puerros en una olla, cubre con agua y cuece unos minutos.",
+      "Añade patata, calabaza, aceite y sal; deja cocer a fuego suave hasta que todo esté tierno, aproximadamente 30–40 minutos.",
+      "Sirve caliente, con suficiente caldo para que quede una sopa de verduras."
+    ],
+    "time": 60,
+    "tip": "En esta versión vasca tradicional la verdura es puerro, patata y calabaza; la zanahoria no es imprescindible.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/porrusalda/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/porrusalda/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "5 puerros; 400 g de patata; 200 g de calabaza; 2 cucharadas de aceite de oliva; 800–1000 ml de agua; sal."
+  },
+  {
+    "name": "Atún encebollado",
+    "category": "Pescado",
+    "ingredients": [
+      "atun",
+      "cebolla",
+      "vino blanco",
+      "vinagre",
+      "agua",
+      "aceite de oliva",
+      "sal"
+    ],
+    "optional": [
+      "vinagre"
+    ],
+    "steps": [
+      "Corta el atún en dados o porciones y sécalo; sazona ligeramente.",
+      "Dora el atún brevemente en una cazuela con aceite y retíralo.",
+      "Corta las cebollas en tiras y cocínalas suavemente en la misma cazuela hasta que estén blandas.",
+      "Añade el vino, el vinagre y el agua; deja hervir unos minutos para integrar la salsa.",
+      "Devuelve el atún y termina de cocinarlo hasta que esté hecho, sin resecarlo."
+    ],
+    "time": 30,
+    "tip": "No cocines el atún más de lo necesario para evitar que se reseque, asegurando una cocción segura.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/atun-encebollado/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/atun-encebollado/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "650 g de atún fresco; 3 cebollas; 120 ml de vino blanco; 2 cucharaditas de vinagre de vino blanco; 80 ml de agua; 3 cucharadas de aceite de oliva; sal."
+  },
+  {
+    "name": "Natillas",
+    "category": "Postres",
+    "ingredients": [
+      "leche",
+      "yema de huevo",
+      "azucar",
+      "vainilla"
+    ],
+    "optional": [],
+    "steps": [
+      "Calienta la leche con la vainilla; apaga el fuego y deja que se aromatice brevemente.",
+      "Bate las yemas con el azúcar hasta integrar.",
+      "Vierte una parte de la leche caliente sobre las yemas mientras remueves para templarlas.",
+      "Devuelve todo al cazo y cuece a fuego bajo, removiendo de forma continua, hasta que espese y alcance una temperatura segura sin hervir bruscamente.",
+      "Reparte en recipientes, deja templar brevemente y guarda en frío."
+    ],
+    "time": 25,
+    "tip": "Remueve sin dejar que hierva a borbotones; cocina hasta espesar y enfría pronto en la nevera.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/natillas/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/natillas/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "650 ml de leche; 4 yemas de huevo; 50 g de azúcar; 1/2 vaina de vainilla (o aroma de vainilla)."
+  },
+  {
+    "name": "Arroz con leche",
+    "category": "Postres",
+    "ingredients": [
+      "arroz",
+      "leche",
+      "azucar",
+      "limon",
+      "canela",
+      "sal"
+    ],
+    "optional": [],
+    "steps": [
+      "Calienta la leche con piel de limón y una rama de canela.",
+      "Incorpora el arroz y cocina a fuego suave, removiendo a menudo para evitar que se pegue.",
+      "Cuando el arroz esté tierno y la mezcla cremosa, añade el azúcar y remueve unos minutos más.",
+      "Retira la piel y la canela, reparte en cuencos y deja templar."
+    ],
+    "time": 50,
+    "tip": "Remueve de vez en cuando y añade leche caliente si espesa demasiado.",
+    "notes": "Reseña de procedencia: Plato incluido en el Legado Gastronómico de la Real Academia de Gastronomía. Se han consultado ingredientes, proporciones y técnica culinaria; los pasos y las cantidades orientativas para 4 raciones se han redactado y adaptado para ¡Apañate!, sin reproducir textos ni fotografías. Fuente de referencia: https://realacademiadegastronomia.com/recetas/arroz-con-leche/",
+    "servings": "4",
+    "originKind": "tradicional",
+    "origin": "Receta tradicional española; referencia culinaria: Real Academia de Gastronomía · Legado Gastronómico. Elaboración redactada independientemente por ¡Apañate!.",
+    "sourceUrl": "https://realacademiadegastronomia.com/recetas/arroz-con-leche/",
+    "labels": "Tradicional española · adaptación propia; fuente citada",
+    "historical": false,
+    "quantities": "120 g de arroz redondo; 1 litro de leche; 125 g de azúcar; piel de 1/2 limón sin parte blanca; 1 rama de canela; pizca de sal. Opcional: canela molida."
   }
 ]
