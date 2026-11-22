@@ -767,6 +767,62 @@ async function readAndalucia(){
  throw Error('La Junta no entregó registros reconocibles: '+attempts.join(' | '));
 }
 
+// Andalucía: proyección de SOLO LECTURA de los registros originales en D1.
+// Clasificación editorial separada de la recolección. Los plazos de inscripción
+// se tratan como fechas a verificar y nunca se declara gratuito por silencio.
+export async function readAndaluciaD1(db,from,to,province,d){
+ if(!db||typeof db.prepare!=='function')throw Error('Falta el binding ACTIVIDADES_DB');
+ const provinceName=andaluciaProvince(province);
+ if(!provinceName)return [];
+ const result=await db.prepare(`
+  SELECT e.evento_id,e.titulo,e.descripcion_html,e.tematica,e.categoria,
+         e.precio_original,e.nombre_localidad,e.nombre_provincia,
+         e.lugar_celebracion,e.enlace_contenido,
+         s.fecha_inicio,s.fecha_fin,s.hora_inicio,
+         e.datos_originales_json
+  FROM sesiones s JOIN eventos e
+   ON s.fuente_clave=e.fuente_clave AND s.evento_id=e.evento_id
+  WHERE s.fuente_clave='junta-andalucia-agenda'
+    AND e.nombre_provincia=? AND s.fecha_inicio<=?
+    AND COALESCE(NULLIF(s.fecha_fin,''),s.fecha_inicio)>=?
+  ORDER BY s.fecha_inicio,e.evento_id LIMIT 600
+ `).bind(provinceName,to,from).all();
+ const rows=result?.results||[];d.received=rows.length;
+ d.excludedAdministrative=0;d.excludedUnclear=0;d.dateNeedsVerification=0;
+ const out=[];
+ const disallowed=/\b(?:premios?|convocatorias?|subvenciones?|ayudas?|becas?|licitaciones?|oposiciones?|oferta de empleo|inscripci[oó]n|presentaci[oó]n de candidaturas|jornada[s]? t[eé]cnicas?|riesgos laborales|prevenci[oó]n de riesgos|salud laboral|derecho del trabajo|empleabilidad|simposium|congreso profesional|formaci[oó]n y empleo|sostenibilidad empresarial)\b/i;
+ const activity=/\b(?:exposici[oó]n|museo|festival|feria|concierto|m[uú]sica|teatro|cine|proyecci[oó]n|talleres?|visita[s]? guiadas?|ruta|senderismo|senda|paseo|patrimonio|puertas abiertas|cuentacuentos|infantil|familiar|familias|fiestas?|artesan[ií]a|mercadillo|danza|literatura|lectura|ferrocarril)\b/i;
+ const seen=new Set();
+ for(const row of rows){
+  const title=tidy(row.titulo), city=tidy(row.nombre_localidad);
+  if(!title){d.missingTitle++;continue;}
+  if(disallowed.test(title)){d.excludedAdministrative++;continue;}
+  const raw=(()=>{try{return JSON.parse(row.datos_originales_json||'{}')}catch{return {}}})();
+  const desc=htmlText(row.descripcion_html||raw.description||'').slice(0,700);
+  if(!activity.test(title+' '+tidy(row.categoria||'')+' '+tidy(row.tematica||''))){d.excludedUnclear++;continue;}
+  if(!city){d.missingPlace++;continue;}
+  const url=secureLink(row.enlace_contenido||raw.url||raw.more_info_url||raw.link);
+  if(!url){d.missingLink++;continue;}
+  // La fuente denomina sus fechas date_registration; no inventamos confirmación.
+  d.dateNeedsVerification++;
+  const start=row.fecha_inicio<from?from:row.fecha_inicio;
+  const unique=row.evento_id+'|'+start;
+  if(seen.has(unique))continue;
+  seen.add(unique);
+  // SOLO señales explícitas de precio, no se usa el texto de la descripción
+  // para declarar gratuidad si pudiera referirse a inscripciones o colectivos.
+  const price=priceSignal(row.precio_original||raw.cost||'',false);
+  const status=price==='free'?'gratis':price==='paid'?'pago':'pendiente';
+  const kinds=kindsFor(title,desc,tidy(row.categoria||row.tematica||''));
+  out.push({title,start,end:row.fecha_fin||'',city,province:provinceName,
+   place:tidy(row.lugar_celebracion)||city,time:tidy(row.hora_inicio||raw.schedule||'').slice(0,36),
+   kind:kinds[0],kinds,description:desc+' · Fecha por confirmar en la ficha de la Junta.',
+   source:'Junta de Andalucía · Agenda (D1)',url,freeType:status==='gratis'?'confirmada':'pendiente',status});
+  d.classified[status]++;d.accepted++;
+ }
+ return out;
+}
+
 // Consultar primero fechas vigentes. Si falla la consulta filtrada, usar
 // alternativas conservando la comprobación estricta del municipio y período.
 // Las páginas vacías terminan la paginación sin marcar fallo.
@@ -842,7 +898,7 @@ async function readMunicipalBarcelona(job,from,to){
  return readDibaMunicipal(job,from,to);
 }
 function json(data,status=200){return new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json; charset=utf-8','cache-control':'public, max-age=180, s-maxage=600','x-content-type-options':'nosniff'}})}
-export async function onRequestGet({request}){
+export async function onRequestGet({request,env={}}){
  const p=new URL(request.url).searchParams;const province=tidy(p.get('province')).slice(0,80),city=tidy(p.get('city')).slice(0,80);const from=p.get('from')||'',to=p.get('to')||'';
  if(!province||!/^20\d\d-\d\d-\d\d$/.test(from)||!/^20\d\d-\d\d-\d\d$/.test(to)||to<from||(Date.parse(to)-Date.parse(from))/864e5>45)return json({events:[],notice:'Elige provincia y hasta 45 días.'},400);
  const region=Object.keys(REGIONS).find(k=>REGIONS[k].split('|').some(n=>norm(n)===norm(province)));
@@ -857,6 +913,13 @@ export async function onRequestGet({request}){
    const diagnostic={received:0,missingTitle:0,missingDate:0,outOfRange:0,missingPlace:0,wrongProvince:0,missingLink:0,accepted:0,classified:{gratis:0,condicional:0,pendiente:0,pago:0}};
    try{
     if(j.parser==='andalucia-open-data'){
+      // Los datos originales permanecen en D1. La web solo lee y clasifica.
+      if(env.ACTIVIDADES_DB){
+        const events=await readAndaluciaD1(env.ACTIVIDADES_DB,from,to,province,diagnostic);
+        diagnostic.sourceFormat='D1';diagnostic.endpoint='D1:apanate-actividades';
+        return {name:j.name,ok:true,events,diagnostic,endpoint:'D1:apanate-actividades'};
+      }
+      // Sin vínculo D1, se conserva el comportamiento anterior de la web.
       const dl=await readAndalucia();
       const events=andaluciaEvents(dl.raw,from,to,j.name,province,diagnostic);
       diagnostic.sourceFormat=dl.format;
