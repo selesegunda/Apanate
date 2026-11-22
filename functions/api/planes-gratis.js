@@ -913,18 +913,16 @@ export async function onRequestGet({request,env={}}){
    const diagnostic={received:0,missingTitle:0,missingDate:0,outOfRange:0,missingPlace:0,wrongProvince:0,missingLink:0,accepted:0,classified:{gratis:0,condicional:0,pendiente:0,pago:0}};
    try{
     if(j.parser==='andalucia-open-data'){
-      // Los datos originales permanecen en D1. La web solo lee y clasifica.
-      if(env.ACTIVIDADES_DB){
-        const events=await readAndaluciaD1(env.ACTIVIDADES_DB,from,to,province,diagnostic);
-        diagnostic.sourceFormat='D1';diagnostic.endpoint='D1:apanate-actividades';
-        return {name:j.name,ok:true,events,diagnostic,endpoint:'D1:apanate-actividades'};
+      // Andalucía utiliza exclusivamente la base D1 ya importada.
+      // Nunca disimular un binding ausente recurriendo a la API antigua.
+      diagnostic.sourceFormat='D1';
+      diagnostic.endpoint='D1:apanate-actividades';
+      diagnostic.bindingPresent=!!(env.ACTIVIDADES_DB && typeof env.ACTIVIDADES_DB.prepare==='function');
+      if(!diagnostic.bindingPresent){
+        throw new Error('ACTIVIDADES_DB no está disponible en esta ejecución de Pages Functions. Verifica el binding D1 en Production y publica un despliegue nuevo.');
       }
-      // Sin vínculo D1, se conserva el comportamiento anterior de la web.
-      const dl=await readAndalucia();
-      const events=andaluciaEvents(dl.raw,from,to,j.name,province,diagnostic);
-      diagnostic.sourceFormat=dl.format;
-      diagnostic.endpoint=dl.endpoint;
-      return {name:j.name,ok:true,events,diagnostic,endpoint:dl.endpoint};
+      const events=await readAndaluciaD1(env.ACTIVIDADES_DB,from,to,province,diagnostic);
+      return {name:j.name,ok:true,events,diagnostic,endpoint:'D1:apanate-actividades'};
     }
     if(j.parser==='barcelona-html'){
       const result=await readBarcelonaHtml(j,from,to);
