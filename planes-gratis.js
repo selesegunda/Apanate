@@ -46,7 +46,11 @@ const SOURCE={
   cyl:[0,100,200,300].map(offset=>({name:'Castilla y León · Cultura',url:`${CYL}?limit=100&offset=${offset}`,parser:'cyl'})),
   // Fuente común documentada: eventos organizados o participados por la Junta.
   // No equivale a toda la Agenda Cultural andaluza. No se reutiliza esta última sin licencia verificada.
-  andalucia:[{name:'Junta de Andalucía · Eventos institucionales (datos abiertos)',parser:'andalucia-open-data'}],
+  andalucia:[
+    {name:'Junta de Andalucía · Eventos institucionales (datos abiertos)',parser:'andalucia-open-data'},
+    {name:'Ayuntamiento de Sevilla · ICAS (agenda cultural)',parser:'sevilla-icas',url:'https://icas.sevilla.org/agenda'},
+    {name:'Diputación de Sevilla · Agenda provincial',parser:'sevilla-diputacion',url:'https://www.dipusevilla.es/agenda-de-la-provincia/'}
+  ],
   canarias:[{name:'Canarias · Agenda cultural',url:'https://datos.canarias.es/catalogos/general/dataset/11dc9d88-b456-4ae2-bcf9-07ad624fd025/resource/d179079c-a2ed-40dc-a748-7b64d093c342/download/agendaproxima.csv',parser:'canarias',csv:true}],
   // API cultural de Euskadi publicada oficialmente, validación de gratuidad estricta.
   euskadi:[{name:'Euskadi · Agenda cultural',url:'https://opendata.euskadi.eus/contenidos/ds_eventos/agenda_cultura_euskadi/es_kultura/adjuntos/kulturklik.geojson',parser:'euskadi'}],
@@ -826,6 +830,112 @@ export async function readAndaluciaD1(db,from,to,province,d){
  return out;
 }
 
+// SEVILLA - fuentes oficiales HTML independientes de la Junta y de D1.
+// No suponemos gratuidad, municipio ni fecha. Sin datos contrastables no publicamos.
+// Esta lectura no escribe en D1 ni interfiere con el importador.
+const SEVILLA_MONTHS={enero:1,febrero:2,marzo:3,abril:4,mayo:5,junio:6,julio:7,agosto:8,septiembre:9,setiembre:9,octubre:10,noviembre:11,diciembre:12};
+function sevillaDates(txt){
+ const values=[];
+ // Priorizar fechas ISO declaradas en marcado HTML o en el contenido de las fichas.
+ const iso=/(20\d\d)-(0[1-9]|1[012])-([012]\d|3[01])/g;
+ for(const m of String(txt||'').matchAll(iso))values.push(m[0]);
+ for(const m of String(txt||'').matchAll(/\b(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)\s+de\s+(20\d{2})\b/gi)){
+  const day=Number(m[1]),month=SEVILLA_MONTHS[norm(m[2])];
+  const date=`${m[3]}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  if(new Date(date+'T00:00:00Z').toISOString().slice(0,10)===date)values.push(date);
+ }
+ return [...new Set(values)];
+}
+function sevillaAbsolute(href,base,allowedHost){
+ try{const u=new URL(String(href||'').replace(/&amp;/g,'&'),base);
+  if(u.protocol!=='https:'||u.hostname!==allowedHost||!u.pathname.startsWith('/'))return '';
+  u.hash='';return u.href;
+ }catch{return ''}
+}
+function sevillaCandidates(html,job){
+ const out=[],seen=new Set();
+ const host=new URL(job.url).hostname;
+ const pattern=job.parser==='sevilla-icas'?/\/agenda\/[^?#/]+\/?$/:/\/agenda-de-la-provincia\/[^?#/]+\/?$/;
+ const tag=/<a\b[^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+ for(const m of String(html||'').matchAll(tag)){
+  const url=sevillaAbsolute(m[1],job.url,host);
+  if(!url||!pattern.test(new URL(url).pathname)||seen.has(url))continue;
+  const title=htmlText(m[2]).trim();
+  if(title.length<5||title.length>230||/^(?:ver todos|agenda|calendario|ir al|siguiente|anterior|volver|visitar web)$/i.test(title))continue;
+  seen.add(url);
+  const neighbor=htmlText(String(html).slice((m.index||0)+m[0].length,(m.index||0)+m[0].length+360));
+  const locality=job.parser==='sevilla-diputacion'?neighbor.match(/Municipio\s*,\s*([^,]{2,70})\s*,\s*Temas/i)?.[1]||'':'';
+  out.push({title,url,city:locality.trim()});
+  if(out.length>=50)break;
+ }
+ return out;
+}
+function sevillaDetail(html,item,job,from,to){
+ const body=String(html||'');
+ // Los metadatos estructurados son preferibles a las fechas de publicación.
+ const startMeta=body.match(/(?:itemprop=["']startDate["'][^>]*content=["']|["']startDate["']\s*:\s*["'])(20\d\d-\d\d-\d\d)/i)
+  ||body.match(/(?:content=["']|datetime=["'])(20\d\d-\d\d-\d\d)[^"']*["'][^>]*itemprop=["']startDate["']/i);
+ const endMeta=body.match(/(?:itemprop=["']endDate["'][^>]*content=["']|["']endDate["']\s*:\s*["'])(20\d\d-\d\d-\d\d)/i);
+ // Contexto del bloque "Cuándo" (ICAS) o "Inicio" (Diputación), no toda la página:
+ // fuera del bloque hay fechas de noticias y enlaces que NO son la actividad.
+ const plain=htmlText(body).replace(/\s+/g,' ');
+ const match=job.parser==='sevilla-icas'
+  ?plain.match(/\bCu[aá]ndo\b\s*([^]{0,170}?)(?=\b(?:Espacio|Categor[ií]as|Venta de entradas|Web del Evento|Contacto|D[oó]nde)\b|$)/i)
+  :plain.match(/\bInicio\s*:\s*([^]{0,130}?)(?=\b(?:Finalizaci[oó]n|HORA|Informaci[oó]n)\b|$)/i);
+ const dates=sevillaDates(match?.[1]||'');
+ const start=startMeta?.[1]||dates[0]||'';
+ if(!start||start>to)return null;
+ const endBlock=job.parser==='sevilla-diputacion'?plain.match(/\bFinalizaci[oó]n\s*:\s*([^]{0,85}?)(?=\b(?:HORA|Informaci[oó]n)\b|$)/i):null;
+ const end=endMeta?.[1]||sevillaDates(endBlock?.[1]||'')[0]||dates[1]||'';
+ if(end&&end<from)return null;
+ if(!end&&start<from)return null;
+ if(end&&end<start)return null;
+ let city='';let place='';
+ if(job.parser==='sevilla-icas'){
+  city='Sevilla';
+  const p=plain.match(/\bEspacio\s+(.{3,110}?)(?=\b(?:Categor[ií]as|Venta de entradas|Web del Evento|Contacto|Cu[aá]ndo)\b|$)/i);
+  place=(p?.[1]||'').trim().slice(0,100);
+ }else{
+  // Nombre de municipio solo si está marcado en la ficha como enlace municipal.
+  // No se asigna Sevilla capital a otros municipios de la provincia.
+  const local=body.match(/<a\b[^>]*href=["'][^"']*\/municipios\/[^"']*["'][^>]*>([\s\S]*?)<\/a>/i)
+   ||body.match(/<a\b[^>]*>([\s\S]*?)<\/a>\s*\/\s*<a\b[^>]*>\s*(?:Cultura|Deportes)/i);
+  city=htmlText(local?.[1]||'').trim().slice(0,90)||item.city||'';
+  if(!city){const crumb=plain.match(/Del\s+\d{1,2}[^/]{0,100}\/\s*([^/]{3,65})\s*\/\s*(?:Cultura|Deportes|Temas)/i);city=(crumb?.[1]||'').trim();}
+  // Municipio desconocido: no inventar capital.
+  if(!city)return null;
+ }
+ const title=item.title;
+ if(/\b(?:convocatoria|subvenci[oó]n|licitaci[oó]n|plazo de inscripci[oó]n|resoluci[oó]n)\b/i.test(title))return null;
+ const priceText=plain.match(/(?:entrada\s+gratuita|entrada\s+libre|acceso\s+gratuito|gratuito|gratis|entradas?\s+desde\s+\d+[.,]?\d*\s*€|precio\s*:\s*\d+[.,]?\d*\s*€)/i)?.[0]||'';
+ const signal=priceSignal(priceText,false);
+ const status=signal==='free'?'gratis':signal==='paid'?'pago':'pendiente';
+ const kinds=kindsFor(title,plain.slice(0,450),'cultura');
+ return {title,start,end,city,province:'Sevilla',place:place||city,time:'',kind:kinds[0],kinds,
+  description:`Agenda oficial · ${job.name}. Precio ${status==='pendiente'?'por confirmar':'indicado en la fuente'}.`,
+  source:job.name,url:item.url,freeType:status==='gratis'?'confirmada':'pendiente',status};
+}
+export async function readSevillaAgenda(job,from,to,province,d){
+ // ICAS es exclusivamente Sevilla capital; Diputación tiene municipios de toda la provincia.
+ if(norm(province)!=='sevilla')return [];
+ const html=await (await fetchTimed(job.url,'text/html',12000)).text();
+ const candidates=sevillaCandidates(html,job);
+ d.received=candidates.length;d.accepted=0;d.outOfRange=0;d.missingDate=0;d.missingPlace=0;
+ d.sourceFormat='HTML';d.endpoint=job.url;
+ if(!candidates.length)throw Error('La agenda oficial no presenta enlaces a fichas reconocibles; revisar el lector.');
+ const results=[];
+ // Límite para que una fuente lenta no bloquee todas las agendas.
+ for(let i=0;i<Math.min(candidates.length,24);i+=6){
+  const batch=await Promise.all(candidates.slice(i,i+6).map(async item=>{
+   try{const detail=await (await fetchTimed(item.url,'text/html',9000)).text();
+    return sevillaDetail(detail,item,job,from,to);
+   }catch{return null}
+  }));
+  for(const event of batch){if(event){results.push(event);d.classified[event.status]++;d.accepted++;}}
+ }
+ return results;
+}
+
 // Consultar primero fechas vigentes. Si falla la consulta filtrada, usar
 // alternativas conservando la comprobación estricta del municipio y período.
 // Las páginas vacías terminan la paginación sin marcar fallo.
@@ -905,7 +1015,7 @@ export async function onRequestGet({request,env={}}){
  const p=new URL(request.url).searchParams;const province=tidy(p.get('province')).slice(0,80),city=tidy(p.get('city')).slice(0,80);const from=p.get('from')||'',to=p.get('to')||'';
  if(!province||!/^20\d\d-\d\d-\d\d$/.test(from)||!/^20\d\d-\d\d-\d\d$/.test(to)||to<from||(Date.parse(to)-Date.parse(from))/864e5>45)return json({events:[],notice:'Elige provincia y hasta 45 días.'},400);
  const region=Object.keys(REGIONS).find(k=>REGIONS[k].split('|').some(n=>norm(n)===norm(province)));
- const jobs=[...(SOURCE[region]||[])];
+ const jobs=[...(SOURCE[region]||[])].filter(j=>!['sevilla-icas','sevilla-diputacion'].includes(j.parser)||norm(province)==='sevilla');
  if(norm(province)==='madrid')jobs.push(...SOURCE.madrid);
  if(norm(province)==='barcelona')jobs.push(...SOURCE.barcelona,...SOURCE.barcelonaMunicipios);
  if(norm(province)==='zaragoza')jobs.push(...SOURCE.zaragoza);
@@ -926,6 +1036,10 @@ export async function onRequestGet({request,env={}}){
       }
       const events=await readAndaluciaD1(env.ACTIVIDADES_DB,from,to,province,diagnostic);
       return {name:j.name,ok:true,events,diagnostic,endpoint:'D1:apanate-actividades'};
+    }
+    if(j.parser==='sevilla-icas'||j.parser==='sevilla-diputacion'){
+      const events=await readSevillaAgenda(j,from,to,province,diagnostic);
+      return {name:j.name,ok:true,events,diagnostic,endpoint:j.url};
     }
     if(j.parser==='barcelona-html'){
       const result=await readBarcelonaHtml(j,from,to);
