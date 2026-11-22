@@ -1,0 +1,21 @@
+CORRECCIÓN ANDALUCÍA · SOLO FILTRO D1
+
+1. En GitHub, repositorio selesegunda/Apanate, reemplaza ÚNICAMENTE:
+   functions/api/planes-gratis.js
+   El archivo debe llamarse exactamente planes-gratis.js (sin -2 ni -3).
+2. No cambies otras regiones, el importador ni la base de datos.
+3. Tras el despliegue, consulta la API de Sevilla y comprueba que diagnostic.accepted
+   sea mayor que cero cuando existan actividades culturales en el intervalo.
+
+CAMBIO: Las actividades culturales sin enlace individual ya no se descartan.
+Se devuelve url="" y missingOfficialLink=true para que la interfaz oculte
+el botón de enlace en esos casos. Se conservan fecha por verificar y precio
+pendiente si no está acreditado. No se fabrican URL ni datos.
+
+AVISO IMPORTANTE: Esta entrega actualiza solo la API. Para evitar enlaces
+rotos, la página HTML debe ocultar «Confirmar en la web del organizador»
+cuando event.url esté vacío. No se sobreescribe index.html porque no hemos
+recibido una copia actual de la web. Si la interfaz aún incluye ese botón,
+hay que corregirlo sobre el index.html actual antes de darlo por acabado.
+
+PRUEBAS: node --check planes-gratis.js; node test-andalucia.mjs

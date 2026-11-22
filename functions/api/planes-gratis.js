@@ -802,7 +802,9 @@ export async function readAndaluciaD1(db,from,to,province,d){
   if(!activity.test(title+' '+tidy(row.categoria||'')+' '+tidy(row.tematica||''))){d.excludedUnclear++;continue;}
   if(!city){d.missingPlace++;continue;}
   const url=secureLink(row.enlace_contenido||raw.url||raw.more_info_url||raw.link);
-  if(!url){d.missingLink++;continue;}
+  // Un enlace ausente no convierte una actividad real en inexistente.
+  // No inventar un enlace individual: la web debe omitir el botón si url está vacío.
+  if(!url)d.missingLink++;
   // La fuente denomina sus fechas date_registration; no inventamos confirmación.
   d.dateNeedsVerification++;
   const start=row.fecha_inicio<from?from:row.fecha_inicio;
@@ -816,8 +818,9 @@ export async function readAndaluciaD1(db,from,to,province,d){
   const kinds=kindsFor(title,desc,tidy(row.categoria||row.tematica||''));
   out.push({title,start,end:row.fecha_fin||'',city,province:provinceName,
    place:tidy(row.lugar_celebracion)||city,time:tidy(row.hora_inicio||raw.schedule||'').slice(0,36),
-   kind:kinds[0],kinds,description:desc+' · Fecha por confirmar en la ficha de la Junta.',
-   source:'Junta de Andalucía · Agenda (D1)',url,freeType:status==='gratis'?'confirmada':'pendiente',status});
+   kind:kinds[0],kinds,description:desc+' · Fecha por confirmar con la Junta.'+(!url?' · La fuente no facilita enlace individual para este registro.':''),
+   source:'Junta de Andalucía · Agenda (D1)',url,missingOfficialLink:!url,
+   freeType:status==='gratis'?'confirmada':'pendiente',status});
   d.classified[status]++;d.accepted++;
  }
  return out;
